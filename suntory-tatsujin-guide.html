@@ -6,7 +6,7 @@
 <title>위대한 AI님의 일본 맛집 가이드 — 일본 5도시 350곳</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #090806;
@@ -113,7 +113,7 @@
     margin-bottom: 6px;
   }
   .modal-head h2 {
-    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Zen Kaku Gothic New", "Noto Sans KR", "Hiragino Kaku Gothic ProN", "Malgun Gothic", sans-serif;
     font-size: 21px;
     font-weight: 600;
     margin: 0;
@@ -176,7 +176,7 @@
   }
 
   h1 {
-    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Zen Kaku Gothic New", "Noto Sans KR", "Hiragino Kaku Gothic ProN", "Malgun Gothic", sans-serif;
     font-size: clamp(30px, 4.4vw, 46px);
     font-weight: 600;
     margin: 0 0 10px;
@@ -232,9 +232,6 @@
   }
   .legend span.dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:1px; }
   .legend .d-good { background: var(--good); }
-  .legend .d-mid { background: var(--accent-bright); }
-  .legend .d-entry { background: var(--text-faint); }
-  .legend .d-warn { background: var(--warn); }
   .legend .d-tier { background: var(--accent); }
 
   .theme-toggle {
@@ -367,25 +364,35 @@
     box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--accent) 45%, transparent);
   }
 
-  .search {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
-    padding: 7px 2px;
-    min-width: 220px;
+  /* 도시 내비 — 언더라인 강조 (탭형) */
+  .city-nav {
+    align-items: flex-end;
+    gap: 26px;
+    padding-bottom: 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
   }
-  .search svg { flex: none; opacity: 0.55; }
-  .search input {
+  .city-nav .chip {
+    appearance: none;
     border: none;
     background: transparent;
-    outline: none;
-    color: var(--text);
-    font-size: 13.5px;
-    width: 100%;
-    font-family: inherit;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0 0 14px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-faint);
+    border-bottom: 2px solid transparent;
   }
-  .search input::placeholder { color: var(--text-faint); }
+  .city-nav .chip:hover { color: var(--text); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .city-nav .chip.active {
+    background: transparent;
+    color: var(--text);
+    border-bottom-color: var(--accent);
+    box-shadow: none;
+  }
+
 
   .count {
     font-size: 12.5px;
@@ -403,7 +410,7 @@
     margin-bottom: 18px;
   }
   .city-head h2 {
-    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Zen Kaku Gothic New", "Noto Sans KR", "Hiragino Kaku Gothic ProN", "Malgun Gothic", sans-serif;
     font-size: 22px;
     font-weight: 600;
     margin: 0;
@@ -482,18 +489,29 @@
     backdrop-filter: blur(4px);
   }
 
-  .body { padding: 16px 17px 17px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .body { padding: 20px 22px 18px; display: flex; flex-direction: column; gap: 0; flex: 1; }
 
+  .c-name-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .name {
-    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
-    font-size: 17px;
-    font-weight: 600;
+    font-family: "Zen Kaku Gothic New", "Noto Sans KR", "Hiragino Kaku Gothic ProN", "Malgun Gothic", sans-serif;
+    font-size: 19px;
+    font-weight: 700;
     line-height: 1.35;
     margin: 0;
     color: var(--text);
   }
-  .name-kr { font-size: 12px; color: var(--text-faint); margin: 2px 0 0; font-weight: 500; }
-  .genre { font-size: 12.5px; color: var(--accent); font-weight: 600; }
+  .c-sub { font-size: 12px; color: var(--text-dim); margin: 3px 0 0; }
+
+  .c-score-row { display: flex; align-items: baseline; gap: 10px; margin-top: 14px; text-decoration: none; cursor: pointer; }
+  .c-score-row .num { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 19px; font-weight: 600; color: var(--accent); }
+  .c-score-row .stat { font-size: 11px; color: var(--text-faint); }
+  .c-score-row .stat.bright { color: var(--text-dim); }
+
+  .c-tier { display: flex; align-items: center; gap: 7px; margin-top: 9px; font-size: 11.5px; color: var(--accent); }
+  .c-tier .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .c-kr { color: #e0393c; }
+
+  .c-hr { height: 1px; background: var(--line); margin: 16px 0 14px; }
 
   .badges { display: flex; flex-wrap: wrap; gap: 6px; }
   .badges + .badges { margin-top: -6px; }
@@ -510,12 +528,6 @@
   }
   .badge .dot { width: 6px; height: 6px; border-radius: 50%; }
   .badge.tier { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
-  .badge.score-good .dot { background: var(--good); }
-  .badge.score-mid .dot { background: var(--accent-bright); }
-  .badge.score-entry .dot { background: var(--text-faint); }
-  .badge.score-warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, var(--line)); }
-  .badge.score-warn .dot { background: var(--warn); }
-  .badge.score-na .dot { background: var(--text-faint); }
 
   .meta { font-size: 12.5px; color: var(--text-dim); display: flex; flex-direction: column; gap: 3px; }
   .meta .row { display: flex; gap: 6px; }
@@ -530,27 +542,20 @@
   }
   .access-link:hover { color: var(--accent-bright); text-decoration-color: var(--accent-bright); }
 
-  .menu {
-    margin: 2px 0 0;
-    padding: 10px 12px;
+  .c-menu {
     background: var(--surface-2);
-    border-radius: 9px;
-    font-size: 12.5px;
-    color: var(--text-dim);
-    list-style: none;
-  }
-  .menu li { position: relative; padding-left: 13px; margin: 4px 0; }
-  .menu li::before { content: "·"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
-  .menu .kr { display: block; color: var(--text-faint); font-size: 11.5px; margin-top: 1px; }
-
-  .foot-row {
-    margin-top: auto;
-    padding-top: 8px;
+    border-radius: 8px;
+    padding: 13px 15px;
+    margin-top: 15px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+    flex-direction: column;
+    gap: 8px;
   }
+  .c-menu-label { font-size: 9.5px; letter-spacing: .2em; color: var(--text-faint); }
+  .c-menu .jp { font-size: 12.5px; color: var(--text); }
+  .c-menu .kr { font-size: 11px; color: #8a8071; }
+
+  .c-foot { margin-top: auto; padding-top: 15px; font-size: 10.5px; letter-spacing: .12em; color: var(--text-faint); }
 
   .maplink {
     display: inline-flex;
@@ -654,10 +659,10 @@
     display: flex; align-items: baseline; gap: 8px;
     text-decoration: none; cursor: pointer;
   }
-  .mag-score .num { font-family: 'Noto Serif JP', serif; font-size: 34px; font-weight: 600; color: var(--accent); }
+  .mag-score .num { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 34px; font-weight: 600; color: var(--accent); }
   .mag-score .stat { font-size: 11px; color: rgba(255,255,255,.75); }
   .mag-body { padding: 32px 34px; display: flex; flex-direction: column; }
-  .mag-name { font-family: 'Noto Serif JP', serif; font-size: 26px; font-weight: 600; line-height: 1.35; margin: 0; color: var(--text); }
+  .mag-name { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 26px; font-weight: 700; line-height: 1.35; margin: 0; color: var(--text); }
   .mag-name a { color: inherit; text-decoration: none; }
   .mag-name-kr { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; }
   .mag-tier { display: flex; align-items: center; gap: 7px; margin-top: 14px; font-size: 12px; color: var(--accent); }
@@ -670,7 +675,7 @@
   .mag-menu { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
   .mag-menu .jp { font-size: 13px; color: var(--text); }
   .mag-menu .kr { font-size: 11px; color: #8a8071; }
-  .mag-foot { margin-top: auto; padding-top: 18px; }
+  .mag-foot { margin-top: auto; padding-top: 18px; font-size: 10.5px; letter-spacing: .12em; color: var(--text-faint); }
   @media (max-width: 820px) {
     .mag-card { grid-template-columns: 1fr; }
     .mag-photo { min-height: 240px; }
@@ -685,20 +690,21 @@
     .grid .card .bucket-tag { left: 9px; top: 8px; font-size: 8.5px; letter-spacing: .14em; padding: 3px 7px; }
     .grid .card .thumb-score {
       display: block; position: absolute; right: 9px; bottom: 8px;
-      font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 600; color: var(--accent);
+      font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; font-weight: 600; color: var(--accent);
     }
     .grid .card .body { padding: 10px 11px 12px; }
     .grid .card .name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .grid .card .name-kr { font-size: 10px; color: #8a8071; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .grid .card:not(.is-open) .genre,
+    .grid .card .c-sub { font-size: 10px; color: #8a8071; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+    .grid .card:not(.is-open) .c-score-row,
+    .grid .card:not(.is-open) .c-tier,
+    .grid .card:not(.is-open) .c-hr,
     .grid .card:not(.is-open) .meta,
-    .grid .card:not(.is-open) .menu,
-    .grid .card:not(.is-open) .badges,
-    .grid .card:not(.is-open) .practical-row { display: none; }
+    .grid .card:not(.is-open) .c-menu,
+    .grid .card:not(.is-open) .c-foot { display: none; }
     .grid .card.is-open { grid-column: 1 / -1; cursor: default; }
     .grid .card.is-open .thumb { height: 200px; }
     .grid .card.is-open .name,
-    .grid .card.is-open .name-kr { white-space: normal; overflow: visible; text-overflow: unset; }
+    .grid .card.is-open .c-sub { white-space: normal; overflow: visible; text-overflow: unset; }
   }
   @media (max-width: 620px) and (prefers-reduced-motion: reduce) {
     .grid .card .thumb { transition: none; }
@@ -714,10 +720,6 @@
         <h1>위대한 AI님의 일본 맛집 가이드</h1>
       </div>
       <div class="masthead-tools">
-        <div class="search">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input id="searchInput" type="text" placeholder="가게 이름, 장르 검색" />
-        </div>
         <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
         <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
       </div>
@@ -738,9 +740,7 @@
       </div>
       <div class="legend">
         <span><span class="dot d-tier"></span>산토리 인증 등급</span>
-        <span><span class="dot d-good"></span>타베로그 4.0+</span>
-        <span><span class="dot d-mid"></span>타베로그 3.5+</span>
-        <span><span class="dot d-entry"></span>타베로그 3.0+</span>
+        <span><span class="dot d-good"></span>타베로그 3.0+ (전체 수록 기준)</span>
         <span><span class="michelin"><span class="star">★</span></span> 미슐랭 스타 · <span class="michelin"><span class="bib">B</span></span> 빕구르망</span>
         <span><span class="masters-badge" style="position:static; display:inline-flex;">M</span> 마스터즈드림(マスターズドリーム)</span>
         <span><span class="badge korean-pick-badge" style="cursor:default;"><span class="dot" style="background:#e0393c"></span><span style="color:#e0393c;">KR</span> 한국인 픽</span></span>
@@ -748,10 +748,7 @@
   </header>
 
   <div class="controls">
-    <div class="filter-group">
-      <span class="filter-label">도시</span>
-      <div class="chip-row" id="cityChips"></div>
-    </div>
+    <div class="chip-row city-nav" id="cityChips"></div>
     <div class="filter-boxed">
       <div class="filter-group">
         <span class="filter-label">장르</span>
@@ -1276,18 +1273,6 @@ function hasMastersDream(t) {
   return /マスターズドリーム/.test(t);
 }
 
-function scoreClass(t) {
-  if (/확인불가/.test(t) && !/[0-9]\.[0-9]/.test(t)) return 'score-na';
-  if (t.includes('⚠')) return 'score-warn';
-  const m = t.match(/([0-9]\.[0-9]+)/);
-  if (!m) return 'score-na';
-  const s = parseFloat(m[1]);
-  if (s >= 4.0) return 'score-good';
-  if (s >= 3.5) return 'score-mid';
-  if (s >= 3.0) return 'score-entry';
-  return 'score-warn';
-}
-
 function mapUrl(item) {
   const q = encodeURIComponent(item.name + ' ' + item.address);
   return 'https://www.google.com/maps/search/?api=1&query=' + q;
@@ -1639,28 +1624,28 @@ function michelinBadge(m) {
 }
 
 // card: true/false, smoking: '전면금연'|'분연'|'흡연가', reserve: '가능'|'불가'|'필수' — 미수집 필드는 표시 안 함
-function practicalRow(item) {
-  const pills = [];
-  if (item.card === true) pills.push(`<span class="pill on">💳 카드가능</span>`);
-  else if (item.card === false) pills.push(`<span class="pill off">💵 현금만</span>`);
-  if (item.smoking === '전면금연') pills.push(`<span class="pill on">🚭 전면금연</span>`);
-  else if (item.smoking) pills.push(`<span class="pill off">🚬 ${item.smoking}</span>`);
+// card: true/false, smoking: '전면금연'|'분연'|'흡연가', reserve: '가능'|'불가'|'필수' — 점(·) 구분 텍스트로 표기(시안 1a/2a)
+function practicalText(item) {
+  const parts = [];
+  if (item.card === true) parts.push('카드가능');
+  else if (item.card === false) parts.push('현금만');
+  if (item.smoking === '전면금연') parts.push('전면금연');
+  else if (item.smoking) parts.push(item.smoking);
   if (item.reserve) {
     const r = item.reserve;
-    const label = r.includes('예약') ? r : `예약 ${r}`;
-    const cls = /^불가|^예약불가|신규불가/.test(r) ? 'off' : (/^필수/.test(r) ? 'required' : (/예약제|소개제/.test(r) ? 'reserve-only' : 'on'));
-    pills.push(`<span class="pill ${cls}">📅 ${label}</span>`);
+    parts.push(r.includes('예약') ? r : `예약 ${r}`);
   }
-  return pills.length ? `<div class="practical-row">${pills.join('')}</div>` : '';
+  return parts.join(' · ');
 }
 
 function card(item) {
-  const sc = scoreClass(item.tabelog);
   const photoBlock = item.photo
     ? `<img src="${item.photo}" alt="${item.name}" loading="lazy" onerror="this.closest('.thumb').innerHTML='<div class=noimg><svg width=28 height=28 viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><rect x=3 y=5 width=18 height=14 rx=2/><circle cx=9 cy=11 r=2/><path d=\\'M21 15l-5-5-9 9\\'/></svg><span>사진 없음</span></div>'"/>`
     : `<div class="noimg"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 15l-5-5-9 9"/></svg><span>사진 없음</span></div>`;
 
   const closedKr = translateClosed(item.closed);
+  const reviewN = parseReviewValue(item.tabelog);
+  const foot = practicalText(item);
 
   return `
   <article class="card" data-city="${item.city}" data-bucket="${deriveBucket(item)}" data-search="${(item.name + ' ' + (item.nameKr||'') + ' ' + item.genre).toLowerCase()}">
@@ -1671,30 +1656,30 @@ function card(item) {
       ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
     </div>
     <div class="body">
-      <div>
-        <div style="display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;">
-          <p class="name">${item.website ? `<a href="${item.website}" target="_blank" rel="noopener" title="공식 홈페이지" style="color:inherit; text-decoration:none;">${item.name}</a>` : item.name}</p>
-          ${michelinBadge(item.michelin)}
-        </div>
-        ${item.nameKr ? `<p class="name-kr">${item.nameKr}</p>` : ''}
-        <p class="genre">${item.genre}</p>
+      <div class="c-name-row">
+        <p class="name">${item.website ? `<a href="${item.website}" target="_blank" rel="noopener" title="공식 홈페이지" style="color:inherit; text-decoration:none;">${item.name}</a>` : item.name}</p>
+        ${michelinBadge(item.michelin)}
       </div>
-      ${item.tier && item.tier !== '없음' ? `<div class="badges"><span class="badge tier"><span class="dot" style="background:var(--accent)"></span>${translateTier(item.tier)}</span></div>` : ''}
-      <div class="badges">
-        <a class="badge ${sc}" href="${tabelogSearchUrl(item)}" target="_blank" rel="noopener" title="${item.tabelogUrl ? '타베로그 페이지로 이동' : '타베로그에서 찾아보기'}" style="text-decoration:none; cursor:pointer;"><span class="dot"></span>타베로그 ${item.tabelog}</a>
-        ${item.koreanPick ? `<span class="badge korean-pick-badge" title="한국인들 사이 유명한 맛집"><span class="dot" style="background:#e0393c"></span><span style="color:#e0393c;">KR</span> 한국인 픽</span>` : ''}
-        ${item.saves ? `<span class="badge">❤️ ${item.saves.toLocaleString()}</span>` : ''}
-      </div>
+      <p class="c-sub">${[item.nameKr, item.genre].filter(Boolean).join(' · ')}</p>
+      <a class="c-score-row" href="${tabelogSearchUrl(item)}" target="_blank" rel="noopener" title="${item.tabelogUrl ? '타베로그 페이지로 이동' : '타베로그에서 찾아보기'}">
+        <span class="num">${scoreOnly(item.tabelog)}</span>
+        ${reviewN !== null ? `<span class="stat">리뷰 ${reviewN.toLocaleString()}</span>` : ''}
+        ${item.saves ? `<span class="stat bright">저장 ${item.saves.toLocaleString()}</span>` : ''}
+      </a>
+      ${item.tier && item.tier !== '없음' ? `<div class="c-tier"><span class="dot"></span>${translateTier(item.tier)}</div>` : ''}
+      ${item.koreanPick ? `<div class="c-tier"><span class="dot" style="background:#e0393c"></span><span class="c-kr">🇰🇷 한국인 픽</span></div>` : ''}
+      <div class="c-hr"></div>
       <div class="meta">
         <div class="row"><span class="k">주소</span><span class="v"><a class="access-link" href="${mapUrl(item)}" target="_blank" rel="noopener" title="구글맵에서 보기">${item.address}</a></span></div>
         <div class="row"><span class="k">교통</span><span class="v"><a class="access-link" href="${mapUrl(item)}" target="_blank" rel="noopener" title="구글맵에서 보기">${translateAccess(item.access)}</a></span></div>
         <div class="row"><span class="k">예산</span><span class="v">${formatBudget(item.budget)}</span></div>
         ${/연중무휴|없음/.test(closedKr) ? '' : `<div class="row"><span class="k">휴무</span><span class="v">${closedKr}</span></div>`}
       </div>
-      <ul class="menu">
-        ${item.menu.map(([jp, kr]) => `<li>${jp}${kr && kr !== jp ? `<span class="kr">${kr}</span>` : ''}</li>`).join('')}
-      </ul>
-      ${practicalRow(item)}
+      <div class="c-menu">
+        <div class="c-menu-label">대표 메뉴</div>
+        ${item.menu.map(([jp, kr]) => `<div><span class="jp">${jp}</span>${kr && kr !== jp ? `<span class="kr"> — ${kr}</span>` : ''}</div>`).join('')}
+      </div>
+      ${foot ? `<div class="c-foot">${foot}</div>` : ''}
     </div>
   </article>`;
 }
@@ -1737,7 +1722,7 @@ function magazineCard(item) {
       <div class="mag-menu">
         ${item.menu.slice(0, 3).map(([jp, kr]) => `<div><span class="jp">${jp}</span>${kr && kr !== jp ? `<span class="kr"> — ${kr}</span>` : ''}</div>`).join('')}
       </div>
-      <div class="mag-foot">${practicalRow(item)}</div>
+      <div class="mag-foot">${practicalText(item)}</div>
     </div>
   </article>`;
 }
@@ -1895,11 +1880,6 @@ function buildChips() {
       render();
     };
     reviewWrap.appendChild(b);
-  });
-
-  document.getElementById('searchInput').addEventListener('input', e => {
-    query = e.target.value;
-    render();
   });
 }
 
