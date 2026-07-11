@@ -729,48 +729,6 @@
     animation-duration: .28s;
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
-
-  /* 사진 확대(라이트박스) */
-  .zoom-btn {
-    position: absolute;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(14,12,9,.55);
-    color: rgba(255,255,255,.9);
-    backdrop-filter: blur(4px);
-    cursor: pointer;
-    transition: background .15s, transform .15s var(--ease-spring);
-  }
-  .zoom-btn:hover { background: rgba(14,12,9,.8); }
-  .zoom-btn:active { transform: scale(.88); }
-  .thumb .zoom-btn { right: 10px; bottom: 10px; }
-  .mag-photo .zoom-btn { right: 20px; bottom: 16px; }
-  @media (max-width: 620px) { .grid .zoom-btn { display: none; } }
-
-  .lightbox-panel {
-    position: relative;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    overflow: hidden;
-    max-width: min(90vw, 1100px);
-    max-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    transform: scale(.94) translateY(8px);
-    transition: transform .28s var(--ease-out);
-  }
-  .modal-overlay.open .lightbox-panel { transform: scale(1) translateY(0); }
-  .lightbox-panel img { display: block; width: 100%; max-height: 78vh; object-fit: contain; background: #000; }
-  .lightbox-close { position: absolute; top: 12px; right: 12px; z-index: 2; background: rgba(14,12,9,.6); border-color: rgba(255,255,255,.2); color: #fff; }
-  .lightbox-close:hover { background: rgba(14,12,9,.85); border-color: rgba(255,255,255,.4); color: #fff; }
-  .lightbox-caption { margin: 0; padding: 14px 18px; font-size: 13px; color: var(--text-dim); text-align: center; }
 </style>
 </head>
 <body>
@@ -902,14 +860,6 @@
       <div class="manner-item"><span class="term">사진 촬영</span><span class="desc">직원에게 먼저 양해 구하기, <strong>플래시·셔터음</strong> 자제, 다른 손님 안 나오게.</span></div>
       <div class="manner-item"><span class="term">코 풀기</span><span class="desc">식사 자리에서 <strong>코 풀기는 큰 실례</strong> — 필요하면 화장실에서.</span></div>
     </div>
-  </div>
-</div>
-
-<div class="modal-overlay lightbox-overlay" id="lightboxOverlay">
-  <div class="lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="lightboxCaption">
-    <button class="modal-close lightbox-close" id="lightboxClose" type="button" aria-label="닫기">✕</button>
-    <img id="lightboxImg" src="" alt="">
-    <p class="lightbox-caption" id="lightboxCaption"></p>
   </div>
 </div>
 
@@ -1724,7 +1674,6 @@ function card(item) {
       <span class="bucket-tag">${deriveBucket(item)}</span>
       <span class="thumb-score">${scoreOnly(item.tabelog)}</span>
       ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
-      ${item.photo ? `<button type="button" class="zoom-btn" data-photo="${item.photo}" data-name="${item.name.replace(/"/g, '&quot;')}" title="사진 크게 보기" aria-label="사진 크게 보기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>` : ''}
     </div>
     <div class="body">
       <div class="c-name-row">
@@ -1774,7 +1723,6 @@ function magazineCard(item) {
       <div class="mag-gradient"></div>
       <span class="mag-tag">${item.city} 대표 · ${deriveBucket(item)}</span>
       ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
-      ${item.photo ? `<button type="button" class="zoom-btn" data-photo="${item.photo}" data-name="${item.name.replace(/"/g, '&quot;')}" title="사진 크게 보기" aria-label="사진 크게 보기"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>` : ''}
       <a class="mag-score" href="${tabelogSearchUrl(item)}" target="_blank" rel="noopener" title="${item.tabelogUrl ? '타베로그 페이지로 이동' : '타베로그에서 찾아보기'}">
         <span class="num">${scoreOnly(item.tabelog)}</span>
         ${stat ? `<span class="stat">${stat}</span>` : ''}
@@ -2010,31 +1958,11 @@ function initTileToggle() {
   });
 }
 
-// 카드 사진 우측하단 확대 버튼 → 큰 사진 라이트박스. #results에 위임(재바인딩 불필요, 데이터/필터와 무관).
-function initLightbox() {
-  const overlay = document.getElementById('lightboxOverlay');
-  const img = document.getElementById('lightboxImg');
-  const caption = document.getElementById('lightboxCaption');
-  const close = () => overlay.classList.remove('open');
-  document.getElementById('results').addEventListener('click', e => {
-    const btn = e.target.closest('.zoom-btn');
-    if (!btn) return;
-    img.src = btn.dataset.photo;
-    img.alt = btn.dataset.name;
-    caption.textContent = btn.dataset.name;
-    overlay.classList.add('open');
-  });
-  document.getElementById('lightboxClose').addEventListener('click', close);
-  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-}
-
 buildChips();
 render();
 initTheme();
 initManners();
 initTileToggle();
-initLightbox();
 </script>
 </body>
 </html>
