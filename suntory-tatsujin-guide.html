@@ -723,6 +723,13 @@
   @media (max-width: 620px) and (prefers-reduced-motion: reduce) {
     .grid .card .thumb { transition: none; }
   }
+
+  /* 필터/정렬 변경 시 결과 영역 크로스페이드 (View Transitions API, render()에서 트리거) */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: .28s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
 </style>
 </head>
 <body>
@@ -1741,7 +1748,18 @@ function magazineCard(item) {
   </article>`;
 }
 
+// 필터/정렬 변경 시 결과 영역을 View Transitions API로 부드럽게 크로스페이드.
+// 미지원 브라우저·reduced-motion에서는 즉시 교체(renderResults)로 자동 폴백.
 function render() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && document.startViewTransition) {
+    document.startViewTransition(() => renderResults());
+  } else {
+    renderResults();
+  }
+}
+
+function renderResults() {
   const results = document.getElementById('results');
   const q = query.trim().toLowerCase();
   let total = 0;
