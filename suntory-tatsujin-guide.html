@@ -2156,6 +2156,7 @@ function initTileToggle() {
     const card = e.target.closest('.grid .card');
     if (!card) return;
     if (e.target.closest('a')) return;
+    if (e.target.closest('.photo-zoom')) return;
     card.classList.toggle('is-open');
   });
 }
