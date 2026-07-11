@@ -2225,6 +2225,69 @@ function initFlagMode() {
   updateFlagCount();
 }
 
+// 사진 갤러리 모달 — 확대아이콘 클릭 시 photo+extraPhotos 넘겨보기
+function initPhotoModal() {
+  const modal = document.getElementById('photoModal');
+  const img = modal.querySelector('.photo-modal-img');
+  const dotsWrap = modal.querySelector('.photo-modal-dots');
+  let photos = [];
+  let index = 0;
+
+  function renderModal() {
+    img.src = photos[index];
+    img.alt = '';
+    modal.classList.toggle('multi', photos.length > 1);
+    dotsWrap.innerHTML = photos.map((_, i) =>
+      `<span class="${i === index ? 'active' : ''}"></span>`
+    ).join('');
+  }
+
+  function open(list, name) {
+    if (!list.length) return;
+    photos = list;
+    index = 0;
+    img.alt = name || '';
+    renderModal();
+    modal.classList.add('open');
+    document.body.classList.add('splash-active');
+  }
+
+  function close() {
+    modal.classList.remove('open');
+    document.body.classList.remove('splash-active');
+  }
+
+  function prev() {
+    index = (index - 1 + photos.length) % photos.length;
+    renderModal();
+  }
+
+  function next() {
+    index = (index + 1) % photos.length;
+    renderModal();
+  }
+
+  document.getElementById('results').addEventListener('click', e => {
+    const zoomBtn = e.target.closest('.photo-zoom');
+    if (!zoomBtn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const list = JSON.parse(zoomBtn.dataset.photos.replace(/&#39;/g, "'"));
+    open(list, zoomBtn.dataset.name);
+  });
+
+  modal.querySelector('.photo-modal-close').addEventListener('click', close);
+  modal.querySelector('.photo-modal-prev').addEventListener('click', prev);
+  modal.querySelector('.photo-modal-next').addEventListener('click', next);
+  modal.addEventListener('click', e => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', e => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+}
+
 // 스플래시 영상: 재생 끝나면 자동 페이드아웃. 자동재생 막히거나 로드 실패해도
 // 8.5초 후 강제로 넘어가게 안전장치.
 function initSplash() {
@@ -2250,6 +2313,7 @@ initManners();
 initTileToggle();
 initSplash();
 initFlagMode();
+initPhotoModal();
 </script>
 </body>
 </html>
