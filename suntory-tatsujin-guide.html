@@ -2233,10 +2233,11 @@ function initPhotoModal() {
   const dotsWrap = modal.querySelector('.photo-modal-dots');
   let photos = [];
   let index = 0;
+  let currentName = '';
 
   function renderModal() {
     img.src = photos[index];
-    img.alt = '';
+    img.alt = currentName;
     modal.classList.toggle('multi', photos.length > 1);
     dotsWrap.innerHTML = photos.map((_, i) =>
       `<span class="${i === index ? 'active' : ''}"></span>`
@@ -2247,7 +2248,7 @@ function initPhotoModal() {
     if (!list.length) return;
     photos = list;
     index = 0;
-    img.alt = name || '';
+    currentName = name || '';
     renderModal();
     modal.classList.add('open');
     document.body.classList.add('splash-active');
