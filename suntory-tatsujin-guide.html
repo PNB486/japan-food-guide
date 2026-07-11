@@ -6,7 +6,7 @@
 <title>위대한 AI님의 일본 맛집 가이드 — 일본 5도시 350곳</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #090806;
@@ -66,11 +66,19 @@
     margin-bottom: 32px;
   }
 
-  .masthead-top {
+  .masthead-row {
     display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-bottom: 8px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .masthead-tools {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .modal-overlay {
@@ -105,7 +113,7 @@
     margin-bottom: 6px;
   }
   .modal-head h2 {
-    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
     font-size: 21px;
     font-weight: 600;
     margin: 0;
@@ -158,8 +166,6 @@
   }
   .manner-item .desc strong { color: var(--warn); font-weight: 600; }
 
-  .masthead-main { width: 100%; }
-
   .eyebrow {
     font-size: 12.5px;
     letter-spacing: 0.14em;
@@ -170,7 +176,7 @@
   }
 
   h1 {
-    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
     font-size: clamp(30px, 4.4vw, 46px);
     font-weight: 600;
     margin: 0 0 10px;
@@ -269,6 +275,15 @@
     align-items: center;
   }
 
+  .filter-boxed {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+  }
+
   .filter-group {
     display: flex;
     align-items: center;
@@ -277,11 +292,18 @@
   }
 
   .filter-label {
-    font-size: 11.5px;
+    font-size: 10.5px;
     color: var(--text-faint);
     font-weight: 600;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.12em;
     white-space: nowrap;
+  }
+
+  .count-inline {
+    font-size: 11.5px;
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+    margin-left: auto;
   }
 
   .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -326,33 +348,32 @@
 
   .chip {
     appearance: none;
-    border: 1px solid var(--line);
-    background: var(--surface);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--line));
+    background: transparent;
     color: var(--text-dim);
-    font-size: 13px;
-    padding: 6px 13px;
+    font-size: 12.5px;
+    padding: 6px 15px;
     border-radius: 999px;
     cursor: pointer;
     font-weight: 500;
-    transition: border-color .15s, color .15s, background .15s;
+    transition: border-color .15s, color .15s, background .15s, box-shadow .15s;
   }
   .chip:hover { border-color: var(--accent); color: var(--text); }
   .chip.active {
-    background: var(--accent);
+    background: linear-gradient(var(--accent-bright), var(--accent));
     border-color: var(--accent);
     color: var(--accent-ink);
+    font-weight: 600;
+    box-shadow: 0 2px 8px -2px color-mix(in srgb, var(--accent) 45%, transparent);
   }
 
   .search {
-    margin-left: auto;
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    padding: 6px 14px;
-    min-width: 200px;
+    gap: 9px;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    padding: 7px 2px;
+    min-width: 220px;
   }
   .search svg { flex: none; opacity: 0.55; }
   .search input {
@@ -382,7 +403,7 @@
     margin-bottom: 18px;
   }
   .city-head h2 {
-    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
     font-size: 22px;
     font-weight: 600;
     margin: 0;
@@ -464,7 +485,7 @@
   .body { padding: 16px 17px 17px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 
   .name {
-    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
+    font-family: "Noto Serif JP", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Noto Serif KR", Georgia, serif;
     font-size: 17px;
     font-weight: 600;
     line-height: 1.35;
@@ -633,10 +654,10 @@
     display: flex; align-items: baseline; gap: 8px;
     text-decoration: none; cursor: pointer;
   }
-  .mag-score .num { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 34px; font-weight: 600; color: var(--accent); }
+  .mag-score .num { font-family: 'Noto Serif JP', serif; font-size: 34px; font-weight: 600; color: var(--accent); }
   .mag-score .stat { font-size: 11px; color: rgba(255,255,255,.75); }
   .mag-body { padding: 32px 34px; display: flex; flex-direction: column; }
-  .mag-name { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 26px; font-weight: 600; line-height: 1.35; margin: 0; color: var(--text); }
+  .mag-name { font-family: 'Noto Serif JP', serif; font-size: 26px; font-weight: 600; line-height: 1.35; margin: 0; color: var(--text); }
   .mag-name a { color: inherit; text-decoration: none; }
   .mag-name-kr { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; }
   .mag-tier { display: flex; align-items: center; gap: 7px; margin-top: 14px; font-size: 12px; color: var(--accent); }
@@ -664,7 +685,7 @@
     .grid .card .bucket-tag { left: 9px; top: 8px; font-size: 8.5px; letter-spacing: .14em; padding: 3px 7px; }
     .grid .card .thumb-score {
       display: block; position: absolute; right: 9px; bottom: 8px;
-      font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; font-weight: 600; color: var(--accent);
+      font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 600; color: var(--accent);
     }
     .grid .card .body { padding: 10px 11px 12px; }
     .grid .card .name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -687,15 +708,22 @@
 <body>
 <div class="wrap">
   <header class="masthead">
-    <div class="masthead-top">
-      <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
-      <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
+    <div class="masthead-row">
+      <div class="masthead-main">
+        <p class="eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
+        <h1>위대한 AI님의 일본 맛집 가이드</h1>
+      </div>
+      <div class="masthead-tools">
+        <div class="search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input id="searchInput" type="text" placeholder="가게 이름, 장르 검색" />
+        </div>
+        <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
+        <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
+      </div>
     </div>
-    <div class="masthead-main">
-      <p class="eyebrow">神泡達人店 · 타베로그 검증</p>
-      <h1>위대한 AI님의 일본 맛집 가이드</h1>
-      <p class="sub">일본 5도시 350곳 — 산토리 인증, 타베로그 3.0+ 고평점, 국내 네이버·SNS에서 조사한 한국인 픽까지 한번에. 8개 카테고리로 정리했습니다(뷔페·파스타류 제외).</p>
-      <div class="tier-explainer">
+    <p class="sub">일본 5도시 350곳 — 산토리 인증, 타베로그 3.0+ 고평점, 국내 네이버·SNS에서 조사한 한국인 픽까지 한번에. 8개 카테고리로 정리했습니다(뷔페·파스타류 제외).</p>
+    <div class="tier-explainer">
         <strong>산토리 인증이란?</strong> 산토리가 생맥주를 정교하게 서빙하는 매장에 부여하는 자체 등급 제도(神泡=카미아와, "신의 거품")입니다. 거품 비율·주입 속도·잔 관리 등 엄격한 기준을 통과해야 받을 수 있어, 등급이 있다는 것 자체가 매장의 관리 수준을 어느 정도 보증합니다. 산토리 공식 설명상 기본 등급은 2단계이며, 일부 매장은 특정 맥주 브랜드 서빙에 대한 추가 배지를 함께 받습니다.
         <div class="tier-section-label">기본 등급 (2단계)</div>
         <div class="tier-grid">
@@ -717,56 +745,57 @@
         <span><span class="masters-badge" style="position:static; display:inline-flex;">M</span> 마스터즈드림(マスターズドリーム)</span>
         <span><span class="badge korean-pick-badge" style="cursor:default;"><span class="dot" style="background:#e0393c"></span><span style="color:#e0393c;">KR</span> 한국인 픽</span></span>
       </div>
-    </div>
   </header>
 
   <div class="controls">
-    <div class="filter-line">
+    <div class="filter-group">
+      <span class="filter-label">도시</span>
       <div class="chip-row" id="cityChips"></div>
-      <div class="chip-row" id="bucketChips"></div>
-      <div class="search">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="searchInput" type="text" placeholder="가게 이름, 장르 검색" />
-      </div>
     </div>
-    <div class="filter-line">
+    <div class="filter-boxed">
       <div class="filter-group">
-        <span class="filter-label">산토리 등급</span>
-        <div class="chip-row" id="tierChips"></div>
+        <span class="filter-label">장르</span>
+        <div class="chip-row" id="bucketChips"></div>
       </div>
-      <div class="filter-group">
-        <span class="filter-label">부가 배지</span>
-        <div class="chip-row" id="mastersChips"></div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">미슐랭</span>
-        <div class="chip-row" id="michelinChips"></div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">한국인 픽</span>
-        <div class="chip-row" id="koreanPickChips"></div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">타베로그 점수</span>
-        <div class="chip-row" id="scoreChips"></div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">리뷰 수</span>
-        <div class="chip-row" id="reviewChips"></div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-label">정렬</span>
-        <select class="sort-select" id="sortSelect">
-          <option value="default">기본순</option>
-          <option value="score">점수 높은순</option>
-          <option value="reviews">리뷰 많은순</option>
-          <option value="saves">저장 많은순</option>
-        </select>
+      <div class="filter-line">
+        <span class="filter-label">상세</span>
+        <div class="filter-group">
+          <span class="filter-label">산토리 등급</span>
+          <div class="chip-row" id="tierChips"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">부가 배지</span>
+          <div class="chip-row" id="mastersChips"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">미슐랭</span>
+          <div class="chip-row" id="michelinChips"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">한국인 픽</span>
+          <div class="chip-row" id="koreanPickChips"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">타베로그 점수</span>
+          <div class="chip-row" id="scoreChips"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">리뷰 수</span>
+          <div class="chip-row" id="reviewChips"></div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">정렬</span>
+          <select class="sort-select" id="sortSelect">
+            <option value="default">기본순</option>
+            <option value="score">점수 높은순</option>
+            <option value="reviews">리뷰 많은순</option>
+            <option value="saves">저장 많은순</option>
+          </select>
+        </div>
+        <span class="count-inline" id="countLine"></span>
       </div>
     </div>
   </div>
-
-  <p class="count" id="countLine"></p>
 
   <main id="results"></main>
 
