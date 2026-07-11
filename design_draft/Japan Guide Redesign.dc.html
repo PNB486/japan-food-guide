@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;600;700&amp;family=Noto+Sans+KR:wght@300;400;500;700&amp;family=Shippori+Mincho:wght@500;600;700&amp;family=Zen+Kaku+Gothic+New:wght@400;500;700&amp;family=IBM+Plex+Sans+KR:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#eae6dd;font-family:'Noto Sans KR',system-ui,sans-serif}
+a{color:#c9a86a}a:hover{color:#e0c489}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 'Noto Sans KR',sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.3 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.08);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.5)}
+.dv-note{max-width:980px;margin:0 0 24px;font:12.5px/1.7 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.62)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t4">
+<div class="dv-thd"><a class="dv-tid" href="#t4">4</a><span class="dv-tname">도시 내비 버튼 위계 · 서체 가독성 (색·레이아웃 유지)</span></div>
+<p class="dv-note"><b>조건</b> — <a class="dv-oid" href="#2a">2a</a> 레이아웃과 앰버/골드 다크 테마 그대로. <b>①</b> 도시 선택을 장르·상세 필터에서 시각적으로 분리해 1차 내비게이션으로 격상 — 3가지(<a class="dv-oid" href="#4a">4a</a>세그먼트 · <a class="dv-oid" href="#4b">4b</a>필 · <a class="dv-oid" href="#4c">4c</a>언더라인). <b>②</b> 한글·일본어·숫자 혼용 가독성 — 3가지 무료 웹폰트 조합(<a class="dv-oid" href="#4d">4d</a>·<a class="dv-oid" href="#4e">4e</a>·<a class="dv-oid" href="#4f">4f</a>)을 동일 카드에 적용해 비교.</p>
+<div class="dv-opts">
+
+<!-- ① 도시 내비 4a segment -->
+<div class="dv-opt" id="4a">
+<div class="dv-olabel"><a class="dv-oid" href="#4a">4a</a>① 도시 내비 — 세그먼트 토글</div>
+<div class="dv-card" style="width:620px;background:#161310;padding:30px 32px">
+  <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657;margin-bottom:11px">도시 선택</div>
+  <div style="display:inline-flex;background:#1e1a15;border:1px solid rgba(201,168,106,.18);border-radius:11px;padding:4px;gap:2px">
+    <span style="font-size:13px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:8px;padding:9px 18px;box-shadow:0 2px 8px rgba(201,168,106,.3)">전체</span>
+    <span style="font-size:13px;color:#c7bda9;border-radius:8px;padding:9px 18px">도쿄</span>
+    <span style="font-size:13px;color:#c7bda9;border-radius:8px;padding:9px 18px">교토</span>
+    <span style="font-size:13px;color:#c7bda9;border-radius:8px;padding:9px 18px">오사카</span>
+    <span style="font-size:13px;color:#c7bda9;border-radius:8px;padding:9px 18px">후쿠오카</span>
+    <span style="font-size:13px;color:#c7bda9;border-radius:8px;padding:9px 18px">삿포로</span>
+  </div>
+  <div style="height:1px;background:rgba(201,168,106,.12);margin:22px 0 16px"></div>
+  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+    <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:44px">장르</span>
+    <span style="font-size:12px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:5px 13px">전체</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">스시·해산물</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">고기구이</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">면류</span>
+  </div>
+</div>
+<div style="width:620px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 도시가 상호배타적 단일 선택임을 형태로 명시. 가장 앱스럽고 절제됨. 도시 6개까지는 여유롭지만 그 이상이면 가로 스크롤 필요.</div>
+</div>
+
+<!-- ① 도시 내비 4b pill -->
+<div class="dv-opt" id="4b">
+<div class="dv-olabel"><a class="dv-oid" href="#4b">4b</a>① 도시 내비 — 필 버튼 (분리 바)</div>
+<div class="dv-card" style="width:620px;background:#161310;padding:0">
+  <div style="background:#1b1712;border-bottom:1px solid rgba(201,168,106,.14);padding:22px 32px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <span style="font-family:'Noto Serif JP',serif;font-size:14px;color:#c9a86a;font-weight:600;margin-right:4px">도시</span>
+    <span style="font-size:13px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:8px 18px;box-shadow:0 3px 10px rgba(201,168,106,.32)">전체</span>
+    <span style="font-size:13px;color:#d7cdb8;border:1px solid rgba(201,168,106,.3);border-radius:99px;padding:8px 18px">도쿄</span>
+    <span style="font-size:13px;color:#d7cdb8;border:1px solid rgba(201,168,106,.3);border-radius:99px;padding:8px 18px">교토</span>
+    <span style="font-size:13px;color:#d7cdb8;border:1px solid rgba(201,168,106,.3);border-radius:99px;padding:8px 18px">오사카</span>
+    <span style="font-size:13px;color:#d7cdb8;border:1px solid rgba(201,168,106,.3);border-radius:99px;padding:8px 18px">후쿠오카</span>
+    <span style="font-size:13px;color:#d7cdb8;border:1px solid rgba(201,168,106,.3);border-radius:99px;padding:8px 18px">삿포로</span>
+  </div>
+  <div style="padding:18px 32px 26px;display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+    <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:44px">장르</span>
+    <span style="font-size:12px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:5px 13px">전체</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">스시·해산물</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">고기구이</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">면류</span>
+  </div>
+</div>
+<div style="width:620px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 별도 배경 바 + 라벨로 '1차 내비'임이 가장 직관적. 필 형태라 도시 수가 늘어도 자연스럽게 줄바꿈. 현재 필터 칩과 형태가 같아 통일감↑, 대신 위계는 배경·크기로만 구분.</div>
+</div>
+
+<!-- ① 도시 내비 4c underline -->
+<div class="dv-opt" id="4c">
+<div class="dv-olabel"><a class="dv-oid" href="#4c">4c</a>① 도시 내비 — 언더라인 강조 (탭형)</div>
+<div class="dv-card" style="width:620px;background:#161310;padding:0">
+  <div style="padding:24px 32px 0;display:flex;align-items:flex-end;gap:26px;border-bottom:1px solid rgba(201,168,106,.16)">
+    <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#ece4d6;font-weight:600;padding-bottom:14px;border-bottom:2px solid #c9a86a">전체</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#7d7466;font-weight:600;padding-bottom:14px">도쿄</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#7d7466;font-weight:600;padding-bottom:14px">교토</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#7d7466;font-weight:600;padding-bottom:14px">오사카</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#7d7466;font-weight:600;padding-bottom:14px">후쿠오카</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#7d7466;font-weight:600;padding-bottom:14px">삿포로</span>
+  </div>
+  <div style="padding:18px 32px 26px;display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+    <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:44px">장르</span>
+    <span style="font-size:12px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:5px 13px">전체</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">스시·해산물</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">고기구이</span>
+    <span style="font-size:12px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">면류</span>
+  </div>
+</div>
+<div style="width:620px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 세리프 대형 + 언더라인으로 가장 '에디토리얼'하고 고급짐. 매거진 리더 카드와 톤이 이어짐. 하위 필터(필/드롭다운)와 형태 차이가 커서 위계 분리는 최고. 탭 UX처럼 읽혀 도시=주 축이 명확.</div>
+</div>
+
+<!-- ② 서체 4d -->
+<div class="dv-opt" id="4d">
+<div class="dv-olabel"><a class="dv-oid" href="#4d">4d</a>② 서체 — 현행 (Noto Serif JP + Noto Sans KR)</div>
+<div class="dv-card" style="width:320px;background:#161310;border-color:rgba(201,168,106,.12)">
+  <div style="position:relative;height:168px"><img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(14,12,9,.78))"></div><span style="position:absolute;left:14px;bottom:11px;font-size:9.5px;letter-spacing:.18em;color:rgba(255,255,255,.85)">스시 · 해산물</span></div>
+  <div style="padding:17px 19px 19px">
+    <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6">初音鮨本店</div>
+    <div style="font-family:'Noto Sans KR',sans-serif;font-size:12px;color:#a1957f;margin-top:3px;font-weight:300">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:13px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:#c9a86a;font-weight:600">3.34</span>
+      <span style="font-family:'Noto Sans KR',sans-serif;font-size:11px;color:#6f6657">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px"><span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span><span style="font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 프리미엄몰츠</span></div>
+    <div style="height:1px;background:rgba(201,168,106,.12);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-family:'Noto Sans KR',sans-serif;font-size:11.5px;line-height:1.5">
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c7bda9">東京都台東区台東2丁目15-2</span>
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c7bda9">신오카치마치역 도보 6분</span>
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c7bda9">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#241f18;border-radius:8px;padding:11px 13px;margin-top:12px">
+      <div><span style="font-family:'Noto Serif JP',serif;font-size:12.5px;color:#ece4d6">天然本まぐろ大トロ</span><span style="font-family:'Noto Sans KR',sans-serif;font-size:10.5px;color:#8a8071"> — 혼마구로 오토로</span></div>
+    </div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>Noto Serif JP + Noto Sans KR</b> — 기본. 명조/고딕 대비로 일본어 매장명과 한글 병기가 잘 구분됨. 단, 두 패밀리라 획 굵기·리듬이 미세하게 어긋나고 숫자(라틴)는 KR 산세가 담당해 약간 가벼움.</div>
+</div>
+
+<!-- ② 서체 4e -->
+<div class="dv-opt" id="4e">
+<div class="dv-olabel"><a class="dv-oid" href="#4e">4e</a>② 서체 — Shippori Mincho + IBM Plex Sans KR</div>
+<div class="dv-card" style="width:320px;background:#161310;border-color:rgba(201,168,106,.12)">
+  <div style="position:relative;height:168px"><img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(14,12,9,.78))"></div><span style="position:absolute;left:14px;bottom:11px;font-size:9.5px;letter-spacing:.18em;color:rgba(255,255,255,.85)">스시 · 해산물</span></div>
+  <div style="padding:17px 19px 19px">
+    <div style="font-family:'Shippori Mincho',serif;font-size:19px;font-weight:600;color:#ece4d6">初音鮨本店</div>
+    <div style="font-family:'IBM Plex Sans KR',sans-serif;font-size:12px;color:#a1957f;margin-top:3px;font-weight:300">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:13px">
+      <span style="font-family:'IBM Plex Sans KR',sans-serif;font-size:20px;color:#c9a86a;font-weight:600">3.34</span>
+      <span style="font-family:'IBM Plex Sans KR',sans-serif;font-size:11px;color:#6f6657">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px"><span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span><span style="font-family:'IBM Plex Sans KR',sans-serif;font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 프리미엄몰츠</span></div>
+    <div style="height:1px;background:rgba(201,168,106,.12);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-family:'IBM Plex Sans KR',sans-serif;font-size:11.5px;line-height:1.5">
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c7bda9">東京都台東区台東2丁目15-2</span>
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c7bda9">신오카치마치역 도보 6분</span>
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c7bda9">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#241f18;border-radius:8px;padding:11px 13px;margin-top:12px">
+      <div><span style="font-family:'Shippori Mincho',serif;font-size:12.5px;color:#ece4d6">天然本まぐろ大トロ</span><span style="font-family:'IBM Plex Sans KR',sans-serif;font-size:10.5px;color:#8a8071"> — 혼마구로 오토로</span></div>
+    </div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>Shippori Mincho + IBM Plex Sans KR</b> — 매장명 명조가 Noto보다 붓끝이 살아 더 '노포'스럽고 격조↑. 본문·숫자는 Plex Sans KR로 라틴 숫자 골격이 또렷하고 무게 일관성 좋음. 명조(일)↔고딕(한) 대비로 병기 구분도 명확. 추천안.</div>
+</div>
+
+<!-- ② 서체 4f -->
+<div class="dv-opt" id="4f">
+<div class="dv-olabel"><a class="dv-oid" href="#4f">4f</a>② 서체 — Zen Kaku Gothic New + Noto Sans KR (고딕 통일)</div>
+<div class="dv-card" style="width:320px;background:#161310;border-color:rgba(201,168,106,.12)">
+  <div style="position:relative;height:168px"><img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(14,12,9,.78))"></div><span style="position:absolute;left:14px;bottom:11px;font-size:9.5px;letter-spacing:.18em;color:rgba(255,255,255,.85)">스시 · 해산물</span></div>
+  <div style="padding:17px 19px 19px">
+    <div style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:18.5px;font-weight:700;color:#ece4d6">初音鮨本店</div>
+    <div style="font-family:'Noto Sans KR',sans-serif;font-size:12px;color:#a1957f;margin-top:3px;font-weight:400">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:13px">
+      <span style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:20px;color:#c9a86a;font-weight:700">3.34</span>
+      <span style="font-family:'Noto Sans KR',sans-serif;font-size:11px;color:#6f6657">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px"><span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span><span style="font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 프리미엄몰츠</span></div>
+    <div style="height:1px;background:rgba(201,168,106,.12);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-family:'Noto Sans KR',sans-serif;font-size:11.5px;line-height:1.5">
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c7bda9">東京都台東区台東2丁目15-2</span>
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c7bda9">신오카치마치역 도보 6분</span>
+      <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c7bda9">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#241f18;border-radius:8px;padding:11px 13px;margin-top:12px">
+      <div><span style="font-family:'Zen Kaku Gothic New',sans-serif;font-size:12.5px;color:#ece4d6">天然本まぐろ大トロ</span><span style="font-family:'Noto Sans KR',sans-serif;font-size:10.5px;color:#8a8071"> — 혼마구로 오토로</span></div>
+    </div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>Zen Kaku Gothic New + Noto Sans KR</b> — 둘 다 고딕이라 획 무게가 가장 균일하고 작은 크기·모바일 가독성 최상. 숫자도 또렷. 대신 일본어·한글이 같은 고딕이라 병기 구분은 약함 — 매장명을 Bold(700)로, 한글을 Regular로 둬 무게차로 분리했음. 모던·기능형.</div>
+</div>
+
+</div>
+<p class="dv-next">추천: 내비는 <b>4c 언더라인</b>(에디토리얼·위계 최고) 또는 <b>4b 필</b>(직관), 서체는 <b>4e Shippori+Plex</b>. 다음 시도: "4c 내비 + 4e 서체를 2a에 함께 적용" · "4a 세그먼트를 도시+장르 둘 다에" · "4f를 모바일 기준으로 재검토"</p>
+</section>
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">포인트 컬러 실험 — 5개 팔레트, 동일 카드 비교</span></div>
+<p class="dv-note"><b>조건 유지</b> — 레이아웃·정보 항목·필터 구성은 <a class="dv-oid" href="#2a">2a</a> 그대로, 배경만 팔레트별로 미세한 웜/쿨 그레이(완전 블랙 아님)로, 포인트 컬러만 교체했습니다. 각 카드에서 <u>장르 라벨 · 평점 숫자 · 산토리 배지 점·텍스트 · 필터 강조 칩</u>이 새 포인트로 어떻게 보이는지 확인하세요.</p>
+<div class="dv-opts">
+
+<!-- 3a Burgundy -->
+<div class="dv-opt" id="3a">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>딥 레드 / 버건디</div>
+<div class="dv-card" style="width:320px;background:#17110f;border-color:rgba(162,58,74,.18)">
+  <div style="display:flex;gap:7px;padding:14px 16px 0">
+    <span style="font-size:11px;color:#0f0b0a;background:#a23a4a;border-radius:99px;padding:5px 12px;font-weight:600">전체</span>
+    <span style="font-size:11px;color:#c8b7b4;border:1px solid rgba(162,58,74,.3);border-radius:99px;padding:5px 12px">스시</span>
+    <span style="font-size:11px;color:#c8b7b4;border:1px solid rgba(162,58,74,.3);border-radius:99px;padding:5px 12px">미슐랭</span>
+  </div>
+  <div style="position:relative;height:170px;margin:12px 16px 0;border-radius:8px;overflow:hidden">
+    <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(14,10,9,.8))"></div>
+    <span style="position:absolute;left:12px;bottom:10px;font-size:9.5px;letter-spacing:.16em;color:#e9b9c0;background:rgba(162,58,74,.4);padding:4px 9px;border-radius:99px;backdrop-filter:blur(3px)">스시 · 해산물</span>
+  </div>
+  <div style="padding:16px 18px 18px">
+    <div style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:#efe4e2">初音鮨本店</div>
+    <div style="font-size:11.5px;color:#a68f8c;margin-top:3px">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:#c25566;font-weight:600">3.34</span>
+      <span style="font-size:11px;color:#6e5c5a">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+      <span style="width:5px;height:5px;border-radius:50%;background:#c25566"></span>
+      <span style="font-size:11.5px;color:#c25566">카미아와 초달인점 · 프리미엄몰츠</span>
+    </div>
+    <div style="height:1px;background:rgba(162,58,74,.16);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.5">
+      <span style="color:#6e5c5a;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c3b6b3">東京都台東区台東2丁目15-2</span>
+      <span style="color:#6e5c5a;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c3b6b3">신오카치마치역 도보 6분</span>
+      <span style="color:#6e5c5a;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c3b6b3">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#201614;border-radius:8px;padding:11px 13px;margin-top:12px;display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:9px;letter-spacing:.2em;color:#6e5c5a">대표 메뉴</div>
+      <div><span style="font-size:12px;color:#efe4e2">太巻(七色福巻き)</span><span style="font-size:10.5px;color:#8a7572"> — 후토마키</span></div>
+      <div><span style="font-size:12px;color:#efe4e2">天然本まぐろ大トロ</span><span style="font-size:10.5px;color:#8a7572"> — 오토로</span></div>
+    </div>
+    <div style="margin-top:12px;font-size:10px;letter-spacing:.1em;color:#8a7572">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 스시·미슐랭 무드에 가장 정통. 와인색이 음식 사진의 붉은 톤과 충돌하지 않고 고급스러움. 다만 채도가 높으면 경고색처럼 보일 수 있어 살짝 낮춘 로즈-버건디 권장.</div>
+</div>
+
+<!-- 3b Sage/Forest -->
+<div class="dv-opt" id="3b">
+<div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>세이지 / 포레스트 그린</div>
+<div class="dv-card" style="width:320px;background:#0f120f;border-color:rgba(111,143,106,.2)">
+  <div style="display:flex;gap:7px;padding:14px 16px 0">
+    <span style="font-size:11px;color:#0c0f0b;background:#7d9c78;border-radius:99px;padding:5px 12px;font-weight:600">전체</span>
+    <span style="font-size:11px;color:#b7c2b4;border:1px solid rgba(111,143,106,.3);border-radius:99px;padding:5px 12px">스시</span>
+    <span style="font-size:11px;color:#b7c2b4;border:1px solid rgba(111,143,106,.3);border-radius:99px;padding:5px 12px">미슐랭</span>
+  </div>
+  <div style="position:relative;height:170px;margin:12px 16px 0;border-radius:8px;overflow:hidden">
+    <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(9,12,9,.8))"></div>
+    <span style="position:absolute;left:12px;bottom:10px;font-size:9.5px;letter-spacing:.16em;color:#cfe0ca;background:rgba(111,143,106,.42);padding:4px 9px;border-radius:99px;backdrop-filter:blur(3px)">스시 · 해산물</span>
+  </div>
+  <div style="padding:16px 18px 18px">
+    <div style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:#e6ebe3">初音鮨本店</div>
+    <div style="font-size:11.5px;color:#8ca188;margin-top:3px">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:#8fb389;font-weight:600">3.34</span>
+      <span style="font-size:11px;color:#5b6b58">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+      <span style="width:5px;height:5px;border-radius:50%;background:#8fb389"></span>
+      <span style="font-size:11.5px;color:#8fb389">카미아와 초달인점 · 프리미엄몰츠</span>
+    </div>
+    <div style="height:1px;background:rgba(111,143,106,.18);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.5">
+      <span style="color:#5b6b58;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#b4bfb1">東京都台東区台東2丁目15-2</span>
+      <span style="color:#5b6b58;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#b4bfb1">신오카치마치역 도보 6분</span>
+      <span style="color:#5b6b58;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#b4bfb1">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#161a15;border-radius:8px;padding:11px 13px;margin-top:12px;display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:9px;letter-spacing:.2em;color:#5b6b58">대표 메뉴</div>
+      <div><span style="font-size:12px;color:#e6ebe3">太巻(七色福巻き)</span><span style="font-size:10.5px;color:#75856f"> — 후토마키</span></div>
+      <div><span style="font-size:12px;color:#e6ebe3">天然本まぐろ大トロ</span><span style="font-size:10.5px;color:#75856f"> — 오토로</span></div>
+    </div>
+    <div style="margin-top:12px;font-size:10px;letter-spacing:.1em;color:#75856f">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 차분하고 절제된 고급감. 녹색은 신선함·차(茶)의 이미지로 일식과 결이 맞지만, 음식 사진의 붉은/노란 톤과 보색이라 평점 숫자가 조금 튈 수 있음. 세이지처럼 회끼 있는 저채도가 안정적.</div>
+</div>
+
+<!-- 3c Terracotta/Rust -->
+<div class="dv-opt" id="3c">
+<div class="dv-olabel"><a class="dv-oid" href="#3c">3c</a>테라코타 / 러스트</div>
+<div class="dv-card" style="width:320px;background:#17110d;border-color:rgba(201,118,74,.2)">
+  <div style="display:flex;gap:7px;padding:14px 16px 0">
+    <span style="font-size:11px;color:#100a06;background:#c9764a;border-radius:99px;padding:5px 12px;font-weight:600">전체</span>
+    <span style="font-size:11px;color:#c8b6a9;border:1px solid rgba(201,118,74,.3);border-radius:99px;padding:5px 12px">스시</span>
+    <span style="font-size:11px;color:#c8b6a9;border:1px solid rgba(201,118,74,.3);border-radius:99px;padding:5px 12px">미슐랭</span>
+  </div>
+  <div style="position:relative;height:170px;margin:12px 16px 0;border-radius:8px;overflow:hidden">
+    <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(14,10,7,.8))"></div>
+    <span style="position:absolute;left:12px;bottom:10px;font-size:9.5px;letter-spacing:.16em;color:#f0cbb3;background:rgba(201,118,74,.42);padding:4px 9px;border-radius:99px;backdrop-filter:blur(3px)">스시 · 해산물</span>
+  </div>
+  <div style="padding:16px 18px 18px">
+    <div style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:#efe6de">初音鮨本店</div>
+    <div style="font-size:11.5px;color:#a6907f;margin-top:3px">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:#d0865c;font-weight:600">3.34</span>
+      <span style="font-size:11px;color:#6e5c4e">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+      <span style="width:5px;height:5px;border-radius:50%;background:#d0865c"></span>
+      <span style="font-size:11.5px;color:#d0865c">카미아와 초달인점 · 프리미엄몰츠</span>
+    </div>
+    <div style="height:1px;background:rgba(201,118,74,.18);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.5">
+      <span style="color:#6e5c4e;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c3b5a8">東京都台東区台東2丁目15-2</span>
+      <span style="color:#6e5c4e;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c3b5a8">신오카치마치역 도보 6분</span>
+      <span style="color:#6e5c4e;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c3b5a8">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#201612;border-radius:8px;padding:11px 13px;margin-top:12px;display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:9px;letter-spacing:.2em;color:#6e5c4e">대표 메뉴</div>
+      <div><span style="font-size:12px;color:#efe6de">太巻(七色福巻き)</span><span style="font-size:10.5px;color:#8a7566"> — 후토마키</span></div>
+      <div><span style="font-size:12px;color:#efe6de">天然本まぐろ大トロ</span><span style="font-size:10.5px;color:#8a7566"> — 오토로</span></div>
+    </div>
+    <div style="margin-top:12px;font-size:10px;letter-spacing:.1em;color:#8a7566">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 골드와 가장 가까운 계열이라 기존 무드를 유지하면서 더 따뜻·토속적. 이자카야·야키토리·향토 정식에 특히 잘 맞음. 다만 음식 사진 대부분이 웜톤이라 자칫 단조로워질 수 있어 배경을 조금 더 차갑게 잡는 게 좋음.</div>
+</div>
+
+<!-- 3d Indigo/Deep blue -->
+<div class="dv-opt" id="3d">
+<div class="dv-olabel"><a class="dv-oid" href="#3d">3d</a>인디고 / 딥 블루</div>
+<div class="dv-card" style="width:320px;background:#0f1015;border-color:rgba(90,111,176,.2)">
+  <div style="display:flex;gap:7px;padding:14px 16px 0">
+    <span style="font-size:11px;color:#090a0f;background:#6f83c0;border-radius:99px;padding:5px 12px;font-weight:600">전체</span>
+    <span style="font-size:11px;color:#b3b8c6;border:1px solid rgba(90,111,176,.32);border-radius:99px;padding:5px 12px">스시</span>
+    <span style="font-size:11px;color:#b3b8c6;border:1px solid rgba(90,111,176,.32);border-radius:99px;padding:5px 12px">미슐랭</span>
+  </div>
+  <div style="position:relative;height:170px;margin:12px 16px 0;border-radius:8px;overflow:hidden">
+    <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(9,10,15,.8))"></div>
+    <span style="position:absolute;left:12px;bottom:10px;font-size:9.5px;letter-spacing:.16em;color:#c6cff0;background:rgba(90,111,176,.44);padding:4px 9px;border-radius:99px;backdrop-filter:blur(3px)">스시 · 해산물</span>
+  </div>
+  <div style="padding:16px 18px 18px">
+    <div style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:#e4e6ee">初音鮨本店</div>
+    <div style="font-size:11.5px;color:#8a90a4;margin-top:3px">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:#8397cf;font-weight:600">3.34</span>
+      <span style="font-size:11px;color:#585f72">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+      <span style="width:5px;height:5px;border-radius:50%;background:#8397cf"></span>
+      <span style="font-size:11.5px;color:#8397cf">카미아와 초달인점 · 프리미엄몰츠</span>
+    </div>
+    <div style="height:1px;background:rgba(90,111,176,.2);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.5">
+      <span style="color:#585f72;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#b2b6c3">東京都台東区台東2丁目15-2</span>
+      <span style="color:#585f72;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#b2b6c3">신오카치마치역 도보 6분</span>
+      <span style="color:#585f72;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#b2b6c3">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#15161d;border-radius:8px;padding:11px 13px;margin-top:12px;display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:9px;letter-spacing:.2em;color:#585f72">대표 메뉴</div>
+      <div><span style="font-size:12px;color:#e4e6ee">太巻(七色福巻き)</span><span style="font-size:10.5px;color:#6f7488"> — 후토마키</span></div>
+      <div><span style="font-size:12px;color:#e4e6ee">天然本まぐろ大トロ</span><span style="font-size:10.5px;color:#6f7488"> — 오토로</span></div>
+    </div>
+    <div style="margin-top:12px;font-size:10px;letter-spacing:.1em;color:#6f7488">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 가장 모던·시크하고 앱 UI로서 가독성 최고(웜톤 음식 사진과 보색이라 사진이 도드라짐). 반면 '일식당 가이드'의 전통적 온기는 약함 — 미니멀·테크 지향이면 최선, 노포·정통 무드면 다소 차가움.</div>
+</div>
+
+<!-- 3e Monochrome + warm -->
+<div class="dv-opt" id="3e">
+<div class="dv-olabel"><a class="dv-oid" href="#3e">3e</a>모노크롬 + 미세 웜 액센트</div>
+<div class="dv-card" style="width:320px;background:#141312;border-color:rgba(184,168,146,.16)">
+  <div style="display:flex;gap:7px;padding:14px 16px 0">
+    <span style="font-size:11px;color:#141312;background:#c9c2b6;border-radius:99px;padding:5px 12px;font-weight:600">전체</span>
+    <span style="font-size:11px;color:#b7b1a7;border:1px solid rgba(184,168,146,.28);border-radius:99px;padding:5px 12px">스시</span>
+    <span style="font-size:11px;color:#b7b1a7;border:1px solid rgba(184,168,146,.28);border-radius:99px;padding:5px 12px">미슐랭</span>
+  </div>
+  <div style="position:relative;height:170px;margin:12px 16px 0;border-radius:8px;overflow:hidden">
+    <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(12,11,10,.8))"></div>
+    <span style="position:absolute;left:12px;bottom:10px;font-size:9.5px;letter-spacing:.16em;color:#e6e0d6;background:rgba(40,37,33,.6);padding:4px 9px;border-radius:99px;backdrop-filter:blur(3px)">스시 · 해산물</span>
+  </div>
+  <div style="padding:16px 18px 18px">
+    <div style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:#ece7de">初音鮨本店</div>
+    <div style="font-size:11.5px;color:#8f887c;margin-top:3px">하츠네즈시 본점 · 스시</div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:#cbbfa8;font-weight:600">3.34</span>
+      <span style="font-size:11px;color:#5f594e">리뷰 59 · 저장 3,156</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+      <span style="width:5px;height:5px;border-radius:50%;background:#cbbfa8"></span>
+      <span style="font-size:11.5px;color:#a89f8d">카미아와 초달인점 · 프리미엄몰츠</span>
+    </div>
+    <div style="height:1px;background:rgba(184,168,146,.16);margin:14px 0 12px"></div>
+    <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.5">
+      <span style="color:#5f594e;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#b6afa3">東京都台東区台東2丁目15-2</span>
+      <span style="color:#5f594e;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#b6afa3">신오카치마치역 도보 6분</span>
+      <span style="color:#5f594e;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#b6afa3">¥7,000~¥10,000</span>
+    </div>
+    <div style="background:#1c1a17;border-radius:8px;padding:11px 13px;margin-top:12px;display:flex;flex-direction:column;gap:5px">
+      <div style="font-size:9px;letter-spacing:.2em;color:#5f594e">대표 메뉴</div>
+      <div><span style="font-size:12px;color:#ece7de">太巻(七色福巻き)</span><span style="font-size:10.5px;color:#7a7264"> — 후토마키</span></div>
+      <div><span style="font-size:12px;color:#ece7de">天然本まぐろ大トロ</span><span style="font-size:10.5px;color:#7a7264"> — 오토로</span></div>
+    </div>
+    <div style="margin-top:12px;font-size:10px;letter-spacing:.1em;color:#7a7264">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+  </div>
+</div>
+<div style="width:320px;font:11.5px/1.6 'Noto Sans KR',sans-serif;color:rgba(0,0,0,.6)"><b>코멘트</b> — 사진이 100% 주인공. 포인트를 거의 지워 음식 색이 유일한 채도로 남아 가장 '갤러리'스러움. 350곳처럼 정보량이 많을 때 가장 덜 피곤함 — 단, 산토리 등급 같은 위계 강조는 약해져 굵기·크기로 보완 필요.</div>
+</div>
+
+</div>
+<p class="dv-next">추천: <b>3a 버건디</b>(정통 미슐랭) 또는 <b>3e 모노크롬</b>(사진 우선·저피로)이 이 가이드에 가장 잘 맞습니다. 다음 시도: "3a를 <a class="dv-oid" href="#2a">2a</a> 전체 화면에 적용" · "3a와 3e를 섞어 배지만 버건디, 나머지는 무채색" · "3c를 더 저채도로"</p>
+</section>
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">병합안 — <a class="dv-oid" href="#1a">1a</a> 골격 + 도시 리더는 <a class="dv-oid" href="#1b">1b</a> 매거진 카드 + 모바일 그리드→상세</span></div>
+<p class="dv-note"><b>결정 반영</b> — 전체 카드/필터/헤더 위계는 <a class="dv-oid" href="#1a">1a</a>, 각 도시 섹션의 <u>첫 매장</u>만 <a class="dv-oid" href="#1b">1b</a> 대형 매거진 카드로 세워 리듬을 줍니다. 장르·상세 필터는 <a class="dv-oid" href="#1a">1a</a> 그대로. 모바일(<a class="dv-oid" href="#2b">2b</a>)은 <b>사진 그리드로 먼저</b> 보이고, 타일을 누르면 상세로 펼쳐집니다 — <b>실제 눌러보세요.</b></p>
+<div class="dv-opts">
+
+<!-- ══════════════ 2a : 병합 데스크톱 ══════════════ -->
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>데스크톱 — 도시 리더 매거진 카드 + 1a 그리드</div>
+<div class="dv-card" style="width:1180px;background:#161310">
+<div style="padding:44px 48px 52px">
+
+  <!-- header (1a) -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:10.5px;letter-spacing:.22em;color:#c9a86a;font-weight:500;margin-bottom:12px">神泡達人店 · 선토리 인증<span style="letter-spacing: 2.31px;"> ·&nbsp;</span>타베로그 검증 · 5개 도시 350곳</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:600;color:#ece4d6;line-height:1.2">위대한 AI님의 일본 맛집 가이드</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px">
+      <div style="display:flex;align-items:center;gap:9px;border-bottom:1px solid rgba(201,168,106,.3);padding:7px 2px;width:230px">
+        <span style="color:#6f6657;font-size:13px">⌕</span>
+        <span style="color:#6f6657;font-size:12.5px">가게 이름, 장르 검색</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;border:1px solid rgba(201,168,106,.25);border-radius:99px;padding:6px 14px;font-size:11.5px;color:#a1957f">☾ 다크</div>
+    </div>
+  </div>
+
+  <!-- filters (1a) -->
+  
+
+  <!-- section head -->
+  <div style="margin-top:52px;display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+      <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:52px;flex:none">도시</span>
+      <span style="font-size:12.5px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:6px 15px;box-shadow:0 2px 8px rgba(201,168,106,.28)">전체</span>
+      <span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">도쿄</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">교토</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">오사카</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">후쿠오카</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">삿포로</span>
+    </div><div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;border-top:1px solid rgba(201,168,106,.14);border-bottom:1px solid rgba(201,168,106,.14);padding:18px 0">
+    
+    <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+      <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:52px;flex:none">장르</span>
+      <span style="font-size:12.5px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:6px 15px;box-shadow:0 2px 8px rgba(201,168,106,.28)">전체</span>
+      <span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">스시·해산물</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">고기구이</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">면류</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">튀김류</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">나베·전골</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">향토·정식</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">이자카야·바</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">경양식·기타</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:52px;flex:none">상세</span>
+      <span style="font-size:12px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">산토리 등급 · 전체 ▾</span>
+      <span style="font-size:12px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">다베로그 점수 ▾</span>
+      <span style="font-size:12px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">미슐랭 ▾</span>
+      <span style="font-size:12px;color:#c9a86a;border:1px solid rgba(201,168,106,.45);border-radius:99px;padding:5px 13px">🇰🇷 한국인 픽</span>
+      <span style="font-size:11.5px;color:#6f6657;margin-left:auto">350곳 표시 중</span>
+    </div>
+  </div><div style="display:flex;align-items:baseline;gap:14px;margin:40px 0 24px">
+    <span style="font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:#ece4d6">도쿄</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:14px;color:#6f6657">東京</span>
+    <span style="flex:1;height:1px;background:rgba(201,168,106,.14)"></span>
+    <span style="font-size:11.5px;color:#6f6657;letter-spacing:.08em">70곳</span>
+  </div>
+
+  <!-- 1b feature card as city leader -->
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden;margin-bottom:26px">
+    <div style="position:relative;min-height:400px">
+      <img src="assets/p4.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;inset:auto 0 0 0;height:120px;background:linear-gradient(transparent,rgba(14,12,9,.6))"></div>
+      <div style="position:absolute;left:20px;top:18px;font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.9);background:rgba(14,12,9,.55);padding:6px 12px;border-radius:99px;backdrop-filter:blur(4px)">도쿄 대표 · 고기구이 · 타베로그 백명점 2025</div>
+      <div style="position:absolute;left:20px;bottom:16px;display:flex;align-items:baseline;gap:8px">
+        <span style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:600;color:#c9a86a">3.63</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.75)">리뷰 1,339 · 저장 73,675</span>
+      </div>
+    </div>
+    <div style="padding:32px 34px;display:flex;flex-direction:column">
+      <div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:600;color:#ece4d6;line-height:1.35">焼肉うしごろ<br>西麻布本店</div>
+      <div style="font-size:13px;color:#a1957f;margin-top:6px">야키니쿠 우시고로 니시아자부 본점</div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:14px">
+        <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+        <span style="font-size:12px;color:#c9a86a">카미아와 초달인점 · 마스터즈드림</span>
+      </div>
+      <div style="height:1px;background:rgba(201,168,106,.12);margin:20px 0 16px"></div>
+      <div style="display:grid;grid-template-columns:40px 1fr;row-gap:8px;font-size:12.5px;line-height:1.55">
+        <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都港区西麻布2-24-14 Barbizon73 1F</span>
+        <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">노기자카역 5번 출구 도보 9분</span>
+        <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥10,000+</span>
+      </div>
+      <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+        <div><span style="font-size:13px;color:#ece4d6">生雲丹と和牛のタルタル</span><span style="font-size:11px;color:#8a8071"> — 성게알·와규 타르타르</span></div>
+        <div><span style="font-size:13px;color:#ece4d6">サーロインのすき焼き</span><span style="font-size:11px;color:#8a8071"> — 트러플 스키야키</span></div>
+        <div><span style="font-size:13px;color:#ece4d6">和牛とアオリイカの手巻き</span><span style="font-size:11px;color:#8a8071"> — 와규 데마키</span></div>
+      </div>
+      <div style="margin-top:auto;padding-top:18px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+    </div>
+  </div>
+
+  <!-- 1a grid (rest of city) -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="position:relative;height:210px">
+        <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <div style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.85)">스시 · 해산물</div>
+      </div>
+      <div style="padding:20px 22px 18px;display:flex;flex-direction:column;flex:1">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6;line-height:1.35">初音鮨本店</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">하츠네즈시 본점 · 스시</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">3.34</span>
+          <span style="font-size:11px;color:#6f6657">리뷰 59 · 저장 3,156</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 프리미엄몰츠</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:16px 0 14px"></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;row-gap:7px;font-size:12px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都台東区台東2丁目15-2</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">신오카치마치역 A2출구 도보 6분</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥7,000~¥10,000</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">휴무</span><span style="color:#c7bda9">일요일</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:13px 15px;margin-top:15px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <div><span style="font-size:12.5px;color:#ece4d6">太巻(七色福巻き)</span><span style="font-size:11px;color:#8a8071"> — 후토마키</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">特上ちらし「殿様ちらし」</span><span style="font-size:11px;color:#8a8071"> — 특상 치라시</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">天然本まぐろ大トロ</span><span style="font-size:11px;color:#8a8071"> — 혼마구로 오토로</span></div>
+        </div>
+        <div style="margin-top:auto;padding-top:15px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="position:relative;height:210px">
+        <img src="assets/p2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <div style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.85)">스시 · 해산물</div>
+        <div style="position:absolute;right:12px;top:12px;width:24px;height:24px;border-radius:50%;background:rgba(20,17,13,.72);border:1px solid rgba(201,168,106,.5);display:flex;align-items:center;justify-content:center;font-size:10px;color:#c9a86a;font-weight:700">M</div>
+      </div>
+      <div style="padding:20px 22px 18px;display:flex;flex-direction:column;flex:1">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6;line-height:1.35">寿司幸別館 いっきゅう</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">스시코 별관 잇큐 · 스시</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">3.62</span>
+          <span style="font-size:11px;color:#6f6657">리뷰 36 · 저장 4,971</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 마스터즈드림</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:16px 0 14px"></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;row-gap:7px;font-size:12px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都中央区銀座6丁目8-7 交詢ビル4F</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">긴자역 B3출구 도보 3분</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥10,000+</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">휴무</span><span style="color:#c7bda9">수요일</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:13px 15px;margin-top:15px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <div><span style="font-size:12.5px;color:#ece4d6">おまかせ握り</span><span style="font-size:11px;color:#8a8071"> — 오마카세 니기리</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">とびきりバラちらし</span><span style="font-size:11px;color:#8a8071"> — 바라치라시</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">焼き魚</span><span style="font-size:11px;color:#8a8071"> — 생선구이</span></div>
+        </div>
+        <div style="margin-top:auto;padding-top:15px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="position:relative;height:210px">
+        <img src="assets/p3.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <div style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.85)">고기구이</div>
+      </div>
+      <div style="padding:20px 22px 18px;display:flex;flex-direction:column;flex:1">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6;line-height:1.35">鳥の介 南口店</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">토리노스케 미나미구치점 · 야키토리</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">3.27</span>
+          <span style="font-size:11px;color:#6f6657">리뷰 75 · 저장 2,116</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 정상점 하이볼</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:16px 0 14px"></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;row-gap:7px;font-size:12px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都杉並区荻窪5-29-7 荻窪1番館2F</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">JR 오기쿠보역 남쪽출구 도보 1분</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥3,000~¥5,000</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">휴무</span><span style="color:#c7bda9">화요일</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:13px 15px;margin-top:15px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <div><span style="font-size:12.5px;color:#ece4d6">とりわさ</span><span style="font-size:11px;color:#8a8071"> — 토리와사</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">白レバーのパテ</span><span style="font-size:11px;color:#8a8071"> — 시로레바 파테</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">つくね</span><span style="font-size:11px;color:#8a8071"> — 츠쿠네</span></div>
+        </div>
+        <div style="margin-top:auto;padding-top:15px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════ 2b : 인터랙티브 모바일 ══════════════ -->
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>모바일(390px) — 그리드 → 타일 탭 → 상세 (인터랙티브)</div>
+<div class="dv-card" style="width:390px;background:#161310;position:relative">
+<div style="padding:22px 18px 30px;min-height:720px">
+
+  <!-- header + filters : hidden in detail -->
+  <div style="display:{{ mListDisplay }}">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:9px;letter-spacing:.2em;color:#c9a86a;margin-bottom:6px">神泡達人店 · 350</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:21px;font-weight:600;color:#ece4d6">일본 맛집 가이드</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <span style="width:34px;height:34px;border:1px solid rgba(201,168,106,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#a1957f;font-size:13px">⌕</span>
+        <span style="width:34px;height:34px;border:1px solid rgba(201,168,106,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#a1957f;font-size:12px">☾</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:16px;overflow:hidden">
+      <span style="flex:none;font-size:11.5px;color:#161310;background:#c9a86a;border-radius:99px;padding:6px 13px;font-weight:600">전체</span>
+      <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">도쿄</span>
+      <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">교토</span>
+      <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">오사카</span>
+      <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">후쿠오카</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px;overflow:hidden">
+      <span style="flex:none;font-size:11px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 12px">장르 ▾</span>
+      <span style="flex:none;font-size:11px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 12px">산토리 등급 ▾</span>
+      <span style="flex:none;font-size:11px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 12px">다베로그 ▾</span>
+      <span style="flex:none;font-size:11px;color:#c9a86a;border:1px solid rgba(201,168,106,.45);border-radius:99px;padding:5px 12px">🇰🇷</span>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:10px;margin:20px 0 14px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:17px;font-weight:600;color:#ece4d6">도쿄 <span style="font-size:11px;color:#6f6657">70곳</span></span>
+      <span style="flex:1;height:1px;background:rgba(201,168,106,.12)"></span>
+    </div>
+
+    <!-- photo grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <sc-for list="{{ restos }}" as="r" hint-placeholder-count="6">
+        <div onClick="{{ r.open }}" style="cursor:pointer;background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden">
+          <div style="position:relative;height:118px">
+            <img src="{{ r.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+            <div style="position:absolute;inset:auto 0 0 0;height:44px;background:linear-gradient(transparent,rgba(14,12,9,.8))"></div>
+            <span style="position:absolute;left:9px;top:8px;font-size:8.5px;letter-spacing:.14em;color:rgba(255,255,255,.9);background:rgba(14,12,9,.5);padding:3px 7px;border-radius:99px">{{ r.genre }}</span>
+            <span style="position:absolute;right:9px;bottom:8px;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:600;color:#c9a86a">{{ r.score }}</span>
+          </div>
+          <div style="padding:10px 11px 12px">
+            <div style="font-family:'Noto Serif JP',serif;font-size:13px;font-weight:600;color:#ece4d6;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.jp }}</div>
+            <div style="font-size:10px;color:#8a8071;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.kr }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- detail view -->
+  <div style="display:{{ mDetailDisplay }}">
+    <div onClick="{{ back }}" style="cursor:pointer;display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#a1957f;margin-bottom:16px">‹ 목록으로</div>
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden">
+      <div style="position:relative;height:200px">
+        <img src="{{ sel.photo }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <span style="position:absolute;left:16px;bottom:12px;font-size:9.5px;letter-spacing:.2em;color:rgba(255,255,255,.85)">{{ sel.genre }}</span>
+      </div>
+      <div style="padding:18px 18px 18px">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6">{{ sel.jp }}</div>
+        <div style="font-size:11.5px;color:#a1957f;margin-top:3px">{{ sel.kr }}</div>
+        <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">{{ sel.score }}</span>
+          <span style="font-size:10.5px;color:#6f6657">{{ sel.stat }}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:8px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11px;color:#c9a86a">{{ sel.badge }}</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:14px 0 12px"></div>
+        <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c7bda9">{{ sel.addr }}</span>
+          <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c7bda9">{{ sel.transit }}</span>
+          <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c7bda9">{{ sel.budget }}</span>
+          <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">휴무</span><span style="color:#c7bda9">{{ sel.closed }}</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:11px 13px;margin-top:13px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:9px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <sc-for list="{{ sel.menus }}" as="m" hint-placeholder-count="3">
+            <div><span style="font-size:12px;color:#ece4d6">{{ m.jp }}</span><span style="font-size:10.5px;color:#8a8071"> — {{ m.kr }}</span></div>
+          </sc-for>
+        </div>
+        <div style="margin-top:14px;font-size:10px;letter-spacing:.12em;color:#8a8071">{{ sel.amen }}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">다음 시도: "<a class="dv-oid" href="#2a">2a</a>를 전체 인터랙티브 프로토타입으로(필터 실동작)" · "도시 리더 카드를 좌우 번갈아 배치" · "모바일 상세를 바텀시트로 슬라이드업"</p>
+</section>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">일본 맛집 가이드 — 카드 고급화, 레이아웃 3방향</span></div>
+<p class="dv-note"><b>공통 시스템</b> — 배경 #161310(따뜻한 흑), 서페이스 #1e1a15, 포인트는 채도를 낮춘 샴페인 골드 #c9a86a 하나만. 일본어·매장명은 Noto Serif JP(명조), 본문은 Noto Sans KR. 배지·pill은 박스를 없애고 점(·)과 헤어라인으로 정돈, 사진은 오버레이 최소화로 주인공화. 정보 항목(사진·매장명 2개국어·장르·등급·타베로그·예산·주소/교통·메뉴 3·카드/금연/예약)과 필터·검색·다크토글은 전부 유지. 세 시안 모두 CSS grid 기반이라 모바일에서 1열로 자연스럽게 접힙니다 — <a class="dv-oid" href="#1d">1d</a>가 모바일 예시.</p>
+<div class="dv-opts">
+
+<!-- ══════════════ 1a : 정제된 카드 그리드 ══════════════ -->
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>카드 그리드 고급화 — 현재 구조 유지, 위계·여백 재정리</div>
+<div class="dv-card" style="width:1180px;background:#161310">
+<div style="padding:44px 48px 52px">
+
+  <!-- header -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:10.5px;letter-spacing:.22em;color:#c9a86a;font-weight:500;margin-bottom:12px">神泡達人店 · 타베로그 검증 · 5개 도시 350곳</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:600;color:#ece4d6;line-height:1.2">일본 맛집 가이드</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px">
+      <div style="display:flex;align-items:center;gap:9px;border-bottom:1px solid rgba(201,168,106,.3);padding:7px 2px;width:230px">
+        <span style="color:#6f6657;font-size:13px">⌕</span>
+        <span style="color:#6f6657;font-size:12.5px">가게 이름, 장르 검색</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;border:1px solid rgba(201,168,106,.25);border-radius:99px;padding:6px 14px;font-size:11.5px;color:#a1957f">☾ 다크</div>
+    </div>
+  </div>
+
+  <!-- filters -->
+  <div style="margin-top:56px;display:flex;flex-direction:column;gap:14px;border-top:1px solid rgba(201,168,106,.14);border-bottom:1px solid rgba(201,168,106,.14);padding:18px 0">
+    <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+      <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:52px;flex:none">도시</span>
+      <span style="font-size:12.5px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:6px 15px;box-shadow:0 2px 8px rgba(201,168,106,.28)">전체</span>
+      <span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">도쿄</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">교토</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">오사카</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">후쿠오카</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">삿포로</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap">
+      <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:52px;flex:none">장르</span>
+      <span style="font-size:12.5px;color:#161310;font-weight:600;background:linear-gradient(#d9bd86,#c9a86a);border-radius:99px;padding:6px 15px;box-shadow:0 2px 8px rgba(201,168,106,.28)">전체</span>
+      <span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">스시·해산물</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">고기구이</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">면류</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">튀김류</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">나베·전골</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">향토·정식</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">이자카야·바</span><span style="font-size:12.5px;color:#c7bda9;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 15px">경양식·기타</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span style="font-size:10px;letter-spacing:.18em;color:#6f6657;width:52px;flex:none">상세</span>
+      <span style="font-size:12px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">산토리 등급 · 전체 ▾</span>
+      <span style="font-size:12px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">다베로그 점수 ▾</span>
+      <span style="font-size:12px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 13px">미슐랭 ▾</span>
+      <span style="font-size:12px;color:#c9a86a;border:1px solid rgba(201,168,106,.45);border-radius:99px;padding:5px 13px">🇰🇷 한국인 픽만</span>
+      <span style="font-size:11.5px;color:#6f6657;margin-left:auto">350곳 표시 중</span>
+    </div>
+  </div>
+
+  <!-- section head -->
+  <div style="display:flex;align-items:baseline;gap:14px;margin:40px 0 24px">
+    <span style="font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:#ece4d6">도쿄</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:14px;color:#6f6657">東京</span>
+    <span style="flex:1;height:1px;background:rgba(201,168,106,.14)"></span>
+    <span style="font-size:11.5px;color:#6f6657;letter-spacing:.08em">70곳</span>
+  </div>
+
+  <!-- grid -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+
+    <!-- card 1 -->
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="position:relative;height:210px">
+        <img src="assets/p1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <div style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.85)">스시 · 해산물</div>
+      </div>
+      <div style="padding:20px 22px 18px;display:flex;flex-direction:column;gap:0;flex:1">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6;line-height:1.35">初音鮨本店</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">하츠네즈시 본점 · 스시</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">3.34</span>
+          <span style="font-size:11px;color:#6f6657">리뷰 59</span>
+          <span style="font-size:11px;color:#6f6657">·</span>
+          <span style="font-size:11px;color:#a1957f">저장 3,156</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 프리미엄몰츠</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:16px 0 14px"></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;row-gap:7px;font-size:12px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都台東区台東2丁目15-2</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">신오카치마치역 A2출구 도보 6분</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥7,000~¥10,000</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">휴무</span><span style="color:#c7bda9">일요일</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:13px 15px;margin-top:15px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <div><span style="font-size:12.5px;color:#ece4d6">太巻(七色福巻き)</span><span style="font-size:11px;color:#8a8071"> — 후토마키(칠색복말이)</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">特上ちらし「殿様ちらし」</span><span style="font-size:11px;color:#8a8071"> — 특상 치라시</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">天然本まぐろ大トロ</span><span style="font-size:11px;color:#8a8071"> — 혼마구로 오토로</span></div>
+        </div>
+        <div style="margin-top:auto;padding-top:15px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+
+    <!-- card 2 -->
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="position:relative;height:210px">
+        <img src="assets/p2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <div style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.85)">스시 · 해산물</div>
+        <div style="position:absolute;right:12px;top:12px;width:24px;height:24px;border-radius:50%;background:rgba(20,17,13,.72);border:1px solid rgba(201,168,106,.5);display:flex;align-items:center;justify-content:center;font-size:10px;color:#c9a86a;font-weight:700">M</div>
+      </div>
+      <div style="padding:20px 22px 18px;display:flex;flex-direction:column;flex:1">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6;line-height:1.35">寿司幸別館 いっきゅう</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">스시코 별관 잇큐 · 스시</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">3.62</span>
+          <span style="font-size:11px;color:#6f6657">리뷰 36</span>
+          <span style="font-size:11px;color:#6f6657">·</span>
+          <span style="font-size:11px;color:#a1957f">저장 4,971</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 마스터즈드림</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:16px 0 14px"></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;row-gap:7px;font-size:12px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都中央区銀座6丁目8-7 交詢ビル4F</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">긴자역 B3출구 도보 3분</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥10,000+</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">휴무</span><span style="color:#c7bda9">수요일</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:13px 15px;margin-top:15px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <div><span style="font-size:12.5px;color:#ece4d6">おまかせ握り</span><span style="font-size:11px;color:#8a8071"> — 오마카세 니기리</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">とびきりバラちらし</span><span style="font-size:11px;color:#8a8071"> — 특선 바라치라시</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">焼き魚</span><span style="font-size:11px;color:#8a8071"> — 생선구이</span></div>
+        </div>
+        <div style="margin-top:auto;padding-top:15px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+
+    <!-- card 3 -->
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+      <div style="position:relative;height:210px">
+        <img src="assets/p3.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+        <div style="position:absolute;left:16px;bottom:12px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.85)">고기구이</div>
+      </div>
+      <div style="padding:20px 22px 18px;display:flex;flex-direction:column;flex:1">
+        <div style="font-family:'Noto Serif JP',serif;font-size:19px;font-weight:600;color:#ece4d6;line-height:1.35">鳥の介 南口店</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">토리노스케 미나미구치점 · 야키토리</div>
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:14px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:19px;color:#c9a86a;font-weight:600">3.27</span>
+          <span style="font-size:11px;color:#6f6657">리뷰 75</span>
+          <span style="font-size:11px;color:#6f6657">·</span>
+          <span style="font-size:11px;color:#a1957f">저장 2,116</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 정상점 하이볼</span>
+        </div>
+        <div style="height:1px;background:rgba(201,168,106,.12);margin:16px 0 14px"></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;row-gap:7px;font-size:12px;line-height:1.55">
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都杉並区荻窪5-29-7 荻窪1番館2F</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">JR 오기쿠보역 남쪽출구 도보 1분</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥3,000~¥5,000</span>
+          <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">휴무</span><span style="color:#c7bda9">화요일</span>
+        </div>
+        <div style="background:#241f18;border-radius:8px;padding:13px 15px;margin-top:15px;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+          <div><span style="font-size:12.5px;color:#ece4d6">とりわさ</span><span style="font-size:11px;color:#8a8071"> — 토리와사</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">白レバーのパテ</span><span style="font-size:11px;color:#8a8071"> — 시로레바 파테</span></div>
+          <div><span style="font-size:12.5px;color:#ece4d6">つくね</span><span style="font-size:11px;color:#8a8071"> — 츠쿠네</span></div>
+        </div>
+        <div style="margin-top:auto;padding-top:15px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════ 1b : 매거진형 ══════════════ -->
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>매거진형 — 사진을 크게, 에디토리얼 위계</div>
+<div class="dv-card" style="width:1180px;background:#161310">
+<div style="padding:44px 48px 52px">
+
+  <!-- slim header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;border-bottom:1px solid rgba(201,168,106,.14);padding-bottom:20px">
+    <div style="display:flex;align-items:baseline;gap:16px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:#ece4d6">일본 맛집 가이드</span>
+      <span style="font-size:10px;letter-spacing:.2em;color:#c9a86a">神泡達人店 · 350</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;font-size:12.5px;color:#a1957f">
+      <span style="color:#c9a86a;border-bottom:1px solid #c9a86a;padding-bottom:2px">전체</span>
+      <span>도쿄</span><span>교토</span><span>오사카</span><span>후쿠오카</span><span>삿포로</span>
+      <span style="color:#6f6657">|</span>
+      <span style="color:#6f6657">⌕ 검색</span><span style="color:#6f6657">☾</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;padding:16px 0 0;font-size:11.5px;color:#a1957f">
+    <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">장르 · 전체 ▾</span>
+    <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">산토리 등급 ▾</span>
+    <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">다베로그 ▾</span>
+    <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">미슐랭 ▾</span>
+    <span style="border:1px solid rgba(201,168,106,.45);border-radius:99px;padding:4px 12px;color:#c9a86a">🇰🇷 한국인 픽만</span>
+  </div>
+
+  <div style="display:flex;align-items:baseline;gap:14px;margin:38px 0 26px">
+    <span style="font-family:'Noto Serif JP',serif;font-size:30px;font-weight:600;color:#ece4d6">도쿄</span>
+    <span style="font-family:'Noto Serif JP',serif;font-size:15px;color:#6f6657">東京 — 70곳</span>
+    <span style="flex:1;height:1px;background:rgba(201,168,106,.14)"></span>
+  </div>
+
+  <!-- feature -->
+  <div style="display:grid;grid-template-columns:1.55fr 1fr;background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden">
+    <div style="position:relative;min-height:420px">
+      <img src="assets/p4.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;inset:auto 0 0 0;height:120px;background:linear-gradient(transparent,rgba(14,12,9,.6))"></div>
+      <div style="position:absolute;left:20px;top:18px;font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.9);background:rgba(14,12,9,.55);padding:6px 12px;border-radius:99px;backdrop-filter:blur(4px)">고기구이 · 타베로그 백명점 2025</div>
+      <div style="position:absolute;left:20px;bottom:16px;display:flex;align-items:baseline;gap:8px">
+        <span style="font-family:'Noto Serif JP',serif;font-size:34px;font-weight:600;color:#c9a86a">3.63</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.75)">리뷰 1,339 · 저장 73,675</span>
+      </div>
+    </div>
+    <div style="padding:32px 34px;display:flex;flex-direction:column">
+      <div style="font-size:10px;letter-spacing:.22em;color:#c9a86a;margin-bottom:14px">이 주의 픽 · 야키니쿠</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:600;color:#ece4d6;line-height:1.35">焼肉うしごろ<br>西麻布本店</div>
+      <div style="font-size:13px;color:#a1957f;margin-top:6px">야키니쿠 우시고로 니시아자부 본점</div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:14px">
+        <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+        <span style="font-size:12px;color:#c9a86a">카미아와 초달인점 · 마스터즈드림</span>
+      </div>
+      <div style="height:1px;background:rgba(201,168,106,.12);margin:20px 0 16px"></div>
+      <div style="display:grid;grid-template-columns:40px 1fr;row-gap:8px;font-size:12.5px;line-height:1.55">
+        <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">주소</span><span style="color:#c7bda9">東京都港区西麻布2-24-14 Barbizon73 1F</span>
+        <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">교통</span><span style="color:#c7bda9">노기자카역 5번 출구 도보 9분</span>
+        <span style="color:#6f6657;font-size:10.5px;letter-spacing:.1em;padding-top:1px">예산</span><span style="color:#c7bda9">¥10,000+</span>
+      </div>
+      <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:9.5px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+        <div><span style="font-size:13px;color:#ece4d6">生雲丹と和牛のタルタル</span><span style="font-size:11px;color:#8a8071"> — 성게알·와규 타르타르</span></div>
+        <div><span style="font-size:13px;color:#ece4d6">サーロインのすき焼き</span><span style="font-size:11px;color:#8a8071"> — 트러플 스키야키</span></div>
+        <div><span style="font-size:13px;color:#ece4d6">和牛とアオリイカの手巻き</span><span style="font-size:11px;color:#8a8071"> — 와규 데마키</span></div>
+      </div>
+      <div style="margin-top:auto;padding-top:18px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+    </div>
+  </div>
+
+  <!-- two half cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px">
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden">
+      <div style="position:relative;height:250px">
+        <img src="assets/p5.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:80px;background:linear-gradient(transparent,rgba(14,12,9,.7))"></div>
+        <div style="position:absolute;left:18px;bottom:14px;display:flex;align-items:baseline;gap:10px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:#c9a86a">3.34</span>
+          <span style="font-size:10.5px;color:rgba(255,255,255,.75)">리뷰 226 · 저장 17,857</span>
+        </div>
+        <div style="position:absolute;left:18px;top:16px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.9)">고기구이 · 탄시오 발상점</div>
+      </div>
+      <div style="padding:22px 24px">
+        <div style="font-family:'Noto Serif JP',serif;font-size:20px;font-weight:600;color:#ece4d6">まんぷく 代々木上原店</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">만푸쿠 요요기우에하라점 · 야키니쿠</div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:12px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 가오루에일</span>
+        </div>
+        <div style="display:flex;gap:18px;margin-top:14px;font-size:12px;color:#c7bda9;flex-wrap:wrap">
+          <span>요요기우에하라역 도보 2분</span><span style="color:#6f6657">·</span><span>¥3,000~¥5,000</span>
+        </div>
+        <div style="margin-top:14px;font-size:12px;color:#c7bda9;line-height:1.8">ねぎタン塩 <span style="color:#6f6657">파 소금 우설</span> &nbsp;/&nbsp; ザブトンの炙り焼き <span style="color:#6f6657">아부리야키</span> &nbsp;/&nbsp; 黒毛和牛サーロイン <span style="color:#6f6657">서로인</span></div>
+        <div style="margin-top:16px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+      </div>
+    </div>
+    <div style="background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden">
+      <div style="position:relative;height:250px">
+        <img src="assets/p6.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:auto 0 0 0;height:80px;background:linear-gradient(transparent,rgba(14,12,9,.7))"></div>
+        <div style="position:absolute;left:18px;bottom:14px;display:flex;align-items:baseline;gap:10px">
+          <span style="font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:#c9a86a">3.48</span>
+          <span style="font-size:10.5px;color:rgba(255,255,255,.75)">리뷰 642 · 저장 15,528</span>
+        </div>
+        <div style="position:absolute;left:18px;top:16px;font-size:10px;letter-spacing:.2em;color:rgba(255,255,255,.9)">면류 · 돈코츠</div>
+      </div>
+      <div style="padding:22px 24px">
+        <div style="font-family:'Noto Serif JP',serif;font-size:20px;font-weight:600;color:#ece4d6">九州じゃんがら 銀座店</div>
+        <div style="font-size:12px;color:#a1957f;margin-top:3px">큐슈쟝가라 긴자점 · 라멘</div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:12px">
+          <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+          <span style="font-size:11.5px;color:#c9a86a">카미아와 초달인점 · 프리미엄몰츠</span>
+        </div>
+        <div style="display:flex;gap:18px;margin-top:14px;font-size:12px;color:#c7bda9;flex-wrap:wrap">
+          <span>긴자역 A4출구 도보 3분</span><span style="color:#6f6657">·</span><span>¥2,000 미만</span>
+        </div>
+        <div style="margin-top:14px;font-size:12px;color:#c7bda9;line-height:1.8">とんこつラーメン <span style="color:#6f6657">돈코츠라멘</span> &nbsp;/&nbsp; ぼんしゃん <span style="color:#6f6657">본샹</span> &nbsp;/&nbsp; 高菜ご飯 <span style="color:#6f6657">다카나 밥</span></div>
+        <div style="margin-top:16px;font-size:10.5px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; <span style="color:#b06a5a">예약 불가</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ══════════════ 1c : 목록 + 지도 ══════════════ -->
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>목록 + 지도 병렬형 — 탐색 중심, 지도는 플레이스홀더</div>
+<div class="dv-card" style="width:1180px;background:#161310">
+<div style="padding:36px 40px 44px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px">
+    <div style="display:flex;align-items:baseline;gap:14px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:#ece4d6">도쿄 <span style="font-size:13px;color:#6f6657">東京 70곳</span></span>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:#a1957f">
+      <span style="border:1px solid rgba(201,168,106,.45);border-radius:99px;padding:4px 12px;color:#c9a86a">도쿄 ✕</span>
+      <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">장르 ▾</span>
+      <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">산토리 등급 ▾</span>
+      <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">다베로그 ▾</span>
+      <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">⌕ 검색</span>
+      <span style="border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:4px 12px">☾</span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:24px;align-items:stretch">
+
+    <!-- list -->
+    <div style="display:flex;flex-direction:column;background:#1a1712;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden">
+
+      <!-- row template ×4 -->
+      <div style="display:flex;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(201,168,106,.09);background:#221d16">
+        <div style="position:relative;flex:none"><img src="assets/p1.png" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;display:block"><span style="position:absolute;left:-8px;top:-8px;width:20px;height:20px;border-radius:50%;background:#c9a86a;color:#161310;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">1</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-family:'Noto Serif JP',serif;font-size:15.5px;font-weight:600;color:#ece4d6">初音鮨本店</span>
+            <span style="font-size:11px;color:#a1957f">하츠네즈시 본점</span>
+          </div>
+          <div style="font-size:11px;color:#c9a86a;margin-top:4px">스시 · 카미아와 초달인점(프리미엄몰츠)</div>
+          <div style="font-size:11.5px;color:#8a8071;margin-top:6px">신오카치마치역 도보 6분 · ¥7,000~¥10,000 · 휴무 일요일</div>
+          <div style="font-size:10px;letter-spacing:.1em;color:#6f6657;margin-top:6px">카드 · 금연 · 예약가능 &nbsp;|&nbsp; 太巻 · 殿様ちらし · 大トロ</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'Noto Serif JP',serif;font-size:17px;color:#c9a86a;font-weight:600">3.34</div>
+          <div style="font-size:10px;color:#6f6657;margin-top:2px">저장 3,156</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(201,168,106,.09)">
+        <div style="position:relative;flex:none"><img src="assets/p2.png" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;display:block"><span style="position:absolute;left:-8px;top:-8px;width:20px;height:20px;border-radius:50%;background:#3a332a;color:#c9a86a;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">2</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-family:'Noto Serif JP',serif;font-size:15.5px;font-weight:600;color:#ece4d6">寿司幸別館 いっきゅう</span>
+            <span style="font-size:11px;color:#a1957f">스시코 별관 잇큐</span>
+          </div>
+          <div style="font-size:11px;color:#c9a86a;margin-top:4px">스시 · 카미아와 초달인점(마스터즈드림)</div>
+          <div style="font-size:11.5px;color:#8a8071;margin-top:6px">긴자역 B3출구 도보 3분 · ¥10,000+ · 휴무 수요일</div>
+          <div style="font-size:10px;letter-spacing:.1em;color:#6f6657;margin-top:6px">카드 · 금연 · 예약가능 &nbsp;|&nbsp; おまかせ握り · バラちらし · 焼き魚</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'Noto Serif JP',serif;font-size:17px;color:#c9a86a;font-weight:600">3.62</div>
+          <div style="font-size:10px;color:#6f6657;margin-top:2px">저장 4,971</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(201,168,106,.09)">
+        <div style="position:relative;flex:none"><img src="assets/p3.png" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;display:block"><span style="position:absolute;left:-8px;top:-8px;width:20px;height:20px;border-radius:50%;background:#3a332a;color:#c9a86a;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">3</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-family:'Noto Serif JP',serif;font-size:15.5px;font-weight:600;color:#ece4d6">鳥の介 南口店</span>
+            <span style="font-size:11px;color:#a1957f">토리노스케 미나미구치점</span>
+          </div>
+          <div style="font-size:11px;color:#c9a86a;margin-top:4px">야키토리 · 카미아와 초달인점+정상점 하이볼</div>
+          <div style="font-size:11.5px;color:#8a8071;margin-top:6px">오기쿠보역 남쪽출구 도보 1분 · ¥3,000~¥5,000 · 휴무 화요일</div>
+          <div style="font-size:10px;letter-spacing:.1em;color:#6f6657;margin-top:6px">카드 · 금연 · 예약가능 &nbsp;|&nbsp; とりわさ · 白レバー · つくね</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'Noto Serif JP',serif;font-size:17px;color:#c9a86a;font-weight:600">3.27</div>
+          <div style="font-size:10px;color:#6f6657;margin-top:2px">저장 2,116</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(201,168,106,.09)">
+        <div style="position:relative;flex:none"><img src="assets/p4.png" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;display:block"><span style="position:absolute;left:-8px;top:-8px;width:20px;height:20px;border-radius:50%;background:#3a332a;color:#c9a86a;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">4</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-family:'Noto Serif JP',serif;font-size:15.5px;font-weight:600;color:#ece4d6">焼肉うしごろ 西麻布本店</span>
+            <span style="font-size:11px;color:#a1957f">우시고로 본점</span>
+          </div>
+          <div style="font-size:11px;color:#c9a86a;margin-top:4px">야키니쿠 · 초달인점(마스터즈드림) · 백명점 2025</div>
+          <div style="font-size:11.5px;color:#8a8071;margin-top:6px">노기자카역 5번 출구 도보 9분 · ¥10,000+</div>
+          <div style="font-size:10px;letter-spacing:.1em;color:#6f6657;margin-top:6px">카드 · 금연 · 예약가능 &nbsp;|&nbsp; 雲丹タルタル · すき焼き · 手巻き</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'Noto Serif JP',serif;font-size:17px;color:#c9a86a;font-weight:600">3.63</div>
+          <div style="font-size:10px;color:#6f6657;margin-top:2px">저장 73,675</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:16px;padding:18px 20px">
+        <div style="position:relative;flex:none"><img src="assets/p6.png" alt="" style="width:120px;height:90px;object-fit:cover;border-radius:8px;display:block"><span style="position:absolute;left:-8px;top:-8px;width:20px;height:20px;border-radius:50%;background:#3a332a;color:#c9a86a;font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center">5</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-family:'Noto Serif JP',serif;font-size:15.5px;font-weight:600;color:#ece4d6">九州じゃんがら 銀座店</span>
+            <span style="font-size:11px;color:#a1957f">큐슈쟝가라 긴자점</span>
+          </div>
+          <div style="font-size:11px;color:#c9a86a;margin-top:4px">라멘(돈코츠) · 초달인점(프리미엄몰츠)</div>
+          <div style="font-size:11.5px;color:#8a8071;margin-top:6px">긴자역 A4출구 도보 3분 · ¥2,000 미만</div>
+          <div style="font-size:10px;letter-spacing:.1em;color:#6f6657;margin-top:6px">카드 · 금연 · <span style="color:#b06a5a">예약불가</span> &nbsp;|&nbsp; とんこつ · ぼんしゃん · 高菜ご飯</div>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'Noto Serif JP',serif;font-size:17px;color:#c9a86a;font-weight:600">3.48</div>
+          <div style="font-size:10px;color:#6f6657;margin-top:2px">저장 15,528</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- map placeholder -->
+    <div style="position:relative;border:1px solid rgba(201,168,106,.12);border-radius:12px;overflow:hidden;background:#14110d;background-image:repeating-linear-gradient(0deg,rgba(201,168,106,.05) 0 1px,transparent 1px 56px),repeating-linear-gradient(90deg,rgba(201,168,106,.05) 0 1px,transparent 1px 56px);min-height:560px">
+      <div style="position:absolute;left:0;right:0;top:34%;height:26px;background:rgba(201,168,106,.06);transform:rotate(-7deg)"></div>
+      <div style="position:absolute;top:0;bottom:0;left:58%;width:20px;background:rgba(201,168,106,.05);transform:rotate(12deg)"></div>
+      <div style="position:absolute;left:22%;top:24%;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#c9a86a;display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);font-size:11px;font-weight:700;color:#161310">1</span></span></div>
+      <div style="position:absolute;left:64%;top:42%;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#3a332a;border:1px solid #c9a86a;display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);font-size:11px;font-weight:700;color:#c9a86a">2</span></span></div>
+      <div style="position:absolute;left:14%;top:62%;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#3a332a;border:1px solid #c9a86a;display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);font-size:11px;font-weight:700;color:#c9a86a">3</span></span></div>
+      <div style="position:absolute;left:44%;top:70%;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#3a332a;border:1px solid #c9a86a;display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);font-size:11px;font-weight:700;color:#c9a86a">4</span></span></div>
+      <div style="position:absolute;left:72%;top:18%;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:26px;height:26px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#3a332a;border:1px solid #c9a86a;display:flex;align-items:center;justify-content:center"><span style="transform:rotate(45deg);font-size:11px;font-weight:700;color:#c9a86a">5</span></span></div>
+      <!-- hover mini card -->
+      <div style="position:absolute;left:12%;top:31%;background:#221d16;border:1px solid rgba(201,168,106,.35);border-radius:10px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.5);width:210px">
+        <div style="font-family:'Noto Serif JP',serif;font-size:13.5px;font-weight:600;color:#ece4d6">初音鮨本店</div>
+        <div style="font-size:10.5px;color:#a1957f;margin-top:2px">스시 · <span style="color:#c9a86a">3.34</span> · ¥7,000~</div>
+      </div>
+      <div style="position:absolute;left:16px;bottom:14px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#6f6657">지도 영역 — 실서비스에서 Google Maps / Leaflet 다크 스타일 연동</div>
+      <div style="position:absolute;right:14px;top:14px;display:flex;flex-direction:column;gap:6px">
+        <span style="width:28px;height:28px;border:1px solid rgba(201,168,106,.25);border-radius:6px;background:#1e1a15;color:#a1957f;display:flex;align-items:center;justify-content:center;font-size:14px">＋</span>
+        <span style="width:28px;height:28px;border:1px solid rgba(201,168,106,.25);border-radius:6px;background:#1e1a15;color:#a1957f;display:flex;align-items:center;justify-content:center;font-size:14px">−</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- ══════════════ 1d : 모바일 ══════════════ -->
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>모바일(390px) — <a class="dv-oid" href="#1a">1a</a> 카드의 1열 접힘 + 가로 스크롤 필터</div>
+<div class="dv-card" style="width:390px;background:#161310">
+<div style="padding:22px 18px 30px">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:9px;letter-spacing:.2em;color:#c9a86a;margin-bottom:6px">神泡達人店 · 350</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:21px;font-weight:600;color:#ece4d6">일본 맛집 가이드</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <span style="width:34px;height:34px;border:1px solid rgba(201,168,106,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#a1957f;font-size:13px">⌕</span>
+      <span style="width:34px;height:34px;border:1px solid rgba(201,168,106,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#a1957f;font-size:12px">☾</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:16px;overflow:hidden">
+    <span style="flex:none;font-size:11.5px;color:#161310;background:#c9a86a;border-radius:99px;padding:6px 13px;font-weight:600">전체</span>
+    <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">도쿄</span>
+    <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">교토</span>
+    <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">오사카</span>
+    <span style="flex:none;font-size:11.5px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:6px 13px">후쿠오카</span>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:8px;overflow:hidden">
+    <span style="flex:none;font-size:11px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 12px">장르 ▾</span>
+    <span style="flex:none;font-size:11px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 12px">산토리 등급 ▾</span>
+    <span style="flex:none;font-size:11px;color:#a1957f;border:1px solid rgba(201,168,106,.2);border-radius:99px;padding:5px 12px">다베로그 ▾</span>
+    <span style="flex:none;font-size:11px;color:#c9a86a;border:1px solid rgba(201,168,106,.45);border-radius:99px;padding:5px 12px">🇰🇷</span>
+  </div>
+
+  <div style="margin-top:22px;background:#1e1a15;border:1px solid rgba(201,168,106,.1);border-radius:12px;overflow:hidden">
+    <div style="position:relative;height:190px">
+      <img src="assets/p2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;inset:auto 0 0 0;height:70px;background:linear-gradient(transparent,rgba(14,12,9,.75))"></div>
+      <div style="position:absolute;left:16px;bottom:12px;font-size:9.5px;letter-spacing:.2em;color:rgba(255,255,255,.85)">스시 · 해산물</div>
+    </div>
+    <div style="padding:18px 18px 16px">
+      <div style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:#ece4d6">寿司幸別館 いっきゅう</div>
+      <div style="font-size:11.5px;color:#a1957f;margin-top:3px">스시코 별관 잇큐 · 스시</div>
+      <div style="display:flex;align-items:baseline;gap:9px;margin-top:12px">
+        <span style="font-family:'Noto Serif JP',serif;font-size:18px;color:#c9a86a;font-weight:600">3.62</span>
+        <span style="font-size:10.5px;color:#6f6657">리뷰 36 · 저장 4,971</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:7px;margin-top:8px">
+        <span style="width:5px;height:5px;border-radius:50%;background:#c9a86a"></span>
+        <span style="font-size:11px;color:#c9a86a">카미아와 초달인점 · 마스터즈드림</span>
+      </div>
+      <div style="height:1px;background:rgba(201,168,106,.12);margin:14px 0 12px"></div>
+      <div style="display:grid;grid-template-columns:36px 1fr;row-gap:6px;font-size:11.5px;line-height:1.55">
+        <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">주소</span><span style="color:#c7bda9">東京都中央区銀座6丁目8-7 4F</span>
+        <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">교통</span><span style="color:#c7bda9">긴자역 B3출구 도보 3분</span>
+        <span style="color:#6f6657;font-size:10px;letter-spacing:.1em">예산</span><span style="color:#c7bda9">¥10,000+ · 휴무 수요일</span>
+      </div>
+      <div style="background:#241f18;border-radius:8px;padding:11px 13px;margin-top:13px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:9px;letter-spacing:.2em;color:#6f6657">대표 메뉴</div>
+        <div><span style="font-size:12px;color:#ece4d6">おまかせ握り</span><span style="font-size:10.5px;color:#8a8071"> — 오마카세 니기리</span></div>
+        <div><span style="font-size:12px;color:#ece4d6">とびきりバラちらし</span><span style="font-size:10.5px;color:#8a8071"> — 특선 바라치라시</span></div>
+        <div><span style="font-size:12px;color:#ece4d6">焼き魚</span><span style="font-size:10.5px;color:#8a8071"> — 생선구이</span></div>
+      </div>
+      <div style="margin-top:14px;font-size:10px;letter-spacing:.12em;color:#8a8071">카드가능 &nbsp;·&nbsp; 전면금연 &nbsp;·&nbsp; 예약 가능</div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">다음 시도: "<a class="dv-oid" href="#1a">1a</a>를 기본으로 전체 인터랙티브 프로토타입으로" · "<a class="dv-oid" href="#1b">1b</a>의 피처 카드를 도시 섹션 첫 매장에만" · "포인트 컬러를 더 차분하게/더 화려하게"</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sel: null };
+  renderVals() {
+    const data = [
+      { photo:'assets/p1.png', jp:'初音鮨本店', kr:'하츠네즈시 본점 · 스시', genre:'스시·해산물', score:'3.34', stat:'리뷰 59 · 저장 3,156', badge:'카미아와 초달인점 · 프리미엄몰츠', addr:'東京都台東区台東2丁目15-2', transit:'신오카치마치역 A2출구 도보 6분', budget:'¥7,000~¥10,000', closed:'일요일', amen:'카드가능  ·  전면금연  ·  예약 가능', menus:[{jp:'太巻(七色福巻き)',kr:'후토마키'},{jp:'特上ちらし「殿様ちらし」',kr:'특상 치라시'},{jp:'天然本まぐろ大トロ',kr:'혼마구로 오토로'}] },
+      { photo:'assets/p2.png', jp:'寿司幸別館 いっきゅう', kr:'스시코 별관 잇큐 · 스시', genre:'스시·해산물', score:'3.62', stat:'리뷰 36 · 저장 4,971', badge:'카미아와 초달인점 · 마스터즈드림', addr:'東京都中央区銀座6丁目8-7 交詢ビル4F', transit:'긴자역 B3출구 도보 3분', budget:'¥10,000+', closed:'수요일', amen:'카드가능  ·  전면금연  ·  예약 가능', menus:[{jp:'おまかせ握り',kr:'오마카세 니기리'},{jp:'とびきりバラちらし',kr:'바라치라시'},{jp:'焼き魚',kr:'생선구이'}] },
+      { photo:'assets/p3.png', jp:'鳥の介 南口店', kr:'토리노스케 미나미구치점 · 야키토리', genre:'고기구이', score:'3.27', stat:'리뷰 75 · 저장 2,116', badge:'카미아와 초달인점 · 정상점 하이볼', addr:'東京都杉並区荻窪5-29-7 荻窪1番館2F', transit:'JR 오기쿠보역 남쪽출구 도보 1분', budget:'¥3,000~¥5,000', closed:'화요일', amen:'카드가능  ·  전면금연  ·  예약 가능', menus:[{jp:'とりわさ',kr:'토리와사'},{jp:'白レバーのパテ',kr:'시로레바 파테'},{jp:'つくね',kr:'츠쿠네'}] },
+      { photo:'assets/p4.png', jp:'焼肉うしごろ 西麻布本店', kr:'우시고로 니시아자부 본점 · 야키니쿠', genre:'고기구이', score:'3.63', stat:'리뷰 1,339 · 저장 73,675', badge:'카미아와 초달인점 · 마스터즈드림', addr:'東京都港区西麻布2-24-14 Barbizon73 1F', transit:'노기자카역 5번 출구 도보 9분', budget:'¥10,000+', closed:'확인불가', amen:'카드가능  ·  전면금연  ·  예약 가능', menus:[{jp:'生雲丹と和牛のタルタル',kr:'성게알·와규 타르타르'},{jp:'サーロインのすき焼き',kr:'트러플 스키야키'},{jp:'和牛とアオリイカの手巻き',kr:'와규 데마키'}] },
+      { photo:'assets/p5.png', jp:'まんぷく 代々木上原店', kr:'만푸쿠 요요기우에하라점 · 야키니쿠', genre:'고기구이', score:'3.34', stat:'리뷰 226 · 저장 17,857', badge:'카미아와 초달인점 · 가오루에일', addr:'東京都渋谷区西原3-1-4 バインズ代々木上原101', transit:'요요기우에하라역 도보 2분', budget:'¥3,000~¥5,000', closed:'확인불가', amen:'카드가능  ·  전면금연  ·  예약 가능', menus:[{jp:'ねぎタン塩',kr:'파 소금 우설'},{jp:'ザブトンの炙り焼き',kr:'자부톤 아부리야키'},{jp:'黒毛和牛サーロインの炙り焼き',kr:'와규 서로인 아부리'}] },
+      { photo:'assets/p6.png', jp:'九州じゃんがら 銀座店', kr:'큐슈쟝가라 긴자점 · 라멘', genre:'면류', score:'3.48', stat:'리뷰 642 · 저장 15,528', badge:'카미아와 초달인점 · 프리미엄몰츠', addr:'東京都中央区銀座6丁目12-17 銀座片桐ビル1F', transit:'긴자역 A4출구 도보 3분', budget:'¥2,000 미만', closed:'연중무휴', amen:'카드가능  ·  전면금연  ·  예약 불가', menus:[{jp:'とんこつラーメン',kr:'돈코츠라멘'},{jp:'ぼんしゃん',kr:'본샹'},{jp:'高菜ご飯',kr:'다카나 밥'}] },
+    ];
+    const restos = data.map((d, i) => ({ ...d, open: () => this.setState({ sel: i }) }));
+    const isDetail = this.state.sel !== null;
+    return {
+      restos,
+      sel: isDetail ? data[this.state.sel] : data[0],
+      back: () => this.setState({ sel: null }),
+      mListDisplay: isDetail ? 'none' : 'block',
+      mDetailDisplay: isDetail ? 'block' : 'none',
+    };
+  }
+}
+</script>
+</body>
+</html>
