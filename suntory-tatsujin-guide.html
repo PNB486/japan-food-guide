@@ -752,11 +752,72 @@
   body.splash-active {
     overflow: hidden;
   }
+
+  /* 사진 마킹모드 — 교체할 사진 있는 가게 표시용 임시 도구 */
+  .photo-flag {
+    display: none;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 5;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,.55);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+  body.flag-mode .photo-flag {
+    display: flex;
+  }
+  body.flag-mode .card.flagged .thumb {
+    outline: 3px solid #e0393c;
+    outline-offset: -3px;
+  }
+  .photo-flag.on {
+    background: #e0393c;
+  }
+  #flagExportBar {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.3);
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+  body.flag-mode #flagExportBar {
+    display: flex;
+  }
+  #flagExportBar button {
+    background: #e0393c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+  }
 </style>
 </head>
 <body class="splash-active">
 <div class="splash-screen" id="splashScreen">
   <video id="splashVideo" src="anime/Masters Dream Intro_ver2.mp4" autoplay muted playsinline></video>
+</div>
+<div id="flagExportBar">
+  <span id="flagCount">0개 표시됨</span>
+  <button id="flagExportBtn" type="button">목록 복사</button>
+  <button id="flagClearBtn" type="button">전체 해제</button>
 </div>
 <div class="wrap">
   <header class="masthead">
@@ -768,6 +829,7 @@
       <div class="masthead-tools">
         <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
         <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
+        <button class="theme-toggle" id="flagModeToggle" type="button">🚩 사진 마킹</button>
       </div>
     </div>
     <p class="sub">일본 5도시 350곳 — 산토리 인증, 타베로그 3.0+ 고평점, 국내 네이버·SNS에서 조사한 한국인 픽까지 한번에. 8개 카테고리로 정리했습니다(뷔페·파스타류 제외).</p>
@@ -1693,10 +1755,14 @@ function card(item) {
   const reviewN = parseReviewValue(item.tabelog);
   const foot = practicalText(item);
 
+  const flagged = getPhotoFlags()[item.name] ? ' flagged' : '';
+  const flagOn = getPhotoFlags()[item.name] ? ' on' : '';
+
   return `
-  <article class="card" data-city="${item.city}" data-bucket="${deriveBucket(item)}" data-search="${(item.name + ' ' + (item.nameKr||'') + ' ' + item.genre).toLowerCase()}">
+  <article class="card${flagged}" data-city="${item.city}" data-bucket="${deriveBucket(item)}" data-search="${(item.name + ' ' + (item.nameKr||'') + ' ' + item.genre).toLowerCase()}" data-photo-name="${item.name}" data-tabelog-url="${item.tabelogUrl || ''}">
     <div class="thumb">
       ${photoBlock}
+      <button class="photo-flag${flagOn}" type="button" title="사진 별로 — 교체 필요 표시">🚩</button>
       <span class="bucket-tag">${deriveBucket(item)}</span>
       <span class="thumb-score">${scoreOnly(item.tabelog)}</span>
       ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
@@ -1984,6 +2050,71 @@ function initTileToggle() {
   });
 }
 
+// 사진 마킹모드 — 교체할 사진 있는 가게 표시 후 목록 복사(임시 작업도구, localStorage 저장)
+const FLAG_KEY = 'photoFlags-v1';
+function getPhotoFlags() {
+  try { return JSON.parse(localStorage.getItem(FLAG_KEY) || '{}'); }
+  catch { return {}; }
+}
+function setPhotoFlags(flags) {
+  localStorage.setItem(FLAG_KEY, JSON.stringify(flags));
+}
+function updateFlagCount() {
+  const n = Object.keys(getPhotoFlags()).length;
+  document.getElementById('flagCount').textContent = `${n}개 표시됨`;
+}
+function initFlagMode() {
+  const toggleBtn = document.getElementById('flagModeToggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('flag-mode');
+    updateFlagCount();
+  });
+
+  document.getElementById('results').addEventListener('click', e => {
+    const flagBtn = e.target.closest('.photo-flag');
+    if (!flagBtn) return;
+    if (!document.body.classList.contains('flag-mode')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const article = flagBtn.closest('.card');
+    const name = article.dataset.photoName;
+    const url = article.dataset.tabelogUrl;
+    const flags = getPhotoFlags();
+    if (flags[name]) {
+      delete flags[name];
+      article.classList.remove('flagged');
+      flagBtn.classList.remove('on');
+    } else {
+      flags[name] = url;
+      article.classList.add('flagged');
+      flagBtn.classList.add('on');
+    }
+    setPhotoFlags(flags);
+    updateFlagCount();
+  });
+
+  document.getElementById('flagExportBtn').addEventListener('click', () => {
+    const flags = getPhotoFlags();
+    const lines = Object.entries(flags).map(([name, url]) => `${name} | ${url || '(타베로그 링크 없음)'}`);
+    const text = lines.length ? lines.join('\n') : '(표시된 항목 없음)';
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`${lines.length}개 목록이 클립보드에 복사됐습니다. 채팅에 붙여넣어주세요.`);
+    }).catch(() => {
+      prompt('복사 실패 — 아래 텍스트를 직접 복사하세요:', text);
+    });
+  });
+
+  document.getElementById('flagClearBtn').addEventListener('click', () => {
+    if (!confirm('표시된 항목을 전부 해제할까요?')) return;
+    setPhotoFlags({});
+    document.querySelectorAll('.card.flagged').forEach(c => c.classList.remove('flagged'));
+    document.querySelectorAll('.photo-flag.on').forEach(b => b.classList.remove('on'));
+    updateFlagCount();
+  });
+
+  updateFlagCount();
+}
+
 // 스플래시 영상: 재생 끝나면 자동 페이드아웃. 자동재생 막히거나 로드 실패해도
 // 8.5초 후 강제로 넘어가게 안전장치.
 function initSplash() {
@@ -2008,6 +2139,7 @@ initTheme();
 initManners();
 initTileToggle();
 initSplash();
+initFlagMode();
 </script>
 </body>
 </html>
