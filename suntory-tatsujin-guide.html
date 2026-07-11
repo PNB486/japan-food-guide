@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>위대한 AI님의 일본 맛집 가이드 — 일본 5도시 350곳</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #090806;
@@ -601,6 +603,85 @@
   @media (prefers-reduced-motion: reduce) {
     .card { transition: none; }
   }
+
+  /* ===== 2a: 도시별 대표 매거진 카드 ===== */
+  .mag-card {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 26px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    box-shadow: var(--shadow);
+  }
+  .mag-photo { position: relative; min-height: 400px; }
+  .mag-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .mag-photo .mag-gradient {
+    position: absolute; inset: auto 0 0 0; height: 120px;
+    background: linear-gradient(transparent, rgba(14,12,9,.6));
+  }
+  .mag-photo .mag-tag {
+    position: absolute; left: 20px; top: 18px;
+    font-size: 10px; letter-spacing: .22em; color: rgba(255,255,255,.9);
+    background: rgba(14,12,9,.55); padding: 6px 12px; border-radius: 99px;
+    backdrop-filter: blur(4px);
+  }
+  .mag-photo .masters-badge { top: 18px; right: 20px; }
+  .mag-score {
+    position: absolute; left: 20px; bottom: 16px;
+    display: flex; align-items: baseline; gap: 8px;
+    text-decoration: none; cursor: pointer;
+  }
+  .mag-score .num { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 34px; font-weight: 600; color: var(--accent); }
+  .mag-score .stat { font-size: 11px; color: rgba(255,255,255,.75); }
+  .mag-body { padding: 32px 34px; display: flex; flex-direction: column; }
+  .mag-name { font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 26px; font-weight: 600; line-height: 1.35; margin: 0; color: var(--text); }
+  .mag-name a { color: inherit; text-decoration: none; }
+  .mag-name-kr { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; }
+  .mag-tier { display: flex; align-items: center; gap: 7px; margin-top: 14px; font-size: 12px; color: var(--accent); }
+  .mag-tier .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .mag-hr { height: 1px; background: var(--line); margin: 20px 0 16px; }
+  .mag-info { display: grid; grid-template-columns: 40px 1fr; row-gap: 8px; font-size: 12.5px; line-height: 1.55; }
+  .mag-info .k { color: var(--text-faint); font-size: 10.5px; letter-spacing: .1em; padding-top: 1px; }
+  .mag-info .v { color: var(--text-dim); }
+  .mag-menu-label { font-size: 9.5px; letter-spacing: .2em; color: var(--text-faint); margin-top: 18px; }
+  .mag-menu { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .mag-menu .jp { font-size: 13px; color: var(--text); }
+  .mag-menu .kr { font-size: 11px; color: #8a8071; }
+  .mag-foot { margin-top: auto; padding-top: 18px; }
+  @media (max-width: 820px) {
+    .mag-card { grid-template-columns: 1fr; }
+    .mag-photo { min-height: 240px; }
+  }
+
+  /* ===== 2b: 모바일 사진 타일 → 탭 상세 ===== */
+  .thumb-score { display: none; }
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid .card { border-radius: 10px; cursor: pointer; }
+    .grid .card .thumb { height: 118px; transition: height .18s ease; }
+    .grid .card .bucket-tag { left: 9px; top: 8px; font-size: 8.5px; letter-spacing: .14em; padding: 3px 7px; }
+    .grid .card .thumb-score {
+      display: block; position: absolute; right: 9px; bottom: 8px;
+      font-family: 'Zen Kaku Gothic New', sans-serif; font-size: 14px; font-weight: 600; color: var(--accent);
+    }
+    .grid .card .body { padding: 10px 11px 12px; }
+    .grid .card .name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .grid .card .name-kr { font-size: 10px; color: #8a8071; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .grid .card:not(.is-open) .genre,
+    .grid .card:not(.is-open) .meta,
+    .grid .card:not(.is-open) .menu,
+    .grid .card:not(.is-open) .badges,
+    .grid .card:not(.is-open) .practical-row { display: none; }
+    .grid .card.is-open { grid-column: 1 / -1; cursor: default; }
+    .grid .card.is-open .thumb { height: 200px; }
+    .grid .card.is-open .name,
+    .grid .card.is-open .name-kr { white-space: normal; overflow: visible; text-overflow: unset; }
+  }
+  @media (max-width: 620px) and (prefers-reduced-motion: reduce) {
+    .grid .card .thumb { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -1149,6 +1230,10 @@ function parseScoreValue(t) {
   const m = t.match(/([0-9]\.[0-9]+)/);
   return m ? parseFloat(m[1]) : null;
 }
+function scoreOnly(t) {
+  const m = t.match(/([0-9]\.[0-9]+)/);
+  return m ? m[1] : '';
+}
 function parseReviewValue(t) {
   const m = t.match(/\/\s*([0-9]+)/);
   return m ? parseInt(m[1], 10) : null;
@@ -1553,6 +1638,7 @@ function card(item) {
     <div class="thumb">
       ${photoBlock}
       <span class="bucket-tag">${deriveBucket(item)}</span>
+      <span class="thumb-score">${scoreOnly(item.tabelog)}</span>
       ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
     </div>
     <div class="body">
@@ -1580,6 +1666,49 @@ function card(item) {
         ${item.menu.map(([jp, kr]) => `<li>${jp}${kr && kr !== jp ? `<span class="kr">${kr}</span>` : ''}</li>`).join('')}
       </ul>
       ${practicalRow(item)}
+    </div>
+  </article>`;
+}
+
+// 도시 섹션 첫 매장(=현재 필터/정렬 결과의 1번째)을 대형 매거진 카드로 렌더.
+// card()가 쓰는 헬퍼를 그대로 재사용하고, 마크업/CSS(.mag-*)만 별도.
+function magazineCard(item) {
+  const photoBlock = item.photo
+    ? `<img src="${item.photo}" alt="${item.name}" loading="lazy" onerror="this.closest('.mag-photo').innerHTML='<div class=noimg><svg width=28 height=28 viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><rect x=3 y=5 width=18 height=14 rx=2/><circle cx=9 cy=11 r=2/><path d=\\'M21 15l-5-5-9 9\\'/></svg><span>사진 없음</span></div>'"/>`
+    : `<div class="noimg"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 15l-5-5-9 9"/></svg><span>사진 없음</span></div>`;
+
+  const stat = [
+    parseReviewValue(item.tabelog) !== null ? `리뷰 ${parseReviewValue(item.tabelog).toLocaleString()}` : '',
+    item.saves ? `저장 ${item.saves.toLocaleString()}` : '',
+  ].filter(Boolean).join(' · ');
+
+  return `
+  <article class="mag-card" data-city="${item.city}" data-bucket="${deriveBucket(item)}" data-search="${(item.name + ' ' + (item.nameKr||'') + ' ' + item.genre).toLowerCase()}">
+    <div class="mag-photo">
+      ${photoBlock}
+      <div class="mag-gradient"></div>
+      <span class="mag-tag">${item.city} 대표 · ${deriveBucket(item)}</span>
+      ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
+      <a class="mag-score" href="${tabelogSearchUrl(item)}" target="_blank" rel="noopener" title="${item.tabelogUrl ? '타베로그 페이지로 이동' : '타베로그에서 찾아보기'}">
+        <span class="num">${scoreOnly(item.tabelog)}</span>
+        ${stat ? `<span class="stat">${stat}</span>` : ''}
+      </a>
+    </div>
+    <div class="mag-body">
+      <p class="mag-name">${item.website ? `<a href="${item.website}" target="_blank" rel="noopener" title="공식 홈페이지">${item.name}</a>` : item.name} ${michelinBadge(item.michelin)}</p>
+      ${item.nameKr ? `<p class="mag-name-kr">${item.nameKr}</p>` : ''}
+      ${item.tier && item.tier !== '없음' ? `<div class="mag-tier"><span class="dot"></span>${translateTier(item.tier)}</div>` : ''}
+      <div class="mag-hr"></div>
+      <div class="mag-info">
+        <span class="k">주소</span><span class="v"><a class="access-link" href="${mapUrl(item)}" target="_blank" rel="noopener" title="구글맵에서 보기">${item.address}</a></span>
+        <span class="k">교통</span><span class="v"><a class="access-link" href="${mapUrl(item)}" target="_blank" rel="noopener" title="구글맵에서 보기">${translateAccess(item.access)}</a></span>
+        <span class="k">예산</span><span class="v">${formatBudget(item.budget)}</span>
+      </div>
+      <div class="mag-menu-label">대표 메뉴</div>
+      <div class="mag-menu">
+        ${item.menu.slice(0, 3).map(([jp, kr]) => `<div><span class="jp">${jp}</span>${kr && kr !== jp ? `<span class="kr"> — ${kr}</span>` : ''}</div>`).join('')}
+      </div>
+      <div class="mag-foot">${practicalRow(item)}</div>
     </div>
   </article>`;
 }
@@ -1626,7 +1755,8 @@ function render() {
         <div class="rule"></div>
         <span class="n">${items.length}곳</span>
       </div>
-      <div class="grid">${items.map(card).join('')}</div>
+      <div class="city-lead">${magazineCard(items[0])}</div>
+      <div class="grid">${items.slice(1).map(card).join('')}</div>
     </section>`;
   });
 
@@ -1776,10 +1906,23 @@ function initManners() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 }
 
+// 모바일(≤620px) 사진 타일 → 탭하면 상세 펼침. render()가 다시 그려도
+// 리스너는 #results(부모)에 위임돼있어 재바인딩 불필요. 데이터/필터와 무관.
+function initTileToggle() {
+  document.getElementById('results').addEventListener('click', e => {
+    if (window.innerWidth > 620) return;
+    const card = e.target.closest('.grid .card');
+    if (!card) return;
+    if (e.target.closest('a')) return;
+    card.classList.toggle('is-open');
+  });
+}
+
 buildChips();
 render();
 initTheme();
 initManners();
+initTileToggle();
 </script>
 </body>
 </html>
