@@ -102,13 +102,13 @@
   }
   .video-hero .hero-overlay {
     position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(9,8,6,.30) 0%, rgba(9,8,6,.10) 30%, rgba(9,8,6,.78) 100%);
+    background: linear-gradient(180deg, rgba(9,8,6,.28) 0%, rgba(9,8,6,.05) 34%, rgba(9,8,6,.52) 66%, rgba(9,8,6,.72) 100%);
   }
   .video-hero .hero-content {
     position: absolute; inset: 0;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: flex-end;
-    text-align: center; padding: 0 24px 46px; gap: 14px;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 17vh 24px 0; gap: 14px;
   }
   .hero-eyebrow {
     margin: 0;
@@ -2596,6 +2596,8 @@ function initSplash() {
   };
   video.addEventListener('ended', hide);
   video.addEventListener('error', hide);
+  splash.addEventListener('click', hide);       // 클릭하면 바로 넘어감
+  splash.style.cursor = 'pointer';
   video.src = SPLASH_VIDEOS[Math.floor(Math.random() * SPLASH_VIDEOS.length)];
   video.play().catch(() => {});
   setTimeout(hide, 8500);
