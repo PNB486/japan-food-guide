@@ -134,11 +134,11 @@
   .hero-scroll {
     margin: 18px 0 0;
     font-family: ui-monospace, monospace;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 11px;
     letter-spacing: .2em;
     color: #c6b99e;
-    opacity: .8;
+    opacity: .45;
   }
 
   .suntory-story {
@@ -1108,7 +1108,7 @@
   <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
 </div>
 <section class="video-hero">
-  <video autoplay muted loop playsinline>
+  <video id="heroVideo" muted loop playsinline>
     <source src="anime/hero_kenburns_9x16.mp4" media="(max-width: 620px)">
     <source src="anime/hero_kenburns_16x9.mp4">
   </video>
@@ -1117,7 +1117,7 @@
     <p class="hero-eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
     <h1 class="hero-title">위대한 AI님의 일본 맛집 가이드</h1>
     <div class="hero-rule"></div>
-    <p class="hero-scroll">SCROLL ↓</p>
+    <p class="hero-scroll">Featured by Soul</p>
   </div>
 </section>
 <section class="suntory-story">
@@ -2586,10 +2586,13 @@ const SPLASH_VIDEOS = ['anime/Masters Dream Intro_ver3.mp4', 'anime/Masters Drea
 function initSplash() {
   const splash = document.getElementById('splashScreen');
   const video = document.getElementById('splashVideo');
+  const hero = document.getElementById('heroVideo');
   let done = false;
   const hide = () => {
     if (done) return;
     done = true;
+    // 스플래시 종료 시점에 히어로 영상을 처음부터 재생 시작
+    if (hero) { try { hero.currentTime = 0; } catch (e) {} hero.play().catch(() => {}); }
     splash.classList.add('splash-hide');
     document.body.classList.remove('splash-active');
     setTimeout(() => splash.remove(), 700);
@@ -2600,7 +2603,7 @@ function initSplash() {
   splash.style.cursor = 'pointer';
   video.src = SPLASH_VIDEOS[Math.floor(Math.random() * SPLASH_VIDEOS.length)];
   video.play().catch(() => {});
-  setTimeout(hide, 8500);
+  setTimeout(hide, 6000);                        // 스플래시 최대 6초
 }
 
 function pickCity(city) {
