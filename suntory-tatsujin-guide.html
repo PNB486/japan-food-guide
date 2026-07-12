@@ -145,10 +145,14 @@
     position: relative;
     background: #0e0c09;
     border-top: 1px solid rgba(220,185,130,.14);
+    padding: 48px 24px;
+  }
+  .suntory-story .story-inner {
+    max-width: 1180px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: minmax(280px, 420px) 1fr;
     gap: 48px;
-    padding: 48px 24px;
     align-items: center;
   }
   .suntory-story .story-eyebrow {
@@ -195,10 +199,14 @@
     background: var(--bg);
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
+    padding: 44px 24px 40px;
+  }
+  .map-band .map-inner {
+    max-width: 1180px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: minmax(280px, 440px) 1fr;
     gap: 48px;
-    padding: 44px 24px 40px;
     align-items: center;
   }
   .map-band .map-eyebrow {
@@ -245,8 +253,10 @@
 
   @media (max-width: 620px) {
     .video-hero { height: 55vh; min-height: 360px; }
-    .suntory-story { grid-template-columns: 1fr; padding: 36px 20px; gap: 24px; }
-    .map-band { grid-template-columns: 1fr; padding: 32px 20px 30px; gap: 24px; }
+    .suntory-story { padding: 36px 20px; }
+    .suntory-story .story-inner { grid-template-columns: 1fr; gap: 24px; }
+    .map-band { padding: 32px 20px 30px; }
+    .map-band .map-inner { grid-template-columns: 1fr; gap: 24px; }
     .map-city-row .name-jp .ko { font-size: 18px; }
   }
 
@@ -439,6 +449,26 @@
   }
   .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
   .theme-toggle:active { transform: scale(.94); }
+
+  /* 화면 우상단 고정 툴 (식사예절 · 다크모드) */
+  .floating-tools {
+    position: fixed;
+    top: 14px;
+    right: 16px;
+    z-index: 30;
+    display: flex;
+    gap: 8px;
+  }
+  .floating-tools .theme-toggle {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px -6px rgba(0,0,0,.5);
+  }
+  @media (max-width: 620px) {
+    .floating-tools { top: 10px; right: 10px; gap: 6px; }
+    .floating-tools .theme-toggle { padding: 7px 11px; font-size: 11.5px; }
+  }
 
   .controls {
     position: sticky;
@@ -1073,6 +1103,10 @@
     <div class="photo-modal-dots"></div>
   </div>
 </div>
+<div class="floating-tools">
+  <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
+  <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
+</div>
 <section class="video-hero">
   <video autoplay muted loop playsinline>
     <source src="anime/japan5_bg_vertical_9x16.mp4" media="(max-width: 620px)">
@@ -1087,6 +1121,7 @@
   </div>
 </section>
 <section class="suntory-story">
+  <div class="story-inner">
   <div>
     <p class="story-eyebrow">神泡 — KAMIAWA</p>
     <h2>산토리 인증이란?</h2>
@@ -1104,8 +1139,10 @@
     <div class="story-video-overlay"></div>
     <p class="story-video-label">マスターズドリーム</p>
   </div>
+  </div>
 </section>
 <section class="map-band">
+  <div class="map-inner">
   <div>
     <p class="map-eyebrow">MAP NAVI</p>
     <h2>5개 도시, 350곳</h2>
@@ -1177,13 +1214,12 @@
       </g>
     </svg>
   </div>
+  </div>
 </section>
 <div class="wrap">
   <header class="masthead">
     <div class="masthead-row">
       <div class="masthead-tools">
-        <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
-        <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
         <button class="theme-toggle" id="flagModeToggle" type="button">🚩 사진 마킹</button>
       </div>
     </div>
