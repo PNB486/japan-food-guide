@@ -75,7 +75,7 @@
   .masthead-row {
     display: flex;
     align-items: flex-end;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 24px;
     flex-wrap: wrap;
     margin-bottom: 20px;
@@ -85,6 +85,173 @@
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+  }
+
+  /* ===== 영상 히어로 + 산토리 인증 스토리 + 지도 밴드 ===== */
+  .video-hero {
+    position: relative;
+    height: 62vh;
+    min-height: 420px;
+    max-height: 640px;
+    overflow: hidden;
+  }
+  .video-hero video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .video-hero .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(9,8,6,.62) 0%, rgba(9,8,6,.30) 42%, rgba(9,8,6,.60) 100%);
+  }
+  .video-hero .hero-content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 0 24px; gap: 16px;
+  }
+  .hero-eyebrow {
+    margin: 0;
+    font-family: 'Zen Kaku Gothic New', 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #f5c069;
+    text-shadow: 0 1px 12px rgba(0,0,0,.6);
+  }
+  .hero-title {
+    margin: 0;
+    font-family: 'Zen Kaku Gothic New', 'Noto Sans KR', 'Hiragino Kaku Gothic ProN', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 5vw, 52px);
+    line-height: 1.25;
+    color: #ece2d0;
+    text-shadow: 0 2px 24px rgba(0,0,0,.7);
+    text-wrap: balance;
+  }
+  .hero-rule { width: 56px; height: 2px; background: #e0a445; margin-top: 6px; }
+  .hero-scroll {
+    margin: 18px 0 0;
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: #c6b99e;
+    opacity: .8;
+  }
+
+  .suntory-story {
+    position: relative;
+    background: #0e0c09;
+    border-top: 1px solid rgba(220,185,130,.14);
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) 1fr;
+    gap: 48px;
+    padding: 48px 24px;
+    align-items: center;
+  }
+  .suntory-story .story-eyebrow {
+    margin: 0; font-family: ui-monospace, monospace; font-weight: 600;
+    font-size: 12px; letter-spacing: .18em; color: #e0a445;
+  }
+  .suntory-story h2 {
+    margin: 8px 0 0;
+    font-family: 'Zen Kaku Gothic New', 'Noto Sans KR', sans-serif;
+    font-weight: 700; font-size: clamp(22px, 3vw, 32px); line-height: 1.3;
+    color: #ece2d0;
+  }
+  .suntory-story .story-desc {
+    margin: 12px 0 0; font-size: 14.5px; line-height: 1.75; color: #c6b99e;
+  }
+  .suntory-story .story-tiers {
+    display: flex; flex-direction: column; gap: 8px; margin-top: 14px;
+    font-size: 13.5px; color: #c6b99e;
+    border-top: 1px solid rgba(220,185,130,.12); padding-top: 14px;
+  }
+  .suntory-story .story-tiers div { display: flex; gap: 12px; }
+  .suntory-story .story-tiers span:first-child {
+    color: #f5c069; font-weight: 700; flex: none; width: 96px;
+  }
+  .story-video-wrap {
+    position: relative; border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(224,164,69,.28);
+    box-shadow: 0 20px 50px -24px rgba(0,0,0,.9);
+    aspect-ratio: 16/9;
+  }
+  .story-video-wrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .story-video-wrap .story-video-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(9,8,6,0) 70%, rgba(9,8,6,.5) 100%);
+  }
+  .story-video-wrap .story-video-label {
+    position: absolute; left: 16px; bottom: 12px; margin: 0;
+    font-family: ui-monospace, monospace; font-weight: 600;
+    font-size: 11px; letter-spacing: .14em; color: #f5c069;
+  }
+
+  .map-band {
+    position: relative;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: minmax(280px, 440px) 1fr;
+    gap: 48px;
+    padding: 44px 24px 40px;
+    align-items: center;
+  }
+  .map-band .map-eyebrow {
+    margin: 0 0 4px; font-family: ui-monospace, monospace; font-weight: 600;
+    font-size: 12px; letter-spacing: .18em; color: var(--accent);
+  }
+  .map-band h2 {
+    margin: 0 0 18px; font-family: 'Zen Kaku Gothic New', 'Noto Sans KR', sans-serif;
+    font-weight: 700; font-size: clamp(22px, 3vw, 30px); line-height: 1.3; color: var(--text);
+  }
+  .map-city-row {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding: 15px 6px; border-top: 1px solid var(--line);
+    cursor: pointer; transition: background .18s, padding-left .18s;
+  }
+  .map-city-row:last-child { border-bottom: 1px solid var(--line); }
+  .map-city-row:hover { background: color-mix(in srgb, var(--accent) 7%, transparent); padding-left: 14px; }
+  .map-city-row .name-jp { display: flex; align-items: baseline; gap: 10px; }
+  .map-city-row .name-jp .ko { font-family: 'Zen Kaku Gothic New', 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 21px; color: var(--text); }
+  .map-city-row .name-jp .jp { font-size: 11.5px; color: var(--text-faint); }
+  .map-city-row .count-arrow { display: flex; align-items: baseline; gap: 12px; }
+  .map-city-row .count { font-family: ui-monospace, monospace; font-weight: 600; font-size: 12.5px; color: var(--accent); }
+  .map-city-row .arrow { color: var(--text-faint); }
+  .map-picked-msg {
+    margin: 14px 0 0; font-family: ui-monospace, monospace; font-size: 12px;
+    color: var(--accent); opacity: .85; line-height: 1.6; min-height: 1.6em;
+  }
+  .map-svg-wrap svg { width: 100%; max-width: 560px; height: auto; display: block; overflow: visible; margin: 0 auto; }
+  .map-svg-wrap .jp-shape {
+    fill: color-mix(in srgb, var(--text) 5%, transparent);
+    stroke: color-mix(in srgb, var(--text) 17%, transparent);
+    stroke-width: 1.2;
+  }
+  .map-marker { cursor: pointer; opacity: .92; transition: opacity .15s; }
+  .map-marker:hover { opacity: 1; }
+  .map-marker .m-halo { fill: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .map-marker .m-pulse { fill: none; stroke: var(--accent); animation: mapPulse 2.4s ease-out infinite; }
+  .map-marker .m-dot { fill: var(--accent); stroke: var(--accent-bright); stroke-width: 1; }
+  .map-marker .m-lead { stroke: color-mix(in srgb, var(--accent) 45%, transparent); stroke-width: 1; stroke-dasharray: 2 3; }
+  .map-marker .m-name { font-family: 'Zen Kaku Gothic New', 'Noto Sans KR', sans-serif; font-weight: 700; font-size: 15px; fill: var(--accent-bright); }
+  .map-marker .m-jp { font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 400; font-size: 10px; fill: var(--text-dim); }
+
+  @keyframes mapPulse { 0% { r: 6; opacity: .65; } 100% { r: 15; opacity: 0; } }
+
+  @media (max-width: 620px) {
+    .video-hero { height: 55vh; min-height: 360px; }
+    .suntory-story { grid-template-columns: 1fr; padding: 36px 20px; gap: 24px; }
+    .map-band { grid-template-columns: 1fr; padding: 32px 20px 30px; gap: 24px; }
+    .map-city-row .name-jp .ko { font-size: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .map-marker .m-pulse { animation: none; }
   }
 
   .modal-overlay {
@@ -890,7 +1057,7 @@
 </head>
 <body class="splash-active">
 <div class="splash-screen" id="splashScreen">
-  <video id="splashVideo" src="anime/Masters Dream Intro_ver2.mp4" autoplay muted playsinline></video>
+  <video id="splashVideo" autoplay muted playsinline></video>
 </div>
 <div id="flagExportBar">
   <span id="flagCount">0개 표시됨</span>
@@ -906,33 +1073,120 @@
     <div class="photo-modal-dots"></div>
   </div>
 </div>
+<section class="video-hero">
+  <video autoplay muted loop playsinline>
+    <source src="anime/japan5_bg_vertical_9x16.mp4" media="(max-width: 620px)">
+    <source src="anime/japan5_bg_horizontal_16x9.mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
+    <h1 class="hero-title">위대한 AI님의 일본 맛집 가이드</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-scroll">SCROLL ↓</p>
+  </div>
+</section>
+<section class="suntory-story">
+  <div>
+    <p class="story-eyebrow">神泡 — KAMIAWA</p>
+    <h2>산토리 인증이란?</h2>
+    <p class="story-desc">산토리가 생맥주를 정교하게 서빙하는 매장에 부여하는 등급 제도(神泡, "신의 거품"). 등급이 있다는 것 자체가 매장의 관리 수준을 보증합니다.</p>
+    <div class="story-tiers">
+      <div><span>달인점</span><span>기본 인증 (매장의 약 64%)</span></div>
+      <div><span>초달인점</span><span>상위 등급 — 연 1회 갱신 심사 (6.7%)</span></div>
+      <div><span>마스터즈드림</span><span>부가 배지 — 마스터즈드림(マスターズドリーム) 취급점</span></div>
+    </div>
+  </div>
+  <div class="story-video-wrap">
+    <video autoplay muted loop playsinline>
+      <source src="anime/Masters Dream_ver1.mp4">
+    </video>
+    <div class="story-video-overlay"></div>
+    <p class="story-video-label">マスターズドリーム</p>
+  </div>
+</section>
+<section class="map-band">
+  <div>
+    <p class="map-eyebrow">MAP NAVI</p>
+    <h2>5개 도시, 350곳</h2>
+    <div class="map-city-row" data-city="도쿄">
+      <div class="name-jp"><span class="ko">도쿄</span><span class="jp">東京</span></div>
+      <div class="count-arrow"><span class="count">70곳</span><span class="arrow">→</span></div>
+    </div>
+    <div class="map-city-row" data-city="교토">
+      <div class="name-jp"><span class="ko">교토</span><span class="jp">京都</span></div>
+      <div class="count-arrow"><span class="count">70곳</span><span class="arrow">→</span></div>
+    </div>
+    <div class="map-city-row" data-city="오사카">
+      <div class="name-jp"><span class="ko">오사카</span><span class="jp">大阪</span></div>
+      <div class="count-arrow"><span class="count">70곳</span><span class="arrow">→</span></div>
+    </div>
+    <div class="map-city-row" data-city="후쿠오카">
+      <div class="name-jp"><span class="ko">후쿠오카</span><span class="jp">福岡</span></div>
+      <div class="count-arrow"><span class="count">70곳</span><span class="arrow">→</span></div>
+    </div>
+    <div class="map-city-row" data-city="삿포로">
+      <div class="name-jp"><span class="ko">삿포로</span><span class="jp">札幌</span></div>
+      <div class="count-arrow"><span class="count">70곳</span><span class="arrow">→</span></div>
+    </div>
+    <p class="map-picked-msg" id="mapPickedMsg"></p>
+  </div>
+  <div class="map-svg-wrap">
+    <svg viewBox="0 0 420 470">
+      <path class="jp-shape" d="M308,64 Q320,160 288,242 Q262,250 232,252 Q224,262 218,274 Q160,300 104,348" style="fill:none; stroke-dasharray:3 6"></path>
+      <polygon class="jp-shape" points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52"></polygon>
+      <polygon class="jp-shape" points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134"></polygon>
+      <polygon class="jp-shape" points="150,336 178,328 198,334 192,352 168,358 148,350"></polygon>
+      <polygon class="jp-shape" points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346"></polygon>
+      <g class="map-marker" data-city="삿포로">
+        <circle class="m-halo" cx="308" cy="64" r="16"></circle>
+        <circle class="m-pulse" cx="308" cy="64" r="6"></circle>
+        <circle class="m-dot" cx="308" cy="64" r="4.5"></circle>
+        <text class="m-name" x="322" y="60">삿포로</text>
+        <text class="m-jp" x="322" y="74">札幌 · 70</text>
+      </g>
+      <g class="map-marker" data-city="도쿄">
+        <circle class="m-halo" cx="288" cy="242" r="16"></circle>
+        <circle class="m-pulse" cx="288" cy="242" r="6" style="animation-delay:.6s"></circle>
+        <circle class="m-dot" cx="288" cy="242" r="4.5"></circle>
+        <text class="m-name" x="302" y="240">도쿄</text>
+        <text class="m-jp" x="302" y="254">東京 · 70</text>
+      </g>
+      <g class="map-marker" data-city="교토">
+        <circle class="m-halo" cx="232" cy="252" r="14"></circle>
+        <circle class="m-pulse" cx="232" cy="252" r="6" style="animation-delay:1.2s"></circle>
+        <circle class="m-dot" cx="232" cy="252" r="4.5"></circle>
+        <line class="m-lead" x1="236" y1="246" x2="252" y2="226"></line>
+        <text class="m-name" x="256" y="224">교토</text>
+        <text class="m-jp" x="256" y="238">京都 · 70</text>
+      </g>
+      <g class="map-marker" data-city="오사카">
+        <circle class="m-halo" cx="218" cy="274" r="14"></circle>
+        <circle class="m-pulse" cx="218" cy="274" r="6" style="animation-delay:1.8s"></circle>
+        <circle class="m-dot" cx="218" cy="274" r="4.5"></circle>
+        <line class="m-lead" x1="212" y1="280" x2="196" y2="298"></line>
+        <text class="m-name" x="192" y="314" text-anchor="end">오사카</text>
+        <text class="m-jp" x="192" y="328" text-anchor="end">大阪 · 70</text>
+      </g>
+      <g class="map-marker" data-city="후쿠오카">
+        <circle class="m-halo" cx="104" cy="348" r="16"></circle>
+        <circle class="m-pulse" cx="104" cy="348" r="6" style="animation-delay:.3s"></circle>
+        <circle class="m-dot" cx="104" cy="348" r="4.5"></circle>
+        <text class="m-name" x="92" y="344" text-anchor="end">후쿠오카</text>
+        <text class="m-jp" x="92" y="358" text-anchor="end">福岡 · 70</text>
+      </g>
+    </svg>
+  </div>
+</section>
 <div class="wrap">
   <header class="masthead">
     <div class="masthead-row">
-      <div class="masthead-main">
-        <p class="eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
-        <h1>위대한 AI님의 일본 맛집 가이드</h1>
-      </div>
       <div class="masthead-tools">
         <button class="theme-toggle" id="mannersToggle" type="button">🍶 식사 예절</button>
         <button class="theme-toggle" id="themeToggle" type="button">🌙 다크모드</button>
         <button class="theme-toggle" id="flagModeToggle" type="button">🚩 사진 마킹</button>
       </div>
     </div>
-    <p class="sub">일본 5도시 350곳 — 산토리 인증, 타베로그 3.0+ 고평점, 국내 네이버·SNS에서 조사한 한국인 픽까지 한번에. 8개 카테고리로 정리했습니다(뷔페·파스타류 제외).</p>
-    <div class="tier-explainer">
-        <strong>산토리 인증이란?</strong> 산토리가 생맥주를 정교하게 서빙하는 매장에 부여하는 자체 등급 제도(神泡=카미아와, "신의 거품")입니다. 거품 비율·주입 속도·잔 관리 등 엄격한 기준을 통과해야 받을 수 있어, 등급이 있다는 것 자체가 매장의 관리 수준을 어느 정도 보증합니다. 산토리 공식 설명상 기본 등급은 2단계이며, 일부 매장은 특정 맥주 브랜드 서빙에 대한 추가 배지를 함께 받습니다.
-        <div class="tier-section-label">기본 등급 (2단계)</div>
-        <div class="tier-grid">
-          <span class="tier-name">달인점</span><span>기본 인증 등급 (도입 매장의 약 64%)</span>
-          <span class="tier-name">초달인점</span><span>상위 등급 — 전 직원 서약, 3개월 주기 점검, 연 1회 갱신 심사(6.7%만 해당)</span>
-        </div>
-        <div class="tier-section-label">추가 배지 (등급과 별개, 취급 브랜드만 함께 표기)</div>
-        <div class="tier-grid">
-          <span class="tier-name">마스터즈드림(マスターズドリーム)</span><span>프리미엄몰츠 마스터즈드림 취급점 — 아래 "부가 배지" 필터로 따로 볼 수 있음</span>
-          <span class="tier-name">프리미엄몰츠 / 香るエール 등</span><span>해당 맥주 브랜드 취급 표기</span>
-        </div>
-      </div>
       <div class="legend">
         <span><span class="dot d-tier"></span>산토리 인증 등급</span>
         <span><span class="dot d-good"></span>타베로그 3.0+ (전체 수록 기준)</span>
@@ -2292,6 +2546,7 @@ function initPhotoModal() {
 
 // 스플래시 영상: 재생 끝나면 자동 페이드아웃. 자동재생 막히거나 로드 실패해도
 // 8.5초 후 강제로 넘어가게 안전장치.
+const SPLASH_VIDEOS = ['anime/Masters Dream Intro_ver3.mp4', 'anime/Masters Dream Intro_ver4.mp4'];
 function initSplash() {
   const splash = document.getElementById('splashScreen');
   const video = document.getElementById('splashVideo');
@@ -2305,7 +2560,23 @@ function initSplash() {
   };
   video.addEventListener('ended', hide);
   video.addEventListener('error', hide);
+  video.src = SPLASH_VIDEOS[Math.floor(Math.random() * SPLASH_VIDEOS.length)];
+  video.play().catch(() => {});
   setTimeout(hide, 8500);
+}
+
+function pickCity(city) {
+  const cityWrap = document.getElementById('cityChips');
+  const btn = [...cityWrap.children].find(ch => ch.textContent === city);
+  if (btn) btn.click();
+  const msg = document.getElementById('mapPickedMsg');
+  if (msg) msg.textContent = `${city} 선택됨 — 아래 목록으로 이동`;
+  document.querySelector('.controls')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function initMapNav() {
+  document.querySelectorAll('.map-city-row, .map-marker').forEach(el => {
+    el.addEventListener('click', () => pickCity(el.dataset.city));
+  });
 }
 
 buildChips();
@@ -2316,6 +2587,7 @@ initTileToggle();
 initSplash();
 initFlagMode();
 initPhotoModal();
+initMapNav();
 </script>
 </body>
 </html>

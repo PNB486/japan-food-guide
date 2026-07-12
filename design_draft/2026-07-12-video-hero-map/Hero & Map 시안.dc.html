@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#f0eee6; color:#2b2013; font-family:-apple-system,"Yu Gothic","Hiragino Kaku Gothic ProN","Noto Sans KR","Malgun Gothic",system-ui,sans-serif; word-break:keep-all; }
+  a { color:#e0a445; text-decoration:none; }
+  a:hover { color:#f5c069; }
+  @keyframes mapPulse { 0% { r:6; opacity:.65; } 100% { r:15; opacity:0; } }
+</style>
+</helmet>
+<section style="display:flex; flex-direction:column; gap:24px; padding:40px; align-items:flex-start">
+  <div style="display:flex; align-items:baseline; gap:14px">
+    <span style="font:700 13px ui-monospace,monospace; color:#8f5414; border:1px solid rgba(143,84,20,.45); padding:3px 8px; border-radius:4px">TURN 3</span>
+    <span style="font:500 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#5c4d38">지도 밴드 디자인 개선 2안 — 도시 리스트 결합 vs 풀폭 지도 시어터</span>
+  </div>
+  <div style="display:flex; gap:36px; flex-wrap:wrap; align-items:flex-start">
+
+    <!-- 3a: 도시 리스트 + 지도 -->
+    <div id="3a" data-screen-label="3a 도시 리스트+지도" style="display:flex; flex-direction:column; gap:12px; width:1280px">
+      <div style="display:flex; align-items:baseline; gap:12px">
+        <a href="#3a" style="font:700 13px ui-monospace,monospace; color:#120d05; background:#e0a445; padding:3px 9px; border-radius:4px">3a</a>
+        <span style="font:600 15px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">도시 인덱스 리스트 + 지도</span>
+        <span style="font:400 12.5px sans-serif; color:#8a7a5e">좌측이 설명 대신 클릭 가능한 도시 목록(도시명·한자·70곳) — 리스트/지도 어느 쪽이든 클릭</span>
+      </div>
+      <div style="border:1px solid rgba(220,185,130,.16); border-radius:10px; overflow:hidden; background:#090806; box-shadow:0 24px 60px -30px rgba(0,0,0,.9)">
+        <div style="display:grid; grid-template-columns:440px 1fr; gap:64px; padding:52px 56px; align-items:center; background:radial-gradient(700px 420px at 78% 45%, rgba(224,164,69,.07), transparent), #090806">
+          <div style="display:flex; flex-direction:column">
+            <p style="margin:0 0 4px; font:600 12px ui-monospace,monospace; letter-spacing:.18em; color:#e0a445">MAP NAVI</p>
+            <h2 style="margin:0 0 18px; font:700 30px/1.3 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">5개 도시, 350곳</h2>
+            <div data-city="도쿄" onClick="{{ pickCity }}" style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:15px 6px; border-top:1px solid rgba(220,185,130,.12); cursor:pointer; transition:all .18s" style-hover="background:rgba(224,164,69,.07); padding-left:14px">
+              <div style="display:flex; align-items:baseline; gap:10px"><span style="font:700 21px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">도쿄</span><span style="font-size:11.5px; color:#9a8d73">東京</span></div>
+              <div style="display:flex; align-items:baseline; gap:12px"><span style="font:600 12.5px ui-monospace,monospace; color:#e0a445">70곳</span><span style="color:#9a8d73">→</span></div>
+            </div>
+            <div data-city="교토" onClick="{{ pickCity }}" style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:15px 6px; border-top:1px solid rgba(220,185,130,.12); cursor:pointer; transition:all .18s" style-hover="background:rgba(224,164,69,.07); padding-left:14px">
+              <div style="display:flex; align-items:baseline; gap:10px"><span style="font:700 21px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">교토</span><span style="font-size:11.5px; color:#9a8d73">京都</span></div>
+              <div style="display:flex; align-items:baseline; gap:12px"><span style="font:600 12.5px ui-monospace,monospace; color:#e0a445">70곳</span><span style="color:#9a8d73">→</span></div>
+            </div>
+            <div data-city="오사카" onClick="{{ pickCity }}" style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:15px 6px; border-top:1px solid rgba(220,185,130,.12); cursor:pointer; transition:all .18s" style-hover="background:rgba(224,164,69,.07); padding-left:14px">
+              <div style="display:flex; align-items:baseline; gap:10px"><span style="font:700 21px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">오사카</span><span style="font-size:11.5px; color:#9a8d73">大阪</span></div>
+              <div style="display:flex; align-items:baseline; gap:12px"><span style="font:600 12.5px ui-monospace,monospace; color:#e0a445">70곳</span><span style="color:#9a8d73">→</span></div>
+            </div>
+            <div data-city="후쿠오카" onClick="{{ pickCity }}" style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:15px 6px; border-top:1px solid rgba(220,185,130,.12); cursor:pointer; transition:all .18s" style-hover="background:rgba(224,164,69,.07); padding-left:14px">
+              <div style="display:flex; align-items:baseline; gap:10px"><span style="font:700 21px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">후쿠오카</span><span style="font-size:11.5px; color:#9a8d73">福岡</span></div>
+              <div style="display:flex; align-items:baseline; gap:12px"><span style="font:600 12.5px ui-monospace,monospace; color:#e0a445">70곳</span><span style="color:#9a8d73">→</span></div>
+            </div>
+            <div data-city="삿포로" onClick="{{ pickCity }}" style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:15px 6px; border-top:1px solid rgba(220,185,130,.12); border-bottom:1px solid rgba(220,185,130,.12); cursor:pointer; transition:all .18s" style-hover="background:rgba(224,164,69,.07); padding-left:14px">
+              <div style="display:flex; align-items:baseline; gap:10px"><span style="font:700 21px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">삿포로</span><span style="font-size:11.5px; color:#9a8d73">札幌</span></div>
+              <div style="display:flex; align-items:baseline; gap:12px"><span style="font:600 12.5px ui-monospace,monospace; color:#e0a445">70곳</span><span style="color:#9a8d73">→</span></div>
+            </div>
+            <p style="margin:14px 0 0; font:400 12px ui-monospace,monospace; color:#e0a445; opacity:.85; line-height:1.6">{{ pickedMsg }}</p>
+          </div>
+          <svg viewBox="0 0 420 470" style="width:100%; max-width:560px; height:auto; display:block; overflow:visible; justify-self:center">
+            <path d="M308,64 Q320,160 288,242 Q262,250 232,252 Q224,262 218,274 Q160,300 104,348" style="fill:none; stroke:rgba(224,164,69,.25); stroke-width:1.2; stroke-dasharray:3 6"></path>
+            <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="308" cy="64" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="308" cy="64" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out infinite"></circle>
+              <circle cx="308" cy="64" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="322" y="60" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">삿포로</text>
+              <text x="322" y="74" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">札幌 · 70</text>
+            </g>
+            <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="288" cy="242" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="288" cy="242" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .6s infinite"></circle>
+              <circle cx="288" cy="242" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="302" y="240" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">도쿄</text>
+              <text x="302" y="254" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">東京 · 70</text>
+            </g>
+            <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="232" cy="252" r="14" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="232" cy="252" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.2s infinite"></circle>
+              <circle cx="232" cy="252" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="236" y1="246" x2="252" y2="226" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="256" y="224" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">교토</text>
+              <text x="256" y="238" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">京都 · 70</text>
+            </g>
+            <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="218" cy="274" r="14" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="218" cy="274" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.8s infinite"></circle>
+              <circle cx="218" cy="274" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="212" y1="280" x2="196" y2="298" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="192" y="314" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">오사카</text>
+              <text x="192" y="328" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">大阪 · 70</text>
+            </g>
+            <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="104" cy="348" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="104" cy="348" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .3s infinite"></circle>
+              <circle cx="104" cy="348" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="92" y="344" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">후쿠오카</text>
+              <text x="92" y="358" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">福岡 · 70</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3b: 풀폭 지도 시어터 -->
+    <div id="3b" data-screen-label="3b 풀폭 지도 시어터" style="display:flex; flex-direction:column; gap:12px; width:1280px">
+      <div style="display:flex; align-items:baseline; gap:12px">
+        <a href="#3b" style="font:700 13px ui-monospace,monospace; color:#120d05; background:#e0a445; padding:3px 9px; border-radius:4px">3b</a>
+        <span style="font:600 15px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">풀폭 지도 시어터</span>
+        <span style="font:400 12.5px sans-serif; color:#8a7a5e">지도가 주인공 — 골드 글로우 + 항로선, 텍스트는 좌상단 최소화 + 좌하단 스탯</span>
+      </div>
+      <div style="border:1px solid rgba(220,185,130,.16); border-radius:10px; overflow:hidden; background:#090806; box-shadow:0 24px 60px -30px rgba(0,0,0,.9)">
+        <div style="position:relative; padding:56px 64px 48px; background:radial-gradient(900px 560px at 62% 50%, rgba(224,164,69,.09), transparent 70%), #090806; min-height:600px; display:flex; flex-direction:column">
+          <div style="position:absolute; left:64px; top:56px; display:flex; flex-direction:column; gap:10px; z-index:1">
+            <p style="margin:0; font:600 12px ui-monospace,monospace; letter-spacing:.18em; color:#e0a445">MAP NAVI</p>
+            <h2 style="margin:0; font:700 34px/1.3 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">일본 열도,<br>다섯 개의 골드 마커</h2>
+            <p style="margin:0; font-size:13.5px; line-height:1.7; color:#c6b99e; max-width:300px">마커를 클릭하면 해당 도시로 필터 + 결과 목록으로 이동.</p>
+          </div>
+          <svg viewBox="0 0 420 470" style="width:640px; height:auto; display:block; overflow:visible; align-self:flex-end; margin-right:40px">
+            <path d="M308,64 Q320,160 288,242 Q262,250 232,252 Q224,262 218,274 Q160,300 104,348" style="fill:none; stroke:rgba(224,164,69,.28); stroke-width:1.2; stroke-dasharray:3 6"></path>
+            <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(236,226,208,.06); stroke:rgba(236,226,208,.20); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(236,226,208,.06); stroke:rgba(236,226,208,.20); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(236,226,208,.06); stroke:rgba(236,226,208,.20); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(236,226,208,.06); stroke:rgba(236,226,208,.20); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+              <circle cx="308" cy="64" r="16" fill="rgba(224,164,69,.12)"></circle>
+              <circle cx="308" cy="64" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out infinite"></circle>
+              <circle cx="308" cy="64" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="322" y="60" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">삿포로</text>
+              <text x="322" y="75" style="font:400 10.5px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">札幌 · 70곳</text>
+            </g>
+            <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+              <circle cx="288" cy="242" r="16" fill="rgba(224,164,69,.12)"></circle>
+              <circle cx="288" cy="242" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .6s infinite"></circle>
+              <circle cx="288" cy="242" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="302" y="240" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">도쿄</text>
+              <text x="302" y="255" style="font:400 10.5px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">東京 · 70곳</text>
+            </g>
+            <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+              <circle cx="232" cy="252" r="14" fill="rgba(224,164,69,.12)"></circle>
+              <circle cx="232" cy="252" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.2s infinite"></circle>
+              <circle cx="232" cy="252" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="236" y1="246" x2="252" y2="226" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="256" y="224" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">교토</text>
+              <text x="256" y="239" style="font:400 10.5px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">京都 · 70곳</text>
+            </g>
+            <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+              <circle cx="218" cy="274" r="14" fill="rgba(224,164,69,.12)"></circle>
+              <circle cx="218" cy="274" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.8s infinite"></circle>
+              <circle cx="218" cy="274" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="212" y1="280" x2="196" y2="298" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="192" y="314" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">오사카</text>
+              <text x="192" y="329" style="font:400 10.5px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">大阪 · 70곳</text>
+            </g>
+            <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+              <circle cx="104" cy="348" r="16" fill="rgba(224,164,69,.12)"></circle>
+              <circle cx="104" cy="348" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .3s infinite"></circle>
+              <circle cx="104" cy="348" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="92" y="344" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">후쿠오카</text>
+              <text x="92" y="359" style="font:400 10.5px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">福岡 · 70곳</text>
+            </g>
+          </svg>
+          <div style="position:absolute; left:64px; bottom:48px; display:flex; gap:40px; z-index:1">
+            <div style="display:flex; flex-direction:column; gap:2px"><span style="font:700 26px 'Zen Kaku Gothic New',sans-serif; color:#ece2d0">5</span><span style="font:400 11px ui-monospace,monospace; letter-spacing:.1em; color:#9a8d73">도시</span></div>
+            <div style="display:flex; flex-direction:column; gap:2px"><span style="font:700 26px 'Zen Kaku Gothic New',sans-serif; color:#ece2d0">350</span><span style="font:400 11px ui-monospace,monospace; letter-spacing:.1em; color:#9a8d73">맛집</span></div>
+            <div style="display:flex; flex-direction:column; gap:2px"><span style="font:700 26px 'Zen Kaku Gothic New',sans-serif; color:#ece2d0">8</span><span style="font:400 11px ui-monospace,monospace; letter-spacing:.1em; color:#9a8d73">장르</span></div>
+          </div>
+          <p style="position:absolute; right:64px; bottom:48px; margin:0; font:400 12px ui-monospace,monospace; color:#e0a445; opacity:.85; max-width:420px; text-align:right; line-height:1.6">{{ pickedMsg }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section style="display:flex; flex-direction:column; gap:24px; padding:40px; align-items:flex-start">
+  <div style="display:flex; align-items:baseline; gap:14px">
+    <span style="font:700 13px ui-monospace,monospace; color:#8f5414; border:1px solid rgba(143,84,20,.45); padding:3px 8px; border-radius:4px">TURN 2</span>
+    <span style="font:500 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#5c4d38">1a 확장 — 고정 히어로 + 스크롤 시 산토리 인증 섹션(맥주 영상) + 지도 밴드. 프레임 안에서 직접 스크롤해 보세요.</span>
+  </div>
+  <div id="2a" data-screen-label="2a 고정 히어로 + 인증 섹션" style="display:flex; flex-direction:column; gap:12px; width:1280px">
+    <div style="display:flex; align-items:baseline; gap:12px">
+      <a href="#2a" style="font:700 13px ui-monospace,monospace; color:#120d05; background:#e0a445; padding:3px 9px; border-radius:4px">2a</a>
+      <span style="font:600 15px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">고정 히어로 → 인증 스토리 → 지도 밴드</span>
+      <span style="font:400 12.5px sans-serif; color:#8a7a5e">타이틀·서브타이틀은 상단 고정(sticky), 아래 섹션이 그 위로 덮으며 올라옴</span>
+    </div>
+    <div style="border:1px solid rgba(220,185,130,.16); border-radius:10px; overflow:hidden; background:#090806; box-shadow:0 24px 60px -30px rgba(0,0,0,.9)">
+      <div style="height:780px; overflow-y:auto; overscroll-behavior:contain">
+        <!-- 고정 히어로 -->
+        <div style="position:sticky; top:0; height:560px; overflow:hidden">
+          <video src="uploads/anime/japan5_bg_horizontal_16x9.mp4" ref="{{ vidRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(9,8,6,.62) 0%, rgba(9,8,6,.30) 42%, rgba(9,8,6,.60) 100%)"></div>
+          <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 48px; gap:16px">
+            <p style="margin:0; font:600 13.5px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#f5c069; text-shadow:0 1px 12px rgba(0,0,0,.6)">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
+            <h1 style="margin:0; font:700 52px/1.25 'Zen Kaku Gothic New','Noto Sans KR','Hiragino Kaku Gothic ProN',sans-serif; color:#ece2d0; text-shadow:0 2px 24px rgba(0,0,0,.7)">위대한 AI님의 일본 맛집 가이드</h1>
+            <div style="width:56px; height:2px; background:#e0a445; margin-top:6px"></div>
+            <p style="margin:18px 0 0; font:600 11px ui-monospace,monospace; letter-spacing:.2em; color:#c6b99e; opacity:.8">SCROLL ↓</p>
+          </div>
+        </div>
+        <!-- 산토리 인증 섹션: 히어로 위로 덮으며 등장 -->
+        <div style="position:relative; z-index:1; background:#0e0c09; border-top:1px solid rgba(220,185,130,.14); display:grid; grid-template-columns:420px 1fr; gap:56px; padding:56px; align-items:center">
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <p style="margin:0; font:600 12px ui-monospace,monospace; letter-spacing:.18em; color:#e0a445">神泡 — KAMIAWA</p>
+            <h2 style="margin:0; font:700 32px/1.3 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">산토리 인증이란?</h2>
+            <p style="margin:0; font-size:14.5px; line-height:1.75; color:#c6b99e">산토리가 생맥주를 정교하게 서빙하는 매장에 부여하는 등급 제도(神泡, "신의 거품"). 등급이 있다는 것 자체가 매장의 관리 수준을 보증합니다.</p>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px; font-size:13.5px; color:#c6b99e; border-top:1px solid rgba(220,185,130,.12); padding-top:14px">
+              <div style="display:flex; gap:12px"><span style="color:#f5c069; font-weight:700; flex:none; width:96px">달인점</span><span>기본 인증 (매장의 약 64%)</span></div>
+              <div style="display:flex; gap:12px"><span style="color:#f5c069; font-weight:700; flex:none; width:96px">초달인점</span><span>상위 등급 — 연 1회 갱신 심사 (6.7%)</span></div>
+              <div style="display:flex; gap:12px"><span style="color:#f5c069; font-weight:700; flex:none; width:96px">마스터즈드림</span><span>부가 배지 — 마스터즈드림 취급점</span></div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="position:relative; border-radius:12px; overflow:hidden; border:1px solid rgba(224,164,69,.28); box-shadow:0 20px 50px -24px rgba(0,0,0,.9); aspect-ratio:16/9">
+              <video src="uploads/Masters%20Dream_ver1.mp4" ref="{{ vidRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video>
+              <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(9,8,6,0) 70%, rgba(9,8,6,.5) 100%)"></div>
+              <p style="position:absolute; left:16px; bottom:12px; margin:0; font:600 11px ui-monospace,monospace; letter-spacing:.14em; color:#f5c069">マスターズドリーム</p>
+            </div>
+            <p style="margin:0; font:400 11.5px ui-monospace,monospace; color:#9a8d73; line-height:1.6">신규 영상: Masters Dream_ver1.mp4 — 상세 설명은 영상이 대신</p>
+          </div>
+        </div>
+        <!-- 지도 밴드 (1a 계승) -->
+        <div style="position:relative; z-index:1; display:grid; grid-template-columns:1fr 470px; gap:48px; padding:44px 56px 40px; background:#090806; border-top:1px solid rgba(220,185,130,.10); align-items:center">
+          <div style="display:flex; flex-direction:column; gap:14px">
+            <p style="margin:0; font:600 12px ui-monospace,monospace; letter-spacing:.18em; color:#e0a445">MAP NAVI</p>
+            <h2 style="margin:0; font:700 30px/1.3 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">5개 도시, 지도에서 바로</h2>
+            <p style="margin:0; font-size:14.5px; line-height:1.7; color:#c6b99e; max-width:420px">도쿄 · 교토 · 오사카 · 후쿠오카 · 삿포로만 취급합니다. 골드 마커를 클릭하면 해당 도시로 필터가 적용되고 결과 목록으로 이동합니다.</p>
+            <p style="margin:6px 0 0; font:400 12px ui-monospace,monospace; color:#e0a445; opacity:.85; line-height:1.6">{{ pickedMsg }}</p>
+          </div>
+          <svg viewBox="0 0 420 470" style="width:100%; height:auto; display:block; overflow:visible">
+            <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="308" cy="64" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="308" cy="64" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out infinite"></circle>
+              <circle cx="308" cy="64" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="322" y="60" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">삿포로</text>
+              <text x="322" y="74" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">札幌</text>
+            </g>
+            <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="288" cy="242" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="288" cy="242" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .6s infinite"></circle>
+              <circle cx="288" cy="242" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="302" y="240" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">도쿄</text>
+              <text x="302" y="254" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">東京</text>
+            </g>
+            <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="232" cy="252" r="14" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="232" cy="252" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.2s infinite"></circle>
+              <circle cx="232" cy="252" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="236" y1="246" x2="252" y2="226" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="256" y="224" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">교토</text>
+              <text x="256" y="238" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">京都</text>
+            </g>
+            <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="218" cy="274" r="14" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="218" cy="274" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.8s infinite"></circle>
+              <circle cx="218" cy="274" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="212" y1="280" x2="196" y2="298" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="192" y="314" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">오사카</text>
+              <text x="192" y="328" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">大阪</text>
+            </g>
+            <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="104" cy="348" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="104" cy="348" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .3s infinite"></circle>
+              <circle cx="104" cy="348" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="92" y="344" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">후쿠오카</text>
+              <text x="92" y="358" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">福岡</text>
+            </g>
+          </svg>
+        </div>
+        <!-- ghost: 기존 필터/목록 -->
+        <div style="position:relative; z-index:1; padding:26px 56px 34px; background:#090806; border-top:1px dashed rgba(220,185,130,.22); display:flex; flex-direction:column; gap:8px; opacity:.45">
+          <p style="margin:0; font:600 11px ui-monospace,monospace; letter-spacing:.14em; color:#e0a445">↓ 기존 콘텐츠 — 그대로 유지</p>
+          <p style="margin:0; font-size:13px; color:#c6b99e">도시 탭(#cityChips) · 장르/상세 필터 · 범례 · 결과 목록… 손대지 않음. 인증 설명은 위 섹션으로 승격되므로 masthead의 tier-explainer는 제거/축약 가능.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="display:flex; flex-direction:column; gap:24px; padding:40px; align-items:flex-start">
+  <div style="display:flex; align-items:baseline; gap:14px">
+    <span style="font:700 13px ui-monospace,monospace; color:#8f5414; border:1px solid rgba(143,84,20,.45); padding:3px 8px; border-radius:4px">TURN 1</span>
+    <span style="font:500 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#5c4d38">영상 히어로 + 일본 지도 내비 — 시안 2안 + 모바일/라이트 톤 체크</span>
+  </div>
+  <div style="display:flex; gap:36px; flex-wrap:wrap; align-items:flex-start">
+
+    <!-- ═══════════ OPTION 1a ═══════════ -->
+    <div id="1a" data-screen-label="1a 히어로+지도 밴드" style="display:flex; flex-direction:column; gap:12px; width:1280px">
+      <div style="display:flex; align-items:baseline; gap:12px">
+        <a href="#1a" style="font:700 13px ui-monospace,monospace; color:#120d05; background:#e0a445; padding:3px 9px; border-radius:4px">1a</a>
+        <span style="font:600 15px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">짧은 시네마 히어로 + 지도 밴드 분리</span>
+        <span style="font:400 12.5px sans-serif; color:#8a7a5e">히어로 ~48vh(텍스트만) · 지도는 바로 아래 다크 밴드 — masthead는 그 아래 그대로</span>
+      </div>
+      <div style="border:1px solid rgba(220,185,130,.16); border-radius:10px; overflow:hidden; background:#090806; box-shadow:0 24px 60px -30px rgba(0,0,0,.9)">
+        <!-- hero -->
+        <div style="position:relative; height:520px; overflow:hidden">
+          <video src="uploads/anime/japan5_bg_horizontal_16x9.mp4" ref="{{ vidRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(9,8,6,.62) 0%, rgba(9,8,6,.30) 42%, rgba(9,8,6,.55) 74%, #0e0c09 100%)"></div>
+          <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 48px; gap:16px">
+            <p style="margin:0; font:600 13.5px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#f5c069; text-shadow:0 1px 12px rgba(0,0,0,.6)">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
+            <h1 style="margin:0; font:700 52px/1.25 'Zen Kaku Gothic New','Noto Sans KR','Hiragino Kaku Gothic ProN',sans-serif; color:#ece2d0; text-shadow:0 2px 24px rgba(0,0,0,.7)">위대한 AI님의 일본 맛집 가이드</h1>
+            <div style="width:56px; height:2px; background:#e0a445; margin-top:6px"></div>
+          </div>
+        </div>
+        <!-- map band -->
+        <div style="display:grid; grid-template-columns:1fr 470px; gap:48px; padding:44px 56px 40px; background:#0e0c09; align-items:center">
+          <div style="display:flex; flex-direction:column; gap:14px">
+            <p style="margin:0; font:600 12px ui-monospace,monospace; letter-spacing:.18em; color:#e0a445">MAP NAVI</p>
+            <h2 style="margin:0; font:700 30px/1.3 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0">5개 도시, 지도에서 바로</h2>
+            <p style="margin:0; font-size:14.5px; line-height:1.7; color:#c6b99e; max-width:420px">도쿄 · 교토 · 오사카 · 후쿠오카 · 삿포로만 취급합니다. 골드 마커를 클릭하면 해당 도시로 필터가 적용되고 결과 목록으로 이동합니다. 나머지 지역은 회색 — 클릭·호버 없음.</p>
+            <p style="margin:6px 0 0; font:400 12px ui-monospace,monospace; color:#e0a445; opacity:.85; line-height:1.6">{{ pickedMsg }}</p>
+            <p style="margin:0; font-size:12px; color:#9a8d73">기존 도시 탭(#cityChips)은 그대로 유지 — 지도는 보조 내비.</p>
+          </div>
+          <svg viewBox="0 0 420 470" style="width:100%; height:auto; display:block; overflow:visible">
+            <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <text x="288" y="188" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:rgba(236,226,208,.28)">東北</text>
+            <text x="146" y="304" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:rgba(236,226,208,.28)">中国</text>
+            <text x="164" y="348" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:rgba(236,226,208,.28)">四国</text>
+            <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="308" cy="64" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="308" cy="64" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out infinite"></circle>
+              <circle cx="308" cy="64" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="322" y="60" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">삿포로</text>
+              <text x="322" y="74" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">札幌</text>
+            </g>
+            <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="288" cy="242" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="288" cy="242" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .6s infinite"></circle>
+              <circle cx="288" cy="242" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="302" y="240" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">도쿄</text>
+              <text x="302" y="254" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">東京</text>
+            </g>
+            <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="232" cy="252" r="14" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="232" cy="252" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.2s infinite"></circle>
+              <circle cx="232" cy="252" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="236" y1="246" x2="252" y2="226" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="256" y="224" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">교토</text>
+              <text x="256" y="238" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e">京都</text>
+            </g>
+            <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="218" cy="274" r="14" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="218" cy="274" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out 1.8s infinite"></circle>
+              <circle cx="218" cy="274" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <line x1="212" y1="280" x2="196" y2="298" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="192" y="314" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">오사카</text>
+              <text x="192" y="328" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">大阪</text>
+            </g>
+            <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.92" style-hover="opacity:1">
+              <circle cx="104" cy="348" r="16" fill="rgba(224,164,69,.10)"></circle>
+              <circle cx="104" cy="348" r="6" style="fill:none; stroke:#e0a445; animation:mapPulse 2.4s ease-out .3s infinite"></circle>
+              <circle cx="104" cy="348" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+              <text x="92" y="344" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">후쿠오카</text>
+              <text x="92" y="358" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#c6b99e; text-anchor:end">福岡</text>
+            </g>
+          </svg>
+        </div>
+        <!-- ghost masthead -->
+        <div style="padding:26px 56px 30px; border-top:1px dashed rgba(220,185,130,.22); display:flex; flex-direction:column; gap:8px; opacity:.45">
+          <p style="margin:0; font:600 11px ui-monospace,monospace; letter-spacing:.14em; color:#e0a445">↓ 기존 MASTHEAD — 그대로 유지</p>
+          <p style="margin:0; font-size:13px; color:#c6b99e">서브타이틀 · 산토리 인증 설명 · 범례 · 도시/장르 탭(#cityChips)… 손대지 않음</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ OPTION 1b ═══════════ -->
+    <div id="1b" data-screen-label="1b 히어로 내 지도 통합" style="display:flex; flex-direction:column; gap:12px; width:1280px">
+      <div style="display:flex; align-items:baseline; gap:12px">
+        <a href="#1b" style="font:700 13px ui-monospace,monospace; color:#120d05; background:#e0a445; padding:3px 9px; border-radius:4px">1b</a>
+        <span style="font:600 15px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">히어로 안에 지도 통합 (2컬럼)</span>
+        <span style="font:400 12.5px sans-serif; color:#8a7a5e">히어로 ~60vh · 좌 타이틀 / 우 지도가 영상 위에 직접 — 한 화면에 끝</span>
+      </div>
+      <div style="border:1px solid rgba(220,185,130,.16); border-radius:10px; overflow:hidden; background:#090806; box-shadow:0 24px 60px -30px rgba(0,0,0,.9)">
+        <div style="position:relative; height:660px; overflow:hidden">
+          <video src="uploads/anime/japan5_bg_horizontal_16x9.mp4" ref="{{ vidRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video>
+          <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(9,8,6,.78) 0%, rgba(9,8,6,.42) 46%, rgba(9,8,6,.66) 100%)"></div>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(9,8,6,.35) 0%, rgba(9,8,6,0) 30%, rgba(9,8,6,.85) 100%)"></div>
+          <div style="position:absolute; inset:0; display:grid; grid-template-columns:1.1fr 1fr; gap:32px; padding:0 64px">
+            <div style="display:flex; flex-direction:column; justify-content:center; gap:16px">
+              <p style="margin:0; font:600 13px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#f5c069">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 350곳</p>
+              <h1 style="margin:0; font:700 48px/1.28 'Zen Kaku Gothic New','Noto Sans KR','Hiragino Kaku Gothic ProN',sans-serif; color:#ece2d0; text-shadow:0 2px 24px rgba(0,0,0,.7)">위대한 AI님의<br>일본 맛집 가이드</h1>
+              <div style="width:56px; height:2px; background:#e0a445"></div>
+              <p style="margin:4px 0 0; font-size:14px; color:#c6b99e; max-width:380px; line-height:1.7">지도에서 도시를 누르면 아래 목록이 그 도시로 필터됩니다. 회색 지역은 미취급.</p>
+              <p style="margin:0; font:400 12px ui-monospace,monospace; color:#e0a445; opacity:.85; line-height:1.6">{{ pickedMsg }}</p>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:center; padding:36px 0">
+              <svg viewBox="0 0 420 470" style="width:100%; max-width:440px; height:auto; display:block; overflow:visible; filter:drop-shadow(0 12px 30px rgba(0,0,0,.55))">
+                <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(14,12,9,.45); stroke:rgba(236,226,208,.30); stroke-width:1.2; stroke-linejoin:round"></polygon>
+                <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(14,12,9,.45); stroke:rgba(236,226,208,.30); stroke-width:1.2; stroke-linejoin:round"></polygon>
+                <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(14,12,9,.45); stroke:rgba(236,226,208,.30); stroke-width:1.2; stroke-linejoin:round"></polygon>
+                <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(14,12,9,.45); stroke:rgba(236,226,208,.30); stroke-width:1.2; stroke-linejoin:round"></polygon>
+                <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+                  <circle cx="308" cy="64" r="16" fill="rgba(224,164,69,.14)"></circle>
+                  <circle cx="308" cy="64" r="6" style="fill:none; stroke:#f5c069; animation:mapPulse 2.4s ease-out infinite"></circle>
+                  <circle cx="308" cy="64" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                  <text x="322" y="60" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">삿포로</text>
+                  <text x="322" y="74" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#ece2d0; opacity:.7">札幌</text>
+                </g>
+                <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+                  <circle cx="288" cy="242" r="16" fill="rgba(224,164,69,.14)"></circle>
+                  <circle cx="288" cy="242" r="6" style="fill:none; stroke:#f5c069; animation:mapPulse 2.4s ease-out .6s infinite"></circle>
+                  <circle cx="288" cy="242" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                  <text x="302" y="240" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">도쿄</text>
+                  <text x="302" y="254" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#ece2d0; opacity:.7">東京</text>
+                </g>
+                <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+                  <circle cx="232" cy="252" r="14" fill="rgba(224,164,69,.14)"></circle>
+                  <circle cx="232" cy="252" r="6" style="fill:none; stroke:#f5c069; animation:mapPulse 2.4s ease-out 1.2s infinite"></circle>
+                  <circle cx="232" cy="252" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                  <line x1="236" y1="246" x2="252" y2="226" style="stroke:rgba(245,192,105,.5); stroke-width:1; stroke-dasharray:2 3"></line>
+                  <text x="256" y="224" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">교토</text>
+                  <text x="256" y="238" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#ece2d0; opacity:.7">京都</text>
+                </g>
+                <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+                  <circle cx="218" cy="274" r="14" fill="rgba(224,164,69,.14)"></circle>
+                  <circle cx="218" cy="274" r="6" style="fill:none; stroke:#f5c069; animation:mapPulse 2.4s ease-out 1.8s infinite"></circle>
+                  <circle cx="218" cy="274" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                  <line x1="212" y1="280" x2="196" y2="298" style="stroke:rgba(245,192,105,.5); stroke-width:1; stroke-dasharray:2 3"></line>
+                  <text x="192" y="314" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">오사카</text>
+                  <text x="192" y="328" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#ece2d0; opacity:.7; text-anchor:end">大阪</text>
+                </g>
+                <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer; opacity:.94" style-hover="opacity:1">
+                  <circle cx="104" cy="348" r="16" fill="rgba(224,164,69,.14)"></circle>
+                  <circle cx="104" cy="348" r="6" style="fill:none; stroke:#f5c069; animation:mapPulse 2.4s ease-out .3s infinite"></circle>
+                  <circle cx="104" cy="348" r="4.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                  <text x="92" y="344" style="font:700 15px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">후쿠오카</text>
+                  <text x="92" y="358" style="font:400 10px 'Zen Kaku Gothic New',sans-serif; fill:#ece2d0; opacity:.7; text-anchor:end">福岡</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div style="padding:26px 56px 30px; border-top:1px dashed rgba(220,185,130,.22); display:flex; flex-direction:column; gap:8px; opacity:.45; background:#090806">
+          <p style="margin:0; font:600 11px ui-monospace,monospace; letter-spacing:.14em; color:#e0a445">↓ 기존 MASTHEAD — 그대로 유지</p>
+          <p style="margin:0; font-size:13px; color:#c6b99e">서브타이틀 · 산토리 인증 설명 · 범례 · 도시/장르 탭(#cityChips)… 손대지 않음</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ 모바일 + 라이트 톤 체크 ═══════════ -->
+    <div style="display:flex; flex-direction:column; gap:32px; width:420px">
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <div style="display:flex; align-items:baseline; gap:12px">
+          <span style="font:700 13px ui-monospace,monospace; color:#5c4d38; border:1px solid rgba(92,77,56,.4); padding:3px 9px; border-radius:4px">공통</span>
+          <span style="font:600 14px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">모바일 ≤620px — 세로 영상 스왑</span>
+        </div>
+        <div style="width:375px; border:1px solid rgba(220,185,130,.16); border-radius:10px; overflow:hidden; background:#090806">
+          <div style="position:relative; height:440px; overflow:hidden">
+            <video src="uploads/anime/japan5_bg_vertical_9x16.mp4" ref="{{ vidRef }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover"></video>
+            <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(9,8,6,.6) 0%, rgba(9,8,6,.28) 45%, #0e0c09 100%)"></div>
+            <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 24px; gap:12px">
+              <p style="margin:0; font:600 10.5px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; letter-spacing:.14em; color:#f5c069">神泡達人店 · 산토리 인증 · 5개 도시 350곳</p>
+              <h1 style="margin:0; font:700 30px/1.3 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; color:#ece2d0; text-shadow:0 2px 18px rgba(0,0,0,.7)">위대한 AI님의<br>일본 맛집 가이드</h1>
+              <div style="width:40px; height:2px; background:#e0a445"></div>
+            </div>
+          </div>
+          <div style="background:#0e0c09; padding:24px 20px 8px">
+            <p style="margin:0 0 4px; font:600 11px ui-monospace,monospace; letter-spacing:.16em; color:#e0a445">MAP NAVI</p>
+            <svg viewBox="20 0 400 470" style="width:100%; height:auto; display:block; overflow:visible">
+              <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.4; stroke-linejoin:round"></polygon>
+              <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.4; stroke-linejoin:round"></polygon>
+              <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.4; stroke-linejoin:round"></polygon>
+              <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(236,226,208,.05); stroke:rgba(236,226,208,.17); stroke-width:1.4; stroke-linejoin:round"></polygon>
+              <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer">
+                <circle cx="308" cy="64" r="5.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                <text x="322" y="70" style="font:700 17px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">삿포로</text>
+              </g>
+              <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer">
+                <circle cx="288" cy="242" r="5.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                <text x="302" y="248" style="font:700 17px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">도쿄</text>
+              </g>
+              <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer">
+                <circle cx="232" cy="252" r="5.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                <line x1="236" y1="246" x2="252" y2="228" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+                <text x="256" y="226" style="font:700 17px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069">교토</text>
+              </g>
+              <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer">
+                <circle cx="218" cy="274" r="5.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                <line x1="212" y1="280" x2="198" y2="298" style="stroke:rgba(224,164,69,.45); stroke-width:1; stroke-dasharray:2 3"></line>
+                <text x="194" y="316" style="font:700 17px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">오사카</text>
+              </g>
+              <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer">
+                <circle cx="104" cy="348" r="5.5" style="fill:#e0a445; stroke:#f5c069; stroke-width:1"></circle>
+                <text x="94" y="340" style="font:700 17px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#f5c069; text-anchor:end">후쿠오카</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p style="margin:0; font:400 12px ui-monospace,monospace; color:#5c4d38; max-width:375px; line-height:1.6">≤620px: 세로 영상(9:16) 스왑, 히어로 ~55vh, 지도는 히어로 아래 풀폭. 터치 타깃: 마커 히트영역 44px 확보.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <div style="display:flex; align-items:baseline; gap:12px">
+          <span style="font:700 13px ui-monospace,monospace; color:#5c4d38; border:1px solid rgba(92,77,56,.4); padding:3px 9px; border-radius:4px">공통</span>
+          <span style="font:600 14px 'Zen Kaku Gothic New',sans-serif; color:#2b2013">라이트모드 톤 체크 (지도 밴드)</span>
+        </div>
+        <div style="width:420px; border:1px solid rgba(90,60,20,.2); border-radius:10px; background:#f7f0e2; padding:24px 24px 16px">
+          <p style="margin:0 0 8px; font:600 11px ui-monospace,monospace; letter-spacing:.16em; color:#b96f1e">MAP NAVI</p>
+          <svg viewBox="20 0 400 470" style="width:100%; height:auto; display:block; overflow:visible">
+            <polygon points="300,22 344,34 368,68 340,100 306,92 286,108 262,86 278,52" style="fill:rgba(43,32,19,.06); stroke:rgba(43,32,19,.22); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="302,126 316,150 318,182 312,214 300,242 292,236 284,252 262,268 240,280 228,298 216,288 198,300 176,308 152,314 130,324 112,322 118,306 136,290 158,276 182,262 204,248 226,234 246,218 258,198 264,176 274,150 288,134" style="fill:rgba(43,32,19,.06); stroke:rgba(43,32,19,.22); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="150,336 178,328 198,334 192,352 168,358 148,350" style="fill:rgba(43,32,19,.06); stroke:rgba(43,32,19,.22); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <polygon points="108,336 126,344 132,364 124,388 106,402 92,392 86,366 94,346" style="fill:rgba(43,32,19,.06); stroke:rgba(43,32,19,.22); stroke-width:1.2; stroke-linejoin:round"></polygon>
+            <g data-city="삿포로" onClick="{{ pickCity }}" style="cursor:pointer">
+              <circle cx="308" cy="64" r="5" style="fill:#b96f1e; stroke:#8f5414; stroke-width:1"></circle>
+              <text x="322" y="70" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#8f5414">삿포로</text>
+            </g>
+            <g data-city="도쿄" onClick="{{ pickCity }}" style="cursor:pointer">
+              <circle cx="288" cy="242" r="5" style="fill:#b96f1e; stroke:#8f5414; stroke-width:1"></circle>
+              <text x="302" y="248" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#8f5414">도쿄</text>
+            </g>
+            <g data-city="교토" onClick="{{ pickCity }}" style="cursor:pointer">
+              <circle cx="232" cy="252" r="5" style="fill:#b96f1e; stroke:#8f5414; stroke-width:1"></circle>
+              <line x1="236" y1="246" x2="252" y2="228" style="stroke:rgba(143,84,20,.5); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="256" y="226" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#8f5414">교토</text>
+            </g>
+            <g data-city="오사카" onClick="{{ pickCity }}" style="cursor:pointer">
+              <circle cx="218" cy="274" r="5" style="fill:#b96f1e; stroke:#8f5414; stroke-width:1"></circle>
+              <line x1="212" y1="280" x2="198" y2="298" style="stroke:rgba(143,84,20,.5); stroke-width:1; stroke-dasharray:2 3"></line>
+              <text x="194" y="316" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#8f5414; text-anchor:end">오사카</text>
+            </g>
+            <g data-city="후쿠오카" onClick="{{ pickCity }}" style="cursor:pointer">
+              <circle cx="104" cy="348" r="5" style="fill:#b96f1e; stroke:#8f5414; stroke-width:1"></circle>
+              <text x="94" y="340" style="font:700 16px 'Zen Kaku Gothic New','Noto Sans KR',sans-serif; fill:#8f5414; text-anchor:end">후쿠오카</text>
+            </g>
+          </svg>
+          <p style="margin:8px 0 0; font:400 11.5px ui-monospace,monospace; color:#8a7a5e; line-height:1.6">라이트: --accent #b96f1e / 라벨 --accent-bright #8f5414. 히어로 영상+다크 오버레이는 두 테마 공통(항상 다크).</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { picked: null };
+
+  vidRef = (el) => {
+    if (el) {
+      el.muted = true;
+      const p = el.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+  };
+
+  renderVals() {
+    const picked = this.state.picked;
+    return {
+      vidRef: this.vidRef,
+      pickCity: (e) => {
+        const c = e.currentTarget.getAttribute('data-city');
+        this.setState({ picked: c });
+      },
+      pickedMsg: picked
+        ? '\u2192 "' + picked + '" 클릭됨 — 실제 반영 시 #cityChips [' + picked + '] 버튼 트리거 + 결과 영역 스크롤'
+        : '지도의 골드 도시를 클릭해 보세요 — 실제 반영 시 #cityChips 필터 + 결과 스크롤로 연결.',
+    };
+  }
+}
+</script>
+</body>
+</html>
