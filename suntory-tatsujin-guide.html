@@ -978,6 +978,7 @@
 
   /* ===== 2b: 모바일 사진 타일 → 탭 상세 ===== */
   .thumb-score { display: none; }
+  .thumb-count { display: none; }  /* 확장카드서만 노출(모바일) — 사진 좌우 스와이프 카운터 */
   @media (max-width: 620px) {
     .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .grid .card { border-radius: 10px; cursor: pointer; }
@@ -998,6 +999,14 @@
     .grid .card:not(.is-open) .c-foot { display: none; }
     .grid .card.is-open { grid-column: 1 / -1; cursor: default; }
     .grid .card.is-open .thumb { height: 200px; }
+    .grid .card.is-open .thumb-count {
+      display: flex; align-items: center; position: absolute;
+      left: 50%; bottom: 10px; transform: translateX(-50%); z-index: 2;
+      padding: 4px 12px; border-radius: 999px;
+      background: rgba(0,0,0,.55); color: #fff;
+      font-size: 12px; font-weight: 600; letter-spacing: .04em;
+      font-variant-numeric: tabular-nums; pointer-events: none;
+    }
     .grid .card.is-open .name,
     .grid .card.is-open .c-sub { white-space: normal; overflow: visible; text-overflow: unset; }
   }
@@ -2390,6 +2399,7 @@ function card(item) {
       <span class="bucket-tag">${deriveBucket(item)}</span>
       <span class="thumb-score">${scoreOnly(item.tabelog)}</span>
       ${hasMastersDream(item.tier) ? `<span class="masters-badge" title="마스터즈드림 취급점">M</span>` : ''}
+      ${galleryPhotos(item).length > 1 ? `<span class="thumb-count">‹ 1 / ${galleryPhotos(item).length} ›</span>` : ''}
     </div>
     <div class="body">
       <div class="c-name-row">
@@ -2717,12 +2727,53 @@ function initManners() {
 // 모바일(≤620px) 사진 타일 → 탭하면 상세 펼침. render()가 다시 그려도
 // 리스너는 #results(부모)에 위임돼있어 재바인딩 불필요. 데이터/필터와 무관.
 function initTileToggle() {
-  document.getElementById('results').addEventListener('click', e => {
+  const results = document.getElementById('results');
+  const parsePhotos = thumb => { try { return JSON.parse(thumb.dataset.photos.replace(/&#39;/g, "'")); } catch { return []; } };
+  const showPhoto = (thumb, idx, photos) => {
+    thumb.dataset.idx = idx;
+    const img = thumb.querySelector('img'); if (img) img.src = photos[idx];
+    const cnt = thumb.querySelector('.thumb-count'); if (cnt) cnt.textContent = `‹ ${idx + 1} / ${photos.length} ›`;
+  };
+
+  // 모바일 확장카드(is-open)의 큰 사진에서 좌우 스와이프 → 사진 변경
+  let sx = null, sy = null, sThumb = null, swiped = false;
+  results.addEventListener('touchstart', e => {
+    swiped = false; sThumb = null; sx = null;
     if (window.innerWidth > 620) return;
+    const thumb = e.target.closest('.grid .card.is-open .thumb');
+    if (!thumb) return;
+    const t = e.touches[0]; sx = t.clientX; sy = t.clientY; sThumb = thumb;
+  }, { passive: true });
+  results.addEventListener('touchend', e => {
+    if (!sThumb || sx === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      const photos = parsePhotos(sThumb);
+      if (photos.length > 1) {
+        const idx = ((parseInt(sThumb.dataset.idx || '0', 10) + (dx < 0 ? 1 : -1)) % photos.length + photos.length) % photos.length;
+        showPhoto(sThumb, idx, photos);
+        swiped = true;   // 이 제스처로 발생하는 click은 카드 접힘 무시
+      }
+    }
+    sx = sy = null; sThumb = null;
+  }, { passive: true });
+
+  // 탭 → 확장/접힘 토글 (스와이프 직후 click은 무시). 접힐 때 사진 대표컷으로 리셋.
+  results.addEventListener('click', e => {
+    if (window.innerWidth > 620) return;
+    if (swiped) { swiped = false; return; }
     const card = e.target.closest('.grid .card');
     if (!card) return;
     if (e.target.closest('a')) return;
-    card.classList.toggle('is-open');
+    const nowOpen = card.classList.toggle('is-open');
+    if (!nowOpen) {
+      const thumb = card.querySelector('.thumb');
+      if (thumb && thumb.dataset.idx && thumb.dataset.idx !== '0') {
+        const photos = parsePhotos(thumb);
+        if (photos.length) showPhoto(thumb, 0, photos);
+      }
+    }
   });
 }
 
