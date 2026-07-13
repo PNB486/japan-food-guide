@@ -255,8 +255,18 @@
     .video-hero { height: 55vh; min-height: 360px; }
     .suntory-story { padding: 36px 20px; }
     .suntory-story .story-inner { grid-template-columns: 1fr; gap: 24px; }
-    /* 모바일: 지도밴드 숨김 — 도시탭 필터로 대체 (사용자 지시) */
-    .map-band { display: none; }
+    /* 히어로 텍스트 단어 중간에 잘리지 않게(한글 단어 유지) */
+    .hero-eyebrow { word-break: keep-all; }
+    /* 모바일: 지도 그림(SVG)만 숨기고 도시별 매장수 리스트는 유지 + 축소 (사용자 지시) */
+    .map-band { padding: 26px 20px 22px; }
+    .map-band .map-inner { grid-template-columns: 1fr; gap: 0; }
+    .map-svg-wrap { display: none; }
+    .map-band .map-eyebrow { font-size: 11px; }
+    .map-band h2 { font-size: 21px; margin-bottom: 12px; }
+    .map-city-row { padding: 9px 4px; }
+    .map-city-row .name-jp .ko { font-size: 16px; }
+    .map-city-row .name-jp .jp { font-size: 10.5px; }
+    .map-city-row .count { font-size: 11.5px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1215,6 +1225,23 @@
     .controls:not(.filters-open) .legend { display: none; }
     .f-filter-toggle { display: flex; }
 
+    /* 필터 열림 시 등급카드·칩·버튼이 너무 커서 모바일서 축소 */
+    .f-ribbon-in { padding: 11px 12px; gap: 12px; }
+    .f-brand { width: 116px; }
+    .f-brand-title { font-size: 16px; }
+    .f-brand-sub { font-size: 9.5px; }
+    .f-tier-cards { gap: 6px; }
+    .f-tier-card { padding: 7px 9px; }
+    .f-tier-card .tc-name { font-size: 12px; }
+    .f-tier-card .tc-desc { font-size: 9px; }
+    .f-tier-card .tc-n { font-size: 13.5px; }
+    .f-tier-card .tc-tag { font-size: 7.5px; }
+    .f-oneline { gap: 6px; }
+    .f-oneline .chip { font-size: 11.5px; padding: 5px 11px; }
+    .f-pill { font-size: 11.5px; padding: 6px 11px; }
+    .sort-select { font-size: 11.5px; padding: 5px 22px 5px 11px; }
+    .legend { font-size: 11px; }
+
     /* MASTER'S DREAM HOUSE 직영 3카드 → 가로 컴팩트(사진 좌측 축소 + 이름·점수만, 상세meta 숨김) */
     .mdh-band { padding: 30px 18px; }
     .mdh-head { margin-bottom: 20px; }
@@ -1256,7 +1283,7 @@
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · 5개 도시 91곳</p>
+    <p class="hero-eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · <span style="white-space:nowrap">5개 도시 91곳</span></p>
     <h1 class="hero-title">위대한 AI님의 일본 맛집 가이드</h1>
     <div class="hero-rule"></div>
     <p class="hero-scroll">Featured by Soul</p>
