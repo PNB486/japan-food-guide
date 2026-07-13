@@ -999,6 +999,9 @@
     .grid .card:not(.is-open) .c-foot { display: none; }
     .grid .card.is-open { grid-column: 1 / -1; cursor: default; }
     .grid .card.is-open .thumb { height: 200px; }
+    /* 사진 드래그 캐러셀 트랙 — 손가락 따라 끌리고 스냅 */
+    .grid .card .thumb-track { position: absolute; inset: 0; display: flex; touch-action: pan-y; will-change: transform; }
+    .grid .card .thumb-track img { width: 100%; height: 100%; flex: none; object-fit: cover; display: block; user-select: none; -webkit-user-drag: none; }
     .grid .card.is-open .thumb-count {
       display: flex; align-items: center; position: absolute;
       left: 50%; bottom: 10px; transform: translateX(-50%); z-index: 2;
@@ -1253,6 +1256,13 @@
     .f-pill { font-size: 11.5px; padding: 6px 11px; }
     .sort-select { font-size: 11.5px; padding: 5px 22px 5px 11px; }
     .legend { font-size: 11px; }
+
+    /* 아이폰식 터치감: 탭 시 회색 플래시 제거, 탭 UI 텍스트선택 방지(카드 본문 주소 등은 선택 유지) */
+    * { -webkit-tap-highlight-color: transparent; }
+    .city-nav, .chip, .f-pill, .f-tier-card, .theme-toggle, .f-filter-toggle,
+    .sort-select, .map-city-row, .grid .card .thumb, .tc-name, .f-brand {
+      -webkit-user-select: none; user-select: none;
+    }
 
     /* MASTER'S DREAM HOUSE 직영 3카드 → 가로 컴팩트(사진 좌측 축소 + 이름·점수만, 상세meta 숨김) */
     .mdh-band { padding: 30px 18px; }
@@ -2728,51 +2738,84 @@ function initManners() {
 // 리스너는 #results(부모)에 위임돼있어 재바인딩 불필요. 데이터/필터와 무관.
 function initTileToggle() {
   const results = document.getElementById('results');
+  const SNAP = 'transform .34s cubic-bezier(.22,.61,.36,1)';   // iOS식 스프링 스냅
   const parsePhotos = thumb => { try { return JSON.parse(thumb.dataset.photos.replace(/&#39;/g, "'")); } catch { return []; } };
-  const showPhoto = (thumb, idx, photos) => {
-    thumb.dataset.idx = idx;
-    const img = thumb.querySelector('img'); if (img) img.src = photos[idx];
-    const cnt = thumb.querySelector('.thumb-count'); if (cnt) cnt.textContent = `‹ ${idx + 1} / ${photos.length} ›`;
+  const setCounter = (thumb, idx, n) => { const c = thumb.querySelector('.thumb-count'); if (c) c.textContent = `‹ ${idx + 1} / ${n} ›`; };
+  const buildTrack = (thumb, photos) => {
+    let track = thumb.querySelector('.thumb-track');
+    if (!track) {
+      track = document.createElement('div');
+      track.className = 'thumb-track';
+      track.innerHTML = photos.map(p => `<img src="${p}" alt="" draggable="false">`).join('');
+      thumb.insertBefore(track, thumb.firstChild);   // 오버레이(절대배치)들이 위에 유지됨
+    }
+    return track;
+  };
+  const setTrack = (track, idx, w, anim) => {
+    track.style.transition = anim ? SNAP : 'none';
+    track.style.transform = `translateX(${-idx * w}px)`;
   };
 
-  // 모바일 확장카드(is-open)의 큰 사진에서 좌우 스와이프 → 사진 변경
-  let sx = null, sy = null, sThumb = null, swiped = false;
+  // 드래그 캐러셀 상태 (손가락 따라 끌림 → 놓으면 스냅)
+  let drag = null, lastSwipeAt = 0;
   results.addEventListener('touchstart', e => {
-    swiped = false; sThumb = null; sx = null;
     if (window.innerWidth > 620) return;
-    const thumb = e.target.closest('.grid .card.is-open .thumb');
-    if (!thumb) return;
-    const t = e.touches[0]; sx = t.clientX; sy = t.clientY; sThumb = thumb;
+    const track = e.target.closest('.grid .card.is-open .thumb .thumb-track');
+    if (!track) return;
+    const thumb = track.closest('.thumb');
+    const photos = parsePhotos(thumb);
+    if (photos.length < 2) return;
+    const t = e.touches[0];
+    drag = { thumb, track, photos, idx: parseInt(thumb.dataset.idx || '0', 10),
+             startX: t.clientX, startY: t.clientY, w: thumb.clientWidth, moved: false };
+    track.style.transition = 'none';
+  }, { passive: true });
+  results.addEventListener('touchmove', e => {
+    if (!drag) return;
+    const t = e.touches[0];
+    const dx = t.clientX - drag.startX, dy = t.clientY - drag.startY;
+    if (!drag.moved && Math.abs(dx) < Math.abs(dy)) { drag = null; return; }  // 세로 우세 → 페이지 스크롤 양보
+    drag.moved = true;
+    const atStart = drag.idx === 0, atEnd = drag.idx === drag.photos.length - 1;
+    let d = dx;
+    if ((atStart && dx > 0) || (atEnd && dx < 0)) d = dx * 0.35;   // 양끝 고무줄 저항
+    drag.track.style.transform = `translateX(${-drag.idx * drag.w + d}px)`;
   }, { passive: true });
   results.addEventListener('touchend', e => {
-    if (!sThumb || sx === null) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - sx, dy = t.clientY - sy;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      const photos = parsePhotos(sThumb);
-      if (photos.length > 1) {
-        const idx = ((parseInt(sThumb.dataset.idx || '0', 10) + (dx < 0 ? 1 : -1)) % photos.length + photos.length) % photos.length;
-        showPhoto(sThumb, idx, photos);
-        swiped = true;   // 이 제스처로 발생하는 click은 카드 접힘 무시
-      }
-    }
-    sx = sy = null; sThumb = null;
+    if (!drag) return;
+    const d = drag; drag = null;
+    if (!d.moved) return;
+    const dx = e.changedTouches[0].clientX - d.startX;
+    let idx = d.idx;
+    if (Math.abs(dx) > d.w * 0.2) idx = dx < 0 ? Math.min(d.idx + 1, d.photos.length - 1) : Math.max(d.idx - 1, 0);
+    d.thumb.dataset.idx = idx;
+    setTrack(d.track, idx, d.w, true);
+    setCounter(d.thumb, idx, d.photos.length);
+    lastSwipeAt = Date.now();   // 직후 발생하는 click(카드 접힘) 무시용
   }, { passive: true });
 
-  // 탭 → 확장/접힘 토글 (스와이프 직후 click은 무시). 접힐 때 사진 대표컷으로 리셋.
+  // 탭 → 확장/접힘 토글. 열 때 트랙 생성, 접을 때 리셋+트랙 제거.
   results.addEventListener('click', e => {
     if (window.innerWidth > 620) return;
-    if (swiped) { swiped = false; return; }
+    if (Date.now() - lastSwipeAt < 350) return;   // 방금 스와이프 제스처면 토글 안 함
     const card = e.target.closest('.grid .card');
     if (!card) return;
     if (e.target.closest('a')) return;
+    const thumb = card.querySelector('.thumb');
+    const photos = parsePhotos(thumb);
     const nowOpen = card.classList.toggle('is-open');
-    if (!nowOpen) {
-      const thumb = card.querySelector('.thumb');
-      if (thumb && thumb.dataset.idx && thumb.dataset.idx !== '0') {
-        const photos = parsePhotos(thumb);
-        if (photos.length) showPhoto(thumb, 0, photos);
+    if (nowOpen) {
+      if (photos.length > 1) {
+        const track = buildTrack(thumb, photos);
+        const idx = parseInt(thumb.dataset.idx || '0', 10);
+        requestAnimationFrame(() => setTrack(track, idx, thumb.clientWidth, false));
+        setCounter(thumb, idx, photos.length);
       }
+    } else {
+      thumb.dataset.idx = '0';
+      const track = thumb.querySelector('.thumb-track');
+      if (track) track.remove();
+      if (photos.length) setCounter(thumb, 0, photos.length);
     }
   });
 }
