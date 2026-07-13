@@ -1227,9 +1227,12 @@
 
     /* 필터 열림 시 등급카드·칩·버튼이 너무 커서 모바일서 축소 */
     .f-ribbon-in { padding: 11px 12px; gap: 12px; }
-    .f-brand { width: 116px; }
+    /* SUNTORY 브랜드블록: 좌(일어 제목) / 우(설명) 가로분할로 높이 축소 */
+    .f-brand { width: 100%; display: flex; align-items: center; gap: 14px; }
+    .f-brand-name { flex: none; }
     .f-brand-title { font-size: 16px; }
-    .f-brand-sub { font-size: 9.5px; }
+    .f-brand-sub { flex: 1; font-size: 9.5px; margin-top: 0; padding-left: 14px;
+      border-left: 1px solid color-mix(in srgb, var(--accent) 20%, transparent); }
     .f-tier-cards { gap: 6px; }
     .f-tier-card { padding: 7px 9px; }
     .f-tier-card .tc-name { font-size: 12px; }
@@ -1465,8 +1468,10 @@
       <div class="f-ribbon">
         <div class="f-ribbon-in">
           <div class="f-brand">
-            <div class="f-brand-eye">SUNTORY</div>
-            <div class="f-brand-title">神泡達人店</div>
+            <div class="f-brand-name">
+              <div class="f-brand-eye">SUNTORY</div>
+              <div class="f-brand-title">神泡達人店</div>
+            </div>
             <div class="f-brand-sub">완벽한 거품,<br>산토리가 인증한 맥주 맛집</div>
           </div>
           <div class="f-brand-div"></div>
