@@ -595,6 +595,71 @@
     box-shadow: none;
   }
 
+  /* ===== 5A 필터 ===== */
+  .f-citytabs { display: flex; align-items: flex-end; gap: 16px; padding-right: 250px; }
+  .f-citytabs .city-nav { flex: 1; margin-bottom: 0; }
+  .f-showing { font-size: 12.5px; color: var(--text-faint); padding-bottom: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  .f-ribbon { position: relative; margin-top: 2px; border-radius: 14px; overflow: hidden;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, var(--bg)), color-mix(in srgb, var(--accent) 6%, var(--bg)) 60%);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); }
+  .f-ribbon::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(700px 220px at 8% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent); }
+  .f-ribbon-in { position: relative; display: flex; align-items: stretch; gap: 24px; padding: 20px 24px; }
+  .f-brand { flex: none; align-self: center; width: 190px; }
+  .f-brand-eye { font-size: 10.5px; letter-spacing: .3em; color: var(--accent); font-weight: 700; }
+  .f-brand-title { font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; font-size: 25px; color: var(--accent-bright); margin-top: 3px; }
+  .f-brand-sub { font-size: 11.5px; color: var(--text-faint); margin-top: 5px; line-height: 1.55; }
+  .f-brand-div { width: 1px; background: color-mix(in srgb, var(--accent) 20%, transparent); }
+  .f-tier-cards { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .f-tier-card { text-align: left; cursor: pointer; border-radius: 12px; padding: 13px 15px; font-family: inherit;
+    border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); background: color-mix(in srgb, var(--bg) 55%, transparent); color: var(--text);
+    transition: border-color .15s, transform .15s var(--ease-spring), box-shadow .15s; }
+  .f-tier-card:active { transform: scale(.97); }
+  .f-tier-card .tc-name { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 800; }
+  .f-tier-card .tc-desc { display: block; font-size: 11.5px; margin-top: 3px; color: var(--text-faint); }
+  .f-tier-card .tc-n { display: block; font-family: 'Zen Kaku Gothic New', sans-serif; font-weight: 900; font-size: 20px; margin-top: 8px; color: var(--text-dim); }
+  .f-tier-card .tc-n small { font-size: 11px; font-weight: 500; color: var(--text-faint); }
+  .f-tier-card .tc-tag { font-size: 9.5px; letter-spacing: .08em; font-weight: 800; padding: 2px 6px; border-radius: 99px; }
+  .f-tier-card .tc-tag.sup { background: linear-gradient(var(--accent-bright), var(--accent)); color: var(--accent-ink); }
+  .f-tier-card .tc-tag.dal { border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); color: var(--accent); }
+  .f-tier-card.active { background: linear-gradient(var(--accent-bright), var(--accent)); border-color: var(--accent); color: var(--accent-ink);
+    box-shadow: 0 8px 24px -12px color-mix(in srgb, var(--accent) 50%, transparent); }
+  .f-tier-card.active .tc-name, .f-tier-card.active .tc-desc, .f-tier-card.active .tc-n, .f-tier-card.active .tc-n small { color: var(--accent-ink); }
+  .f-tier-card.active .tc-tag.sup { background: var(--accent-ink); color: var(--accent-bright); }
+  .f-tier-card.active .tc-tag.dal { border-color: var(--accent-ink); color: var(--accent-ink); }
+
+  .f-oneline { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .f-sep { width: 1px; height: 22px; background: color-mix(in srgb, var(--accent) 15%, transparent); margin: 0 4px; }
+  .f-pill { appearance: none; font-family: inherit; padding: 8px 14px; border-radius: 9px;
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); background: transparent; color: var(--text-dim);
+    font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px;
+    transition: border-color .15s, color .15s, background .15s, transform .15s var(--ease-spring); }
+  .f-pill:hover { border-color: var(--accent); color: var(--text); }
+  .f-pill:active { transform: scale(.95); }
+  .f-pill.active { background: linear-gradient(var(--accent-bright), var(--accent)); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .f-pill .car { transition: transform .18s; }
+  .f-drop.open .f-pill .car { transform: rotate(180deg); }
+  .f-drop { position: relative; }
+  .f-drop-panel { position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; min-width: 220px;
+    background: var(--bg); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--line)); border-radius: 12px;
+    padding: 12px 14px 14px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.7); display: none; }
+  .f-drop.open .f-drop-panel { display: block; }
+  .f-drop-panel .dp-label { font-size: 10.5px; letter-spacing: .12em; color: var(--text-faint); font-weight: 600; margin: 12px 0 7px; }
+  .f-drop-panel .dp-label:first-child { margin-top: 0; }
+  .f-genre-hidden { display: none; }
+  .f-genre.expanded .f-genre-hidden { display: inline-flex; }
+
+  @media (max-width: 820px) {
+    .f-citytabs { flex-direction: column; align-items: stretch; gap: 2px; padding-right: 0; }
+    .f-showing { padding-bottom: 6px; }
+    .f-ribbon-in { flex-direction: column; gap: 14px; padding: 16px; }
+    .f-brand { width: auto; }
+    .f-brand-div { display: none; }
+    .f-tier-cards { grid-template-columns: 1fr 1fr; }
+    .f-oneline .sort-select { margin-left: 0 !important; }
+  }
+
 
   .count {
     font-size: 12.5px;
@@ -1223,58 +1288,59 @@
         <button class="theme-toggle" id="flagModeToggle" type="button">🚩 사진 마킹</button>
       </div>
     </div>
+  </header>
+
+  <div class="controls">
+    <div class="filter-boxed">
+      <!-- 도시 탭 + 표시중 카운트 -->
+      <div class="f-citytabs">
+        <div class="chip-row city-nav" id="cityChips"></div>
+        <span class="f-showing" id="countLine"></span>
+      </div>
+
+      <!-- 산토리 등급 리본 -->
+      <div class="f-ribbon">
+        <div class="f-ribbon-in">
+          <div class="f-brand">
+            <div class="f-brand-eye">SUNTORY</div>
+            <div class="f-brand-title">神泡達人店</div>
+            <div class="f-brand-sub">완벽한 거품,<br>산토리가 인증한 맥주 맛집</div>
+          </div>
+          <div class="f-brand-div"></div>
+          <div class="f-tier-cards" id="tierCards"></div>
+        </div>
+      </div>
+
+      <!-- 장르 + 점수·리뷰 + 미슐랭 + 한국인픽 + 정렬 -->
+      <div class="f-oneline">
+        <div class="chip-row f-genre" id="bucketChips"></div>
+        <span class="f-sep"></span>
+        <div class="f-drop" id="scoreDrop">
+          <button class="f-pill" id="scoreDropBtn" type="button">점수·리뷰 <svg class="car" width="9" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 1l4 4 4-4"/></svg></button>
+          <div class="f-drop-panel">
+            <div class="dp-label">타베로그 점수</div>
+            <div class="chip-row" id="scoreChips"></div>
+            <div class="dp-label">리뷰 수</div>
+            <div class="chip-row" id="reviewChips"></div>
+          </div>
+        </div>
+        <span id="michelinChips" style="display:inline-flex;"></span>
+        <span id="koreanPickChips" style="display:inline-flex;"></span>
+        <select class="sort-select" id="sortSelect" style="margin-left:auto;">
+          <option value="default">기본순</option>
+          <option value="score">점수 높은순</option>
+          <option value="reviews">리뷰 많은순</option>
+          <option value="saves">저장 많은순</option>
+        </select>
+      </div>
+
+      <!-- 범례 -->
       <div class="legend">
         <span><span class="dot d-tier"></span>산토리 인증 등급</span>
         <span><span class="dot d-good"></span>타베로그 3.0+ (전체 수록 기준)</span>
         <span><span class="michelin"><span class="star">★</span></span> 미슐랭 스타 · <span class="michelin"><span class="bib">B</span></span> 빕구르망</span>
         <span><span class="masters-badge" style="position:static; display:inline-flex;">M</span> 마스터즈드림(マスターズドリーム)</span>
         <span><span class="badge korean-pick-badge" style="cursor:default;"><span class="dot" style="background:#e0393c"></span><span style="color:#e0393c;">KR</span> 한국인 픽</span></span>
-      </div>
-  </header>
-
-  <div class="controls">
-    <div class="chip-row city-nav" id="cityChips"></div>
-    <div class="filter-boxed">
-      <div class="filter-group">
-        <span class="filter-label">장르</span>
-        <div class="chip-row" id="bucketChips"></div>
-      </div>
-      <div class="filter-line">
-        <span class="filter-label">상세</span>
-        <div class="filter-group">
-          <span class="filter-label">산토리 등급</span>
-          <div class="chip-row" id="tierChips"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">부가 배지</span>
-          <div class="chip-row" id="mastersChips"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">미슐랭</span>
-          <div class="chip-row" id="michelinChips"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">한국인 픽</span>
-          <div class="chip-row" id="koreanPickChips"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">타베로그 점수</span>
-          <div class="chip-row" id="scoreChips"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">리뷰 수</span>
-          <div class="chip-row" id="reviewChips"></div>
-        </div>
-        <div class="filter-group">
-          <span class="filter-label">정렬</span>
-          <select class="sort-select" id="sortSelect">
-            <option value="default">기본순</option>
-            <option value="score">점수 높은순</option>
-            <option value="reviews">리뷰 많은순</option>
-            <option value="saves">저장 많은순</option>
-          </select>
-        </div>
-        <span class="count-inline" id="countLine"></span>
       </div>
     </div>
   </div>
@@ -2287,6 +2353,7 @@ function renderResults() {
 }
 
 function buildChips() {
+  // 도시 탭
   const cityWrap = document.getElementById('cityChips');
   ['전체', ...CITY_ORDER].forEach(c => {
     const b = document.createElement('button');
@@ -2300,69 +2367,104 @@ function buildChips() {
     cityWrap.appendChild(b);
   });
 
-  const bucketWrap = document.getElementById('bucketChips');
-  ['전체', ...BUCKETS].forEach(bk => {
+  // 산토리 등급 리본 카드 — 실제·동적 카운트, 단일 선택(초달인/달인=activeTier, 마스터즈드림=activeMastersOnly)
+  const total = DATA.length;
+  const supN = DATA.filter(d => tierBucket(d.tier) === '초달인점').length;
+  const dalN = DATA.filter(d => tierBucket(d.tier) === '달인점').length;
+  const mdN  = DATA.filter(d => hasMastersDream(d.tier)).length;
+  const TIER_CARDS = [
+    { name:'전체',        desc:'모든 등급 포함',       n:total, tier:'전체',    masters:false },
+    { name:'초달인점',    desc:'신포 품질 최상위 인증', n:supN,  tier:'초달인점', masters:false, tag:['sup','超達人'] },
+    { name:'달인점',      desc:'신포 품질 인증점',     n:dalN,  tier:'달인점',   masters:false, tag:['dal','達人'] },
+    { name:'마스터즈드림', desc:'프리미엄 원액 취급점',  n:mdN,   tier:'전체',    masters:true },
+  ];
+  const tierWrap = document.getElementById('tierCards');
+  const isCardActive = c => c.masters ? activeMastersOnly : (!activeMastersOnly && activeTier === c.tier);
+  TIER_CARDS.forEach(c => {
     const b = document.createElement('button');
-    b.className = 'chip' + (bk === activeBucket ? ' active' : '');
-    b.textContent = bk;
+    b.type = 'button';
+    b.className = 'f-tier-card' + (isCardActive(c) ? ' active' : '');
+    const tag = c.tag ? ` <span class="tc-tag ${c.tag[0]}">${c.tag[1]}</span>` : '';
+    b.innerHTML = `<span class="tc-name">${c.name}${tag}</span><span class="tc-desc">${c.desc}</span><span class="tc-n">${c.n}<small>곳</small></span>`;
     b.onclick = () => {
-      activeBucket = bk;
-      [...bucketWrap.children].forEach(ch => ch.classList.toggle('active', ch === b));
-      render();
-    };
-    bucketWrap.appendChild(b);
-  });
-
-  const tierWrap = document.getElementById('tierChips');
-  ['전체', ...TIERS].forEach(tr => {
-    const b = document.createElement('button');
-    b.className = 'chip' + (tr === activeTier ? ' active' : '');
-    b.textContent = tr;
-    b.onclick = () => {
-      activeTier = tr;
+      activeTier = c.tier;
+      activeMastersOnly = c.masters;
       [...tierWrap.children].forEach(ch => ch.classList.toggle('active', ch === b));
       render();
     };
     tierWrap.appendChild(b);
   });
 
-  const mastersWrap = document.getElementById('mastersChips');
-  const mastersBtn = document.createElement('button');
-  mastersBtn.className = 'chip' + (activeMastersOnly ? ' active' : '');
-  mastersBtn.textContent = '마스터즈드림 취급점';
-  mastersBtn.onclick = () => {
-    activeMastersOnly = !activeMastersOnly;
-    mastersBtn.classList.toggle('active', activeMastersOnly);
-    render();
+  // 장르 칩 — 대표 4개 노출 + '그 외 +N' 펼침
+  const bucketWrap = document.getElementById('bucketChips');
+  const GENRE_VISIBLE = ['스시·해산물','고기구이','면류','이자카야·바'];
+  const mkBucket = (bk, hidden) => {
+    const b = document.createElement('button');
+    b.className = 'chip' + (bk === activeBucket ? ' active' : '') + (hidden ? ' f-genre-hidden' : '');
+    b.textContent = bk;
+    b.onclick = () => {
+      activeBucket = bk;
+      [...bucketWrap.querySelectorAll('.chip')].forEach(ch => ch.classList.toggle('active', ch === b));
+      render();
+    };
+    return b;
   };
-  mastersWrap.appendChild(mastersBtn);
+  bucketWrap.appendChild(mkBucket('전체', false));
+  GENRE_VISIBLE.forEach(bk => bucketWrap.appendChild(mkBucket(bk, false)));
+  const hiddenBuckets = BUCKETS.filter(bk => !GENRE_VISIBLE.includes(bk));
+  hiddenBuckets.forEach(bk => bucketWrap.appendChild(mkBucket(bk, true)));
+  const moreBtn = document.createElement('button');
+  moreBtn.className = 'chip';
+  moreBtn.textContent = `그 외 +${hiddenBuckets.length}`;
+  moreBtn.onclick = () => {
+    const on = bucketWrap.classList.toggle('expanded');
+    moreBtn.textContent = on ? '접기' : `그 외 +${hiddenBuckets.length}`;
+  };
+  bucketWrap.appendChild(moreBtn);
 
-  const michelinWrap = document.getElementById('michelinChips');
+  // 미슐랭 pill
   const michelinBtn = document.createElement('button');
-  michelinBtn.className = 'chip' + (activeMichelinOnly ? ' active' : '');
-  michelinBtn.textContent = '미슐랭 등재점';
+  michelinBtn.type = 'button';
+  michelinBtn.className = 'f-pill' + (activeMichelinOnly ? ' active' : '');
+  michelinBtn.textContent = '★ 미슐랭';
   michelinBtn.onclick = () => {
     activeMichelinOnly = !activeMichelinOnly;
     michelinBtn.classList.toggle('active', activeMichelinOnly);
     render();
   };
-  michelinWrap.appendChild(michelinBtn);
+  document.getElementById('michelinChips').appendChild(michelinBtn);
 
-  const koreanPickWrap = document.getElementById('koreanPickChips');
+  // 한국인 픽 pill
   const koreanPickBtn = document.createElement('button');
-  koreanPickBtn.className = 'chip' + (activeKoreanPickOnly ? ' active' : '');
-  koreanPickBtn.textContent = '🇰🇷 한국인 픽만';
+  koreanPickBtn.type = 'button';
+  koreanPickBtn.className = 'f-pill' + (activeKoreanPickOnly ? ' active' : '');
+  koreanPickBtn.textContent = 'KR 한국인 픽';
   koreanPickBtn.onclick = () => {
     activeKoreanPickOnly = !activeKoreanPickOnly;
     koreanPickBtn.classList.toggle('active', activeKoreanPickOnly);
     render();
   };
-  koreanPickWrap.appendChild(koreanPickBtn);
+  document.getElementById('koreanPickChips').appendChild(koreanPickBtn);
 
+  // 정렬
   document.getElementById('sortSelect').addEventListener('change', e => {
     activeSort = e.target.value;
     render();
   });
+
+  // 점수·리뷰 드롭다운 토글
+  const scoreDrop = document.getElementById('scoreDrop');
+  const scoreDropBtn = document.getElementById('scoreDropBtn');
+  scoreDropBtn.addEventListener('click', e => { e.stopPropagation(); scoreDrop.classList.toggle('open'); });
+  document.addEventListener('click', e => { if (!scoreDrop.contains(e.target)) scoreDrop.classList.remove('open'); });
+  function updateScoreDropLabel() {
+    const parts = [];
+    if (activeScoreMin > 0) parts.push(activeScoreMin.toFixed(1) + '+');
+    if (activeReviewMin > 0) parts.push('리뷰 ' + activeReviewMin + '+');
+    scoreDropBtn.innerHTML = (parts.length ? parts.join(' · ') : '점수·리뷰') +
+      ' <svg class="car" width="9" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 1l4 4 4-4"/></svg>';
+    scoreDropBtn.classList.toggle('active', parts.length > 0);
+  }
 
   const scoreWrap = document.getElementById('scoreChips');
   SCORE_STEPS.forEach(step => {
@@ -2372,6 +2474,7 @@ function buildChips() {
     b.onclick = () => {
       activeScoreMin = step.min;
       [...scoreWrap.children].forEach(ch => ch.classList.toggle('active', ch === b));
+      updateScoreDropLabel();
       render();
     };
     scoreWrap.appendChild(b);
@@ -2385,6 +2488,7 @@ function buildChips() {
     b.onclick = () => {
       activeReviewMin = step.min;
       [...reviewWrap.children].forEach(ch => ch.classList.toggle('active', ch === b));
+      updateScoreDropLabel();
       render();
     };
     reviewWrap.appendChild(b);
