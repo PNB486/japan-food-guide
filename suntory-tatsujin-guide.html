@@ -596,7 +596,7 @@
   }
 
   /* ===== 5A 필터 ===== */
-  .f-citytabs { display: flex; align-items: flex-end; gap: 16px; padding-right: 250px; }
+  .f-citytabs { display: flex; align-items: flex-end; gap: 16px; }
   .f-citytabs .city-nav { flex: 1; margin-bottom: 0; }
   .f-showing { font-size: 12.5px; color: var(--text-faint); padding-bottom: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
@@ -1379,14 +1379,6 @@
   </div>
 </section>
 <div class="wrap">
-  <header class="masthead">
-    <div class="masthead-row">
-      <div class="masthead-tools">
-        <button class="theme-toggle" id="flagModeToggle" type="button">🚩 사진 마킹</button>
-      </div>
-    </div>
-  </header>
-
   <div class="controls">
     <div class="filter-boxed">
       <!-- 도시 탭 + 표시중 카운트 -->
@@ -1423,6 +1415,7 @@
         </div>
         <span id="michelinChips" style="display:inline-flex;"></span>
         <span id="koreanPickChips" style="display:inline-flex;"></span>
+        <span id="reserveChips" style="display:inline-flex;"></span>
         <select class="sort-select" id="sortSelect" style="margin-left:auto;">
           <option value="default">기본순</option>
           <option value="score">점수 높은순</option>
@@ -1434,7 +1427,6 @@
       <!-- 범례 -->
       <div class="legend">
         <span><span class="dot d-tier"></span>산토리 인증 등급</span>
-        <span><span class="dot d-good"></span>타베로그 3.0+ (전체 수록 기준)</span>
         <span><span class="michelin"><span class="star">★</span></span> 미슐랭 스타 · <span class="michelin"><span class="bib">B</span></span> 빕구르망</span>
         <span><span class="masters-badge" style="position:static; display:inline-flex;">M</span> 마스터즈드림(マスターズドリーム)</span>
         <span><span class="badge korean-pick-badge" style="cursor:default;"><span class="dot" style="background:#e0393c"></span><span style="color:#e0393c;">KR</span> 한국인 픽</span></span>
@@ -1448,6 +1440,7 @@
     <p>사진: 산토리 공식 매장 이미지 등 공개 출처(가능한 경우) — 정책상 일부는 표시되지 않을 수 있습니다. 지도: 임베드 대신 구글맵 검색 링크로 연결됩니다. 홈페이지 아이콘(⊕)은 확인된 매장에만 표시됩니다.</p>
     <p>매장명·메뉴는 한글 번역을 함께 표기하고, 정기휴일은 한글로만 표기했습니다. 주소는 현지 검색/택시 매칭을 위해 일본어 원문을 유지하고, 교통(역명·노선명 포함)은 한글로 번역했습니다 — 주소·교통 텍스트를 클릭하면 구글맵으로 연결됩니다. 타베로그 배지를 클릭하면 해당 매장의 타베로그 개별 페이지로 바로 이동합니다. "카미아와(神泡)"는 산토리 생맥주의 정교한 거품 서빙 기술 인증 등급명입니다.</p>
     <p>리서치 기준일 2026-07-09. 영업시간·정기휴일·가격·미슐랭 등재는 방문 전 재확인 권장.</p>
+    <div style="margin-top:18px;"><button class="theme-toggle" id="flagModeToggle" type="button">🚩 사진 마킹</button></div>
   </footer>
 </div>
 
@@ -1897,6 +1890,7 @@ let activeTier = '전체';
 let activeMastersOnly = false;
 let activeMichelinOnly = false;
 let activeKoreanPickOnly = false;
+let activeReserveRequired = false;
 let activeSort = 'default';
 let activeScoreMin = 0;
 let activeReviewMin = 0;
@@ -2416,6 +2410,7 @@ function renderResults() {
       if (activeMastersOnly && !hasMastersDream(d.tier)) return false;
       if (activeMichelinOnly && !d.michelin) return false;
       if (activeKoreanPickOnly && !d.koreanPick) return false;
+      if (activeReserveRequired && !/필수|완전예약/.test(d.reserve || '')) return false;
       if (activeScoreMin > 0) {
         const s = parseScoreValue(d.tabelog);
         if (s === null || s < activeScoreMin) return false;
@@ -2545,6 +2540,18 @@ function buildChips() {
     render();
   };
   document.getElementById('koreanPickChips').appendChild(koreanPickBtn);
+
+  // 예약 필수 pill
+  const reserveBtn = document.createElement('button');
+  reserveBtn.type = 'button';
+  reserveBtn.className = 'f-pill' + (activeReserveRequired ? ' active' : '');
+  reserveBtn.textContent = '예약 필수';
+  reserveBtn.onclick = () => {
+    activeReserveRequired = !activeReserveRequired;
+    reserveBtn.classList.toggle('active', activeReserveRequired);
+    render();
+  };
+  document.getElementById('reserveChips').appendChild(reserveBtn);
 
   // 정렬
   document.getElementById('sortSelect').addEventListener('change', e => {
