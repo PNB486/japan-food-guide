@@ -255,9 +255,8 @@
     .video-hero { height: 55vh; min-height: 360px; }
     .suntory-story { padding: 36px 20px; }
     .suntory-story .story-inner { grid-template-columns: 1fr; gap: 24px; }
-    .map-band { padding: 32px 20px 30px; }
-    .map-band .map-inner { grid-template-columns: 1fr; gap: 24px; }
-    .map-city-row .name-jp .ko { font-size: 18px; }
+    /* 모바일: 지도밴드 숨김 — 도시탭 필터로 대체 (사용자 지시) */
+    .map-band { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -631,6 +630,14 @@
   .f-tier-card.active .tc-name, .f-tier-card.active .tc-desc, .f-tier-card.active .tc-n, .f-tier-card.active .tc-n small { color: var(--accent-ink); }
   .f-tier-card.active .tc-tag.sup { background: var(--accent-ink); color: var(--accent-bright); }
   .f-tier-card.active .tc-tag.dal { border-color: var(--accent-ink); color: var(--accent-ink); }
+
+  /* 모바일 전용 하위필터 토글 버튼 — 데스크톱 숨김 */
+  .f-filter-toggle { display: none; width: 100%; justify-content: center; align-items: center; gap: 7px;
+    appearance: none; font-family: inherit; font-size: 13px; font-weight: 600; margin-top: 2px;
+    padding: 9px 14px; border-radius: 9px; border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    background: transparent; color: var(--text-dim); cursor: pointer; white-space: nowrap;
+    transition: border-color .15s, color .15s, background .15s; }
+  .f-filter-toggle.on { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--text); border-color: var(--accent); }
 
   .f-oneline { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
   .f-sep { width: 1px; height: 22px; background: color-mix(in srgb, var(--accent) 15%, transparent); margin: 0 4px; }
@@ -1192,6 +1199,32 @@
     .mdh-band { padding: 40px 20px; }
     .mdh-grid { grid-template-columns: 1fr; gap: 16px; }
   }
+
+  /* ===== 모바일 필터 재구성 (세션18, 사용자지시) — 모든 base 규칙 뒤에 둬서 소스순서로 이기게 함 =====
+     지도숨김은 위 254블록, 매거진 첫카드 제거는 renderResults JS. 여기선 도시탭 압축/토글/MDH컴팩트. */
+  @media (max-width: 620px) {
+    /* 도시탭만 한 줄(가로스크롤 안전장치), 표시중 카운트 숨김 */
+    .f-citytabs .f-showing { display: none; }
+    .city-nav { gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .city-nav::-webkit-scrollbar { display: none; }
+    .city-nav .chip { font-size: 13.5px; padding-bottom: 8px; white-space: nowrap; flex: none; }
+
+    /* 하위필터(등급리본 / 장르·점수·미슐랭·정렬 / 범례) → '필터 ⚙' 토글 뒤로, 닫힘 시 숨김 */
+    .controls:not(.filters-open) .f-ribbon,
+    .controls:not(.filters-open) .f-oneline,
+    .controls:not(.filters-open) .legend { display: none; }
+    .f-filter-toggle { display: flex; }
+
+    /* MASTER'S DREAM HOUSE 직영 3카드 → 가로 컴팩트(사진 좌측 축소 + 이름·점수만, 상세meta 숨김) */
+    .mdh-band { padding: 30px 18px; }
+    .mdh-head { margin-bottom: 20px; }
+    .mdh-card { display: flex; align-items: stretch; }
+    .mdh-photo { width: 104px; flex: none; aspect-ratio: auto; }
+    .mdh-body { flex: 1; padding: 10px 12px; gap: 2px; justify-content: center; }
+    .mdh-name { font-size: 15px; }
+    .mdh-score { margin: 5px 0 0; }
+    .mdh-meta { display: none; }
+  }
 </style>
 </head>
 <body class="splash-active">
@@ -1397,6 +1430,9 @@
         <div class="chip-row city-nav" id="cityChips"></div>
         <span class="f-showing" id="countLine"></span>
       </div>
+
+      <!-- 모바일 전용: 하위필터 토글 (데스크톱 CSS로 숨김) -->
+      <button class="f-filter-toggle" id="filterToggle" type="button" aria-expanded="false">필터 · 등급 ⚙</button>
 
       <!-- 산토리 등급 리본 -->
       <div class="f-ribbon">
@@ -2449,8 +2485,9 @@ function renderResults() {
         <div class="rule"></div>
         <span class="n">${items.length}곳</span>
       </div>
-      <div class="city-lead">${magazineCard(items[0])}</div>
-      <div class="grid">${items.slice(1).map(card).join('')}</div>
+      ${window.matchMedia('(max-width: 620px)').matches
+        ? `<div class="grid">${items.map(card).join('')}</div>`
+        : `<div class="city-lead">${magazineCard(items[0])}</div><div class="grid">${items.slice(1).map(card).join('')}</div>`}
     </section>`;
   });
 
@@ -2842,30 +2879,20 @@ function initMapNav() {
   });
 }
 
-// 모바일: 등급요약카드(f-ribbon)+범례(legend)를 sticky 필터바(.controls) 밖으로 빼서 스크롤아웃.
-// 남는 sticky는 도시탭+필터칩+정렬만 → 컴팩트. 데스크톱은 원위치 유지(resize 토글).
-// sticky 요소는 #results의 형제여야 카드 위에 계속 고정됨.
-function initMobileFilterLayout() {
-  const mq = window.matchMedia('(max-width: 620px)');
+// 모바일 필터: 도시탭만 항상 노출, 나머지(등급리본/장르·점수·정렬/범례)는 '필터 ⚙' 토글 뒤로.
+// (표시/숨김은 CSS `.controls:not(.filters-open)`가 담당 — JS는 클래스만 토글)
+// 추가로 모바일↔데스크톱 전환 시 매거진 첫카드 렌더 방식이 달라지므로 재렌더.
+function initMobileFilters() {
+  const btn = document.getElementById('filterToggle');
   const controls = document.querySelector('.controls');
-  if (!controls) return;
-  const wrap = controls.parentElement;
-  // 빼낼 요소들 — sticky에 있을 이유 없는 참고/요약 블록
-  const hoist = ['.f-ribbon', '.legend']
-    .map(s => document.querySelector(s))
-    .filter(Boolean)
-    .map(el => { const home = document.createComment('home'); el.parentNode.insertBefore(home, el); return { el, home }; });
-  const apply = () => {
-    if (mq.matches) {
-      // 모바일: sticky 바로 위에 순서대로 배치, 자연스크롤로 넘어감
-      hoist.forEach(({ el }) => wrap.insertBefore(el, controls));
-    } else {
-      // 데스크톱: 원위치 복귀
-      hoist.forEach(({ el, home }) => home.parentNode.insertBefore(el, home.nextSibling));
-    }
-  };
-  apply();
-  mq.addEventListener('change', apply);
+  if (btn && controls) {
+    btn.addEventListener('click', () => {
+      const open = controls.classList.toggle('filters-open');
+      btn.classList.toggle('on', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+  window.matchMedia('(max-width: 620px)').addEventListener('change', () => render());
 }
 
 buildChips();
@@ -2877,7 +2904,7 @@ initSplash();
 initFlagMode();
 initPhotoModal();
 initMapNav();
-initMobileFilterLayout();
+initMobileFilters();
 </script>
 </body>
 </html>
