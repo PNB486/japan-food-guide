@@ -1338,7 +1338,7 @@
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">神泡達人店 · 산토리 인증 · 타베로그 검증 · <span style="white-space:nowrap">5개 도시 187곳</span></p>
+    <p class="hero-eyebrow">神泡達人店 · 산토리 인증 · 타베로그·구글 검증 · <span style="white-space:nowrap">5개 도시 187곳</span></p>
     <h1 class="hero-title">위대한 AI님의 일본 맛집 가이드</h1>
     <div class="hero-rule"></div>
     <p class="hero-scroll">Featured by Soul</p>
@@ -2759,6 +2759,15 @@ function buildChips() {
       activeCity = c;
       [...cityWrap.children].forEach(ch => ch.classList.toggle('active', ch === b));
       render();
+      // 도시 바꾸면 카드섹션 시작지점으로 스크롤 초기화. (sticky .controls는 이미 상단고정이라
+      // scrollIntoView가 '이미 보임'으로 판단해 무동작 → results 절대위치 기준으로 직접 이동)
+      requestAnimationFrame(() => {
+        const bar = document.querySelector('.controls');
+        const results = document.getElementById('results');
+        const barH = bar ? bar.getBoundingClientRect().height : 0;
+        const y = results.getBoundingClientRect().top + window.scrollY - barH - 8;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
     };
     cityWrap.appendChild(b);
   });
@@ -3018,6 +3027,13 @@ function initTileToggle() {
       if (track) track.remove();
       if (photos.length) setCounter(thumb, 0, photos.length);
     }
+    // 펼침/접힘 후 탭한 카드를 고정 필터바 아래로 스크롤 정렬 (아래·위쪽 카드 모두)
+    requestAnimationFrame(() => {
+      const bar = document.querySelector('.controls');
+      const barH = bar ? bar.getBoundingClientRect().height : 0;
+      const y = card.getBoundingClientRect().top + window.scrollY - barH - 8;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
   });
 }
 
