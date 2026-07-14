@@ -1382,7 +1382,7 @@
         <div class="mdh-body">
           <p class="mdh-name">MASTER'S DREAM HOUSE 丸の内</p>
           <p class="mdh-kr">마스터즈드림하우스 마루노우치</p>
-          <div class="mdh-score"><span class="n">4.04</span><span class="r"><span class="lead">종합 · </span>타베로그 3.48(533) · 구글 4.6(2,743)</span></div>
+          <div class="mdh-score"><span class="n">4.04</span><span class="r">타베로그 3.48(533) · 구글 4.6(2,743)</span></div>
           <div class="mdh-meta">
             <div><span class="k">교통</span>JR 도쿄역 도보 1분</div>
             <div><span class="k">예산</span>¥3,500 (런치 ¥1,200)</div>
@@ -1398,7 +1398,7 @@
         <div class="mdh-body">
           <p class="mdh-name">MASTER'S DREAM HOUSE 京都</p>
           <p class="mdh-kr">마스터즈드림하우스 교토</p>
-          <div class="mdh-score"><span class="n">4.09</span><span class="r"><span class="lead">종합 · </span>타베로그 3.47(153) · 구글 4.7(1,628)</span></div>
+          <div class="mdh-score"><span class="n">4.09</span><span class="r">타베로그 3.47(153) · 구글 4.7(1,628)</span></div>
           <div class="mdh-meta">
             <div><span class="k">교통</span>한큐 교토가와라마치역 도보 3분</div>
             <div><span class="k">예산</span>¥2,800 (런치 ¥1,000)</div>
@@ -3238,7 +3238,10 @@ function initMapNav() {
     if (c != null && el) el.textContent = c + '곳';
   });
   const h = document.querySelector('.map-band h2');
-  if (h) h.textContent = `5개 도시 — 총 ${DATA.length}곳`;
+  if (h) {
+    const certN = DATA.filter(d => /神泡/.test(d.tier || '')).length;
+    h.textContent = `5개 도시 총 ${DATA.length}곳 · 인증 ${certN}곳`;
+  }
 }
 
 // 모바일 필터: 도시탭만 항상 노출, 나머지(등급리본/장르·점수·정렬/범례)는 '필터 ⚙' 토글 뒤로.
