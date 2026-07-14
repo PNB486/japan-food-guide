@@ -1300,7 +1300,11 @@
     .mdh-photo { width: 104px; flex: none; aspect-ratio: auto; }
     .mdh-body { flex: 1; padding: 10px 12px; gap: 2px; justify-content: center; }
     .mdh-name { font-size: 15px; }
+    /* 리뷰 근거를 한 줄로: 큰 종합숫자·'종합 ·' 접두 숨기고 타베로그·구글만 nowrap */
     .mdh-score { margin: 5px 0 0; }
+    .mdh-score .n { display: none; }
+    .mdh-score .r .lead { display: none; }
+    .mdh-score .r { white-space: nowrap; font-size: 10.5px; letter-spacing: -0.1px; }
     .mdh-meta { display: none; }
   }
 </style>
@@ -1378,7 +1382,7 @@
         <div class="mdh-body">
           <p class="mdh-name">MASTER'S DREAM HOUSE 丸の内</p>
           <p class="mdh-kr">마스터즈드림하우스 마루노우치</p>
-          <div class="mdh-score"><span class="n">4.04</span><span class="r">종합 · 타베로그 3.48(533) · 구글 4.6(2,743)</span></div>
+          <div class="mdh-score"><span class="n">4.04</span><span class="r"><span class="lead">종합 · </span>타베로그 3.48(533) · 구글 4.6(2,743)</span></div>
           <div class="mdh-meta">
             <div><span class="k">교통</span>JR 도쿄역 도보 1분</div>
             <div><span class="k">예산</span>¥3,500 (런치 ¥1,200)</div>
@@ -1394,7 +1398,7 @@
         <div class="mdh-body">
           <p class="mdh-name">MASTER'S DREAM HOUSE 京都</p>
           <p class="mdh-kr">마스터즈드림하우스 교토</p>
-          <div class="mdh-score"><span class="n">4.09</span><span class="r">종합 · 타베로그 3.47(153) · 구글 4.7(1,628)</span></div>
+          <div class="mdh-score"><span class="n">4.09</span><span class="r"><span class="lead">종합 · </span>타베로그 3.47(153) · 구글 4.7(1,628)</span></div>
           <div class="mdh-meta">
             <div><span class="k">교통</span>한큐 교토가와라마치역 도보 3분</div>
             <div><span class="k">예산</span>¥2,800 (런치 ¥1,000)</div>
@@ -1410,7 +1414,7 @@
         <div class="mdh-body">
           <p class="mdh-name">MASTER'S DREAM HOUSE 名古屋</p>
           <p class="mdh-kr">마스터즈드림하우스 나고야</p>
-          <div class="mdh-score"><span class="n">3.50</span><span class="r">리뷰 418 · 타베로그</span></div>
+          <div class="mdh-score"><span class="n">3.50</span><span class="r">타베로그 3.50(418)</span></div>
           <div class="mdh-meta">
             <div><span class="k">교통</span>JR 나고야역 도보 1분</div>
             <div><span class="k">예산</span>¥3,000 · JR게이트타워 13F 야경</div>
