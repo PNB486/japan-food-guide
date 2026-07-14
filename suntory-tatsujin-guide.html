@@ -1538,7 +1538,7 @@
         <div class="f-drop" id="scoreDrop">
           <button class="f-pill" id="scoreDropBtn" type="button">점수·리뷰 <svg class="car" width="9" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 1l4 4 4-4"/></svg></button>
           <div class="f-drop-panel">
-            <div class="dp-label">타베로그 점수</div>
+            <div class="dp-label">종합 점수 (타베로그·구글)</div>
             <div class="chip-row" id="scoreChips"></div>
             <div class="dp-label">리뷰 수</div>
             <div class="chip-row" id="reviewChips"></div>
@@ -2721,7 +2721,7 @@ function renderResults() {
       if (activeKoreanPickOnly && !d.koreanPick) return false;
       if (activeReserveRequired && !/필수|완전예약/.test(d.reserve || '')) return false;
       if (activeScoreMin > 0) {
-        const s = parseScoreValue(d.tabelog);
+        const s = combinedScore(d);   // 종합(타베로그·구글 평균) 기준 — 카드 표시값과 일치
         if (s === null || s < activeScoreMin) return false;
       }
       if (activeReviewMin > 0) {
@@ -2733,7 +2733,7 @@ function renderResults() {
     });
     if (items.length === 0) return;
     if (activeSort === 'score') {
-      items.sort((a, b) => (parseScoreValue(b.tabelog) ?? -1) - (parseScoreValue(a.tabelog) ?? -1));
+      items.sort((a, b) => (combinedScore(b) ?? -1) - (combinedScore(a) ?? -1));
     } else if (activeSort === 'reviews') {
       items.sort((a, b) => (parseReviewValue(b.tabelog) ?? -1) - (parseReviewValue(a.tabelog) ?? -1));
     } else if (activeSort === 'saves') {
