@@ -2719,7 +2719,7 @@ function renderResults() {
       if (activeMastersOnly && !hasMastersDream(d.tier)) return false;
       if (activeMichelinOnly && !d.michelin) return false;
       if (activeKoreanPickOnly && !d.koreanPick) return false;
-      if (activeReserveRequired && !/필수|완전예약/.test(d.reserve || '')) return false;
+      if (activeReserveRequired && !/필수|완전예약|要予約|予約必須|予約が必要/.test(d.reserve || '')) return false;
       if (activeScoreMin > 0) {
         const s = combinedScore(d);   // 종합(타베로그·구글 평균) 기준 — 카드 표시값과 일치
         if (s === null || s < activeScoreMin) return false;
@@ -3236,6 +3236,14 @@ function initMapNav() {
     const c = counts[row.dataset.city];
     const el = row.querySelector('.count');
     if (c != null && el) el.textContent = c + '개';
+  });
+  // 지도 SVG 마커의 도시별 개수도 동적반영(.m-jp = "일본어명 · 개수")
+  const jpMap = {};
+  DATA.forEach(d => { if (!jpMap[d.city]) jpMap[d.city] = d.jp; });
+  document.querySelectorAll('.map-marker[data-city]').forEach(g => {
+    const c = counts[g.dataset.city];
+    const t = g.querySelector('.m-jp');
+    if (c != null && t) t.textContent = (jpMap[g.dataset.city] || '') + ' · ' + c;
   });
   const certN = DATA.filter(d => /神泡/.test(d.tier || '')).length;
   const h = document.querySelector('.map-band h2');
