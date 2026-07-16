@@ -1047,8 +1047,14 @@
   }
 
   /* 필터/정렬 변경 시 결과 영역 크로스페이드 (View Transitions API, render()에서 트리거) */
+  /* root 스코프로 걸면 sticky 헤더/필터바까지 스냅샷에 잡혀 결과수 변화로 페이지 높이가 바뀔 때 왜곡됨 → #results만 따로 명명 */
+  #results { view-transition-name: results; }
   ::view-transition-old(root),
   ::view-transition-new(root) {
+    animation: none;
+  }
+  ::view-transition-old(results),
+  ::view-transition-new(results) {
     animation-duration: .28s;
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
